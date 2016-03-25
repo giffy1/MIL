@@ -4,4 +4,5 @@
 !/tests/*/*.py
 /src/src
 /src/misvm
-/src/miforest
+/src/miforest/data
+/src/miforest/MIL-Forest
