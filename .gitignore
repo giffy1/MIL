@@ -6,3 +6,6 @@
 /src/misvm
 /src/miforest/data
 /src/miforest/MIL-Forest
+/src/.DS_Store
+/tests/.DS_Store
+
