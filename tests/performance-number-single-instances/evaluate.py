@@ -5,7 +5,7 @@ from subprocess import Popen, PIPE
 participants = range(20)
 #bag_size = 200
 #N = 5
-M = range(0,1001,50)
+M = range(100,1001,50)
 
 def qsub(command, job_name=None, stdout=None, stderr=None, depend=None):
 	"""
