@@ -9,4 +9,4 @@
 /src/miforest/MIL-Forest
 /src/.DS_Store
 /tests/.DS_Store
-
+!/tests/*/res/plots
