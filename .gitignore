@@ -1,0 +1,7 @@
+# ignore data files
+/data
+/tests/*/*
+!/tests/*/*.py
+/src/src
+/src/misvm
+/src/miforest
