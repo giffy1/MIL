@@ -2,6 +2,8 @@
 /data
 /tests/*/*
 !/tests/*/*.py
+!/tests/*/res/
+/tests/*/res/*.pickle
 /src/*.pyc
 /src/src
 /src/misvm
@@ -9,4 +11,3 @@
 /src/miforest/MIL-Forest
 /src/.DS_Store
 /tests/.DS_Store
-!/tests/*/res/plots
