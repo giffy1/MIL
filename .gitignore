@@ -2,6 +2,7 @@
 /data
 /tests/*/*
 !/tests/*/*.py
+/src/*.pyc
 /src/src
 /src/misvm
 /src/miforest/data
