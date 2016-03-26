@@ -5,6 +5,7 @@
 !/tests/*/res/
 /tests/*/res/*.pickle
 /src/*.pyc
+/tests/*.pyc
 /src/src
 /src/misvm
 /src/miforest/data
