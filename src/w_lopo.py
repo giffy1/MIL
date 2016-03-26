@@ -3,6 +3,13 @@
 Created on Tue Mar 15 17:22:34 2016
 
 @author: snoran
+
+Leave-one-participant-out evaluation over Lab-20 eating dataset. Evaluation 
+can be done using standard supervised learning methods or multi-instance learning. 
+If multi-instance learning is used, then the classifier may be trained using 
+either or both single-instance bags or larger bags. Additionally, training data 
+may include labelled instances or bags from the held-out participant, in order 
+to enhance generalizability.
 """
 
 import numpy as np
@@ -23,6 +30,37 @@ MIL = {'SIL', 'sMIL', 'sbMIL', 'misvm', 'MIForest'}
 def main(bag_size, active_participant_counter, clf_name, cv, n_iter, cv_method, M, N, K, verbose, \
 	   data_dir, load_pickle_path, save_pickle_path, frame_size, step_size, units, \
 	   eta_, n_jobs, save_path, description, n_trials, kernel):
+	"""
+	@param bag_size : The size of the training bags.
+	@param active_participant_counter : Index of the held-out participant.
+	@param clf_name : Classifier; one of 'SVM', 'LinearSVC', 'RF', 'SIL', 'LinearSIL', 
+				'sMIL', 'sbMIL', 'MIForest' or 'misvm'.
+	@param cv : Number of cross-validation folds.
+	@param n_iter : If the cross-validation search method is 'randomized', then 
+				n_iter is the number of randomly sampled parameter tuples.
+	@param cv_method : The search method for cross-validation; either 'grid' or 
+				'randomized'.
+	@param M : The number of labeled training instances.
+	@param N : The number of labeled training bags.
+	@param K : The number of labeled training instances from the held-out participant.
+	@param verbose : Indicates the level of detail to print during run-time.
+	@param data_dir : The directory in which the Lab-20 dataset is located.
+	@param load_pickle_path : The pickle path where the dataset is stored.
+	@param save_pickle_path : The pickle path where the dataset is to be saved.
+	@param frame_size : The size of the sliding window used in extracting 
+				labeled features over the dataset.
+	@param step_size : The stride of the sliding windows used in extracting 
+				labeled features over the dataset.
+	@param units : The unit of the frame and step size ('u' for samples, 's' for seconds).
+	@param eta_ : If the classifier used is sbMIL, eta is the expected density 
+				of positive instances in positive bags, between 0.0 and 1.0.
+	@param n_jobs : The number of jobs, -1 for full parallelization.
+	@param save_path : The path of the file where all results are stored.
+	@param description : Description of the evaluation.
+	@param n_trials : Number of trials, in case randomness is introduced in each trial.
+	@param kernel : If a non-linear SVM-based classifier is used, the kernel 
+				can be specified, i.e. 'rbf', 'linear_av', etc.
+	"""
 	
 	dataset = load_data(data_dir, frame_size, step_size, units, load_pickle_path, save_pickle_path)
 	X = dataset['data']['X']
