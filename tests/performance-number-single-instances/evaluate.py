@@ -107,7 +107,7 @@ def main():
 			job_id = 'lopo_p%d_m%d' % (p, m)
 			log_file = log_dir + '/lopo_p%d_m%dlog.txt' % (p, m)
 			err_file = err_dir + '/lopo_p%d_m%derr.txt' % (p, m)
-			qsub(submit_this_job, job_id, log_file, err_file)
+			qsub(submit_this_job, job_id, log_file, err_file, n_cores=args.n_jobs)
 
 if __name__ == '__main__':
 	main()
