@@ -1,6 +1,9 @@
 import argparse
 import os
-from subprocess import Popen, PIPE
+import sys
+
+sys.path.insert(0, '../tests/')
+from qsub import qsub
 
 participants = range(20)
 bag_sizes = range(30,301,30)
@@ -15,27 +18,6 @@ N[210] = range(0,7,2)
 N[240] = range(0,6,1)
 N[270] = range(0,5,1)
 N[300] = range(0,5,1)
-
-def qsub(command, job_name=None, stdout=None, stderr=None, depend=None):
-	"""
-	depend could be either a string or a list (or tuple, etc.)
-	"""
-	args = ['qsub']
-	if job_name:
-		args.extend(['-N', job_name])
-	if stderr:
-		args.extend(['-e', stderr])
-	if stdout:
-		args.extend(['-o', stdout])
-	if depend:
-		# in python3, use isinstance(depend, str) instead.
-		if not isinstance(depend, basestring):
-			depend = ','.join(depend)
-		args.extend(['-hold_jid', depend])
-	out = Popen(args, stdin=PIPE, stdout=PIPE).communicate(command + '\n')[0]
-	print out.rstrip()
-	job_id = out.split()[2]
-	return job_id
 
 def main():
 	parser = argparse.ArgumentParser()
@@ -115,7 +97,7 @@ def main():
 				job_id = 'lopo_p%d_n%d_b%d' % (p, n, b)
 				log_file = log_dir + '/lopo_p%d_n%d_b%dlog.txt' % (p, n, b)
 				err_file = err_dir + '/lopo_p%d_n%d_b%derr.txt' % (p, n, b)
-				qsub(submit_this_job, job_id, log_file, err_file)
+				qsub(submit_this_job, job_id, log_file, err_file, n_cores=args.n_jobs)
 
 if __name__ == '__main__':
 	main()
