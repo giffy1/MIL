@@ -2,7 +2,7 @@ import argparse
 import os
 import sys
 
-sys.path.insert(0, '../tests/')
+sys.path.insert(0, '..')
 from qsub import qsub
 
 participants = range(20)
