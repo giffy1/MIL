@@ -16,6 +16,7 @@ from numpy import hstack, vstack, mean, var, sqrt, genfromtxt
 from argparse import ArgumentParser
 import pickle
 import warnings
+import csv
 
 def load_data(data_dir = 'eating_detection_inertial_ubicomp2015', frame_size = 144, \
 		step_size = 72, units = 'u', load_pickle_path = 'none', save_pickle_path = 'none'):
@@ -44,6 +45,9 @@ def load_data(data_dir = 'eating_detection_inertial_ubicomp2015', frame_size = 1
 	
 	'''
 		
+	sampling_rate = 25
+	eating_labels = {1, 2, 3}
+		
 	#load data from pickle file if possible (faster):
 	if load_pickle_path != 'none':
 		if not load_pickle_path.endswith('.pickle'):
@@ -66,7 +70,6 @@ def load_data(data_dir = 'eating_detection_inertial_ubicomp2015', frame_size = 1
 			pass
 		
 	if units == 's':
-		sampling_rate = 25
 		frame_size = frame_size * sampling_rate
 		step_size = step_size * sampling_rate
 	elif units != 'u':
@@ -82,6 +85,8 @@ def load_data(data_dir = 'eating_detection_inertial_ubicomp2015', frame_size = 1
 	
 	X = [] #entire data matrix over all participants (len(X) = # of participants)
 	Y = []
+	activities_time = []
+	activities_eatingflag = []
 	
 	for participant_counter in xrange(1,n_participants+1,1):
 		if participant_counter==14:
@@ -160,16 +165,33 @@ def load_data(data_dir = 'eating_detection_inertial_ubicomp2015', frame_size = 1
 		X.append(X_T)
 		Y.append(Y_T)
 		
-	dataset = {'data': {'X': X, 'Y': Y}, 'parameters' : {'frame_size': frame_size, 'step_size': step_size, 'units': units}}
+# --------------- Ground Truth - Get times for all activities --------------
+
+		# Load annotated events into lists
+		path = os.path.join(data_dir, 'participants', str(participant_counter), 'datafiles', 'annotations-sorted.csv')
+		activities_time_i = []
+		activities_eatingflag_i = []		
+		with open(path, 'rb') as csvinputfile:
+			csvreader = csv.reader(csvinputfile, delimiter=',', quotechar='|')
+
+			print ""
+			for row in csvreader:
+				activities_time_i.append(int(sampling_rate * float(row[1])))
+				activities_eatingflag_i.append(2 * (int(row[2]) in eating_labels) - 1)
+				print "GT Activity Time/Label: " + str(row[1]) + " " + str(row[2])
+		activities_time.append(activities_time_i)
+		activities_eatingflag.append(activities_eatingflag_i)
+		
+	dataset = {'data': {'X': X, 'Y': Y, 'sessions' : {'start' : activities_time, 'labels' : activities_eatingflag}}, \
+		     'parameters' : {'frame_size': frame_size, 'step_size': step_size, 'units': units}}
 	
 	#save data to pickle file, if desired
 	if save_pickle_path != 'none':
 		if not save_pickle_path.endswith('.pickle'):
 			load_pickle_path += '.pickle'	
 		try:
-			if save_pickle_path != None:
-				with open(save_pickle_path, 'wb') as handle:
-					pickle.dump(dataset, handle)
+			with open(save_pickle_path, 'wb') as handle:
+				pickle.dump(dataset, handle)
 		except:
 			print("Failed to save data to " + str(load_pickle_path))
 			pass
@@ -177,7 +199,7 @@ def load_data(data_dir = 'eating_detection_inertial_ubicomp2015', frame_size = 1
 
 if __name__ == "__main__":
 	parser = ArgumentParser()
-	parser.add_argument("-d", "--dir", dest="data_dir", default='eating_detection_inertial_ubicomp2015/', \
+	parser.add_argument("-d", "--dir", dest="data_dir", default='../data/eating_detection_inertial_ubicomp2015/', \
 			help="Directory where the dataset is stored.")	
 	parser.add_argument("--frame-size", dest="frame_size", default=144, \
 			help="The size of the sliding window over which instance feature-label pairs are defined.")
@@ -193,4 +215,6 @@ if __name__ == "__main__":
 			
 	args = parser.parse_args()
 
-	print load_data(**vars(args))
+	dataset = load_data(**vars(args))
+	
+	print dataset
