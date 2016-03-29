@@ -176,7 +176,7 @@ def load_data(data_dir = 'eating_detection_inertial_ubicomp2015', frame_size = 1
 
 			print ""
 			for row in csvreader:
-				activities_time_i.append(int(sampling_rate * float(row[1])))
+				activities_time_i.append(int(sampling_rate * float(row[1]) / step_size))
 				activities_eatingflag_i.append(2 * (int(row[2]) in eating_labels) - 1)
 				print "GT Activity Time/Label: " + str(row[1]) + " " + str(row[2])
 		activities_time.append(activities_time_i)
