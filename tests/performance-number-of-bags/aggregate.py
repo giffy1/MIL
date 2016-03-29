@@ -17,7 +17,7 @@ matplotlib.use('Agg') #ensures plot can be viewed on server
 from matplotlib import pyplot
 
 participants = range(20)
-bag_sizes = range(30,301,30)
+bag_sizes = [100,200,300]
 N = {}
 N[30] = range(0,81,5)
 N[60] = range(0,41,4)
