@@ -65,6 +65,8 @@ def main(bag_size, active_participant_counter, clf_name, cv, n_iter, cv_method, 
 	dataset = load_data(data_dir, frame_size, step_size, units, load_pickle_path, save_pickle_path)
 	X = dataset['data']['X']
 	Y = dataset['data']['Y']
+	session_start = dataset['data']['sessions']['start']
+	session_labels = dataset['data']['sessions']['labels']
 	
 	if len(X) == 0:
 		raise Exception("No dataset loaded: Check to make sure the path is properly set.")
@@ -171,8 +173,23 @@ def main(bag_size, active_participant_counter, clf_name, cv, n_iter, cv_method, 
 			X_SI = [X_SI[k:k+1, :] for k in xrange(len(X_SI))]
 			Y_SI = [max(Y_SI[k:k+1]) for k in xrange(len(Y_SI))]
 			
-			X_B = [X_B[k:k+bag_size, :] for k in xrange(0, len(X_B), bag_size)]
-			Y_B = [max(Y_B[k:k+bag_size]) for k in xrange(0, len(Y_B), bag_size)]
+			if bag_size == -1:
+				bags = []
+				labels = []
+				for k in bag_participant_indices:
+					for j in range(len(session_labels[k])):
+						if session_labels[k][j] > 0:
+							if j < len(session_labels[k])-1:
+								end = session_start[k][j+1]
+							else:
+								end = -1 #it's ok to miss 1 sample
+							bags.append(X_B[session_start[k][j]:end, :])
+							labels.append(1)
+				X_B = bags
+				Y_B = labels
+			else:
+				X_B = [X_B[k:k+bag_size, :] for k in xrange(0, len(X_B), bag_size)]
+				Y_B = [max(Y_B[k:k+bag_size]) for k in xrange(0, len(Y_B), bag_size)]
 			
 			X_test = [X_test[k:k+1, :] for k in xrange(len(X_test))]
 	
@@ -293,16 +310,16 @@ if __name__ == "__main__":
 			help="Number of single-instance bags in the training data from the held-out participant.")
 	parser.add_argument("--verbose", dest="verbose", default=1, type=int, \
 			help="Indicates how much information should be reported (0=None, 1=Some, 2=Quite a bit)")
-	parser.add_argument("--bag-size", dest="bag_size", default=5, type=int, \
+	parser.add_argument("--bag-size", dest="bag_size", default=-1, type=int, \
 			help="If clf is an MIL classifier, bag-size specifies the size of each training bag")
 	parser.add_argument("--test-participant", dest="active_participant_counter", default = 0, type=int, \
 			help="Index of the held-out participant. The classifier will be evaluated on this individual's data.")
 			
-	parser.add_argument("--dir", dest="data_dir", default='../data', type=str, \
+	parser.add_argument("--dir", dest="data_dir", default='../data/eating_detection_inertial_ubicomp2015', type=str, \
 			help="Directory where the dataset is stored")
-	parser.add_argument("--load", dest="load_pickle_path", default='../data/data.pickle', type=str, \
+	parser.add_argument("--load", dest="load_pickle_path", default='../data/eatng_detection_inertial_ubicomp2015/data.pickle', type=str, \
 			help="Path from which to load the pickle file. This will significantly speed up loading the data. If 'none' (default), the data will be reloaded from --dir")	
-	parser.add_argument("--save", dest="save_pickle_path", default='../data/data.pickle', type=str, \
+	parser.add_argument("--save", dest="save_pickle_path", default='../data/eating_detection_inertial_ubicomp2015/data.pickle', type=str, \
 			help="Path of the pickle file containing the data. If none (default), the data will not be pickled")	
 	parser.add_argument("--save_path", dest="save_path", default='results.pickle', type=str, \
 			help="Path of the pickle file containing the data. If none (default), the data will not be pickled")	
