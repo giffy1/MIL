@@ -25,7 +25,7 @@ def main(working_dir, save_path):
 	res_dir = working_dir + '/res'
 	
 	fscores = []
-	for n in range(4):
+	for n in range(1,4):
 		avg_fscore = 0
 		count = 0
 		for p in participants:
@@ -41,7 +41,7 @@ def main(working_dir, save_path):
 			fscores.append(avg_fscore / count)
 		
 	pyplot.figure()
-	pyplot.plot(range(4), fscores)
+	pyplot.plot(range(1,4), fscores)
 	pyplot.title("sbMIL performance varying number of positive sessions")
 	pyplot.xlabel("number of bags N")
 	pyplot.ylabel("F1 Score")
