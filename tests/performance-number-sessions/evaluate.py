@@ -79,7 +79,7 @@ def main():
 		f.write(arg_str)
 
 	for p in participants:
-		for n in N[p]:
+		for n in range(1,N[p]+1):
 			save_path = os.path.join(res_dir, 'lopo_p%d_n%d.pickle' % (p, n))
 			submit_this_job = ('python %s/w_lopo.py --save_path=%s --test-participant=%d --N=%d --bag-size=-1' % (args.src, save_path, p, n)) + arg_str
 			print submit_this_job
