@@ -47,6 +47,7 @@ def load_data(data_dir = 'eating_detection_inertial_ubicomp2015', frame_size = 1
 		
 	sampling_rate = 25
 	eating_labels = {1, 2, 3}
+	participant_time_offset = [18,14,39,63.5,91,39,15,10,29,47,90,28,35,21,12,11,24,14,12,-18,14]
 		
 	#load data from pickle file if possible (faster):
 	if load_pickle_path != 'none':
@@ -176,7 +177,7 @@ def load_data(data_dir = 'eating_detection_inertial_ubicomp2015', frame_size = 1
 
 			print ""
 			for row in csvreader:
-				activities_time_i.append(int(sampling_rate * float(row[1]) / step_size))
+				activities_time_i.append(int(sampling_rate * (float(row[1]) - participant_time_offset[participant_counter-1]) / step_size))
 				activities_eatingflag_i.append(2 * (int(row[2]) in eating_labels) - 1)
 				print "GT Activity Time/Label: " + str(row[1]) + " " + str(row[2])
 		activities_time.append(activities_time_i)
