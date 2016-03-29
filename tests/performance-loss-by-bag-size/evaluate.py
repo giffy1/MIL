@@ -70,7 +70,7 @@ def main():
 		os.mkdir(params_dir, 0755)
 		
 	arg_str = ' --dir=' + str(args.data_dir) + ' --load=' + str(args.load_pickle_path) + ' --save=' + str(args.save_pickle_path) \
-			+ ' --K=' + str(args.K) + ' --N=' + str(args.N) + ' --clf="' + str(args.clf_name) + '" --eta=' + str(args.eta) \
+			+ ' --K=' + str(args.K) + ' --clf="' + str(args.clf_name) + '" --eta=' + str(args.eta) \
 			+ ' --n-jobs=' + str(args.n_jobs) + ' --desc="' + str(args.description) + '" --cv=' + str(args.cv) + ' --cv-method="' \
 			+ str(args.cv_method) + '" --niter=' + str(args.n_iter) + ' --kernel="' + str(args.kernel) + '" --n-trials=' \
 			+ str(args.n_trials)
@@ -82,7 +82,7 @@ def main():
 		for m in M:
 			for b in bag_size:
 				save_path = os.path.join(res_dir, 'lopo_p%d_m%d_b%d.pickle' % (p, m, b))
-				submit_this_job = ('python %s/w_lopo.py --save_path=%s --test-participant=%d --M=%d --bag-size=%d' % (args.src, save_path, p, m, b)) + arg_str
+				submit_this_job = ('python %s/w_lopo.py --save_path=%s --test-participant=%d --M=%d --bag-size=%d --N=%d' % (args.src, save_path, p, m, b, int(int(args.N) / b))) + arg_str
 				print submit_this_job
 				job_id = 'lopo_p%d_m%d_b%d' % (p, m, b)
 				log_file = log_dir + '/lopo_p%d_m%d_b%dlog.txt' % (p, m, b)
