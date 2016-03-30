@@ -43,7 +43,7 @@ def main(working_dir, save_path):
 				fscores.append(avg_fscore / count)
 		
 		pyplot.figure()
-		pyplot.plot(M, fscores)
+		pyplot.plot(bag_size, fscores)
 		pyplot.title("sbMIL performance varying bag size: M = " + str(M))
 		pyplot.xlabel("Bag Size")
 		pyplot.ylabel("F1 Score")
