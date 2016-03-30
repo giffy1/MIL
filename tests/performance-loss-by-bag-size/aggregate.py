@@ -44,7 +44,7 @@ def main(working_dir, save_path):
 		
 		pyplot.figure()
 		pyplot.plot(bag_size, fscores)
-		pyplot.title("sbMIL performance varying bag size: M = " + str(M))
+		pyplot.title("sbMIL performance varying bag size: M = " + str(m))
 		pyplot.xlabel("Bag Size")
 		pyplot.ylabel("F1 Score")
 		pyplot.savefig(save_path + '_M' + str(M) + '.png')
