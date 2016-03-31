@@ -24,7 +24,7 @@ N = [8, 3, 15, 17, 4, 7, 4, 3, 9, 26, 41, 7, 5, 1, 3, 8, 3, 3, 3]
 def main(working_dir, save_path):
 	
 	res_dir = working_dir + '/res'
-	
+	x = []
 	fscores = []
 	for n in range(1,max(N)):
 		count = 0
@@ -37,13 +37,12 @@ def main(working_dir, save_path):
 				if not np.isnan(r['Results']['F1 Score']['Test']):
 					avg_fscore += r['Results']['F1 Score']['Test']
 					count += 1
-		if count == 0:
-			fscores.append(0)
-		else:
+		if count != 0:
+			x.append(n)
 			fscores.append(avg_fscore / count)
 		
 	pyplot.figure()
-	pyplot.plot(range(1,max(N)), fscores)
+	pyplot.plot(x, fscores)
 	pyplot.title("sbMIL performance varying number of positive sessions")
 	pyplot.xlabel("number of bags N")
 	pyplot.ylabel("F1 Score")
