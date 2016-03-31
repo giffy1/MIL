@@ -34,7 +34,7 @@ def main(working_dir, save_path):
 				with open(res_path, 'rb') as f:
 					r = pickle.load(f)
 				avg_fscore += r['Results']['F1 Score']['Test']
-				print("Avg F-score: %0.2f%%" %(100 * avg_fscore))
+				print("F-score: " + str(r['Results']['F1 Score']['Test']))
 				count += 1
 		if count == 0:
 			fscores.append(0)
