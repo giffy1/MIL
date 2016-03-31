@@ -183,14 +183,13 @@ def main(dataset, bag_size, active_participant_counter, clf_name, cv, n_iter, cv
 				labels = []
 				for k in bag_participant_indices:
 					for j in range(len(session_labels[k])):
-						if session_labels[k][j] > 0:
-							if j < len(session_labels[k])-1:
-								end = session_start[k][j+1]
-							else:
-								end = -1 #it's ok to miss 1 sample
-							#bags.append(X_B[session_start[k][j]:end, :]) #EATING
-							bags.append(X_B[session_start[k][j]:end, :])
-							labels.append(1)
+						if j < len(session_labels[k])-1:
+							end = session_start[k][j+1]
+						else:
+							end = -1 #it's ok to miss 1 sample
+						#bags.append(X_B[session_start[k][j]:end, :]) #EATING
+						bags.append(X_B[session_start[k][j]:end, :])
+						labels.append(session_labels[k][j])
 				X_B = bags
 				Y_B = labels
 			else:
