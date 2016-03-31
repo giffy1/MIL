@@ -11,6 +11,7 @@ import os
 import pickle
 import matplotlib
 from argparse import ArgumentParser
+import numpy as np
 
 matplotlib.use('Agg') #ensures plot can be viewed on server
 
