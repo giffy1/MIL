@@ -6,6 +6,7 @@ sys.path.insert(0, '..')
 from qsub import qsub
 
 participants = range(19)
+
 # number of positive sessions for each participant:
 N = [8, 3, 15, 17, 4, 7, 4, 3, 9, 26, 41, 7, 5, 1, 3, 8, 3, 3, 3]
 
