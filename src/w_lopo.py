@@ -188,6 +188,7 @@ def main(dataset, bag_size, active_participant_counter, clf_name, cv, n_iter, cv
 								end = session_start[k][j+1]
 							else:
 								end = -1 #it's ok to miss 1 sample
+							#bags.append(X_B[session_start[k][j]:end, :]) #EATING
 							bags.append(X_B[session_start[k][j]:end, :])
 							labels.append(1)
 				X_B = bags
@@ -201,20 +202,20 @@ def main(dataset, bag_size, active_participant_counter, clf_name, cv, n_iter, cv
 		#shuffle single-instance bags:	
 		indices = range(len(X_SI))
 		np.random.shuffle(indices)
-		X_SI = [X_SI[k] for k in indices[:M]]
-		Y_SI = [Y_SI[k] for k in indices[:M]]
+		X_SI = [np.nan_to_num(X_SI[k]) for k in indices[:M]]
+		Y_SI = [np.nan_to_num(Y_SI[k]) for k in indices[:M]]
 		
 		#shuffle larger bags:	
 		indices = range(len(X_B))
 		np.random.shuffle(indices)
-		X_B = [X_B[k] for k in indices[:N]]
-		Y_B = [Y_B[k] for k in indices[:N]]
+		X_B = [np.nan_to_num(X_B[k]) for k in indices[:N]]
+		Y_B = [np.nan_to_num(Y_B[k]) for k in indices[:N]]
 		
 		#shuffle test data:
 		indices = range(len(X_test))
 		np.random.shuffle(indices)
-		X_test = [X_test[k] for k in indices]
-		Y_test = [Y_test[k] for k in indices]
+		X_test = [np.nan_to_num(X_test[k]) for k in indices]
+		Y_test = [np.nan_to_num(Y_test[k]) for k in indices]
 		
 		X_T = X_test[:K]
 		Y_T = Y_test[:K]
@@ -297,7 +298,7 @@ if __name__ == "__main__":
 	t0=time()
 	
 	parser = ArgumentParser()
-	parser.add_argument("--dataset", dest="dataset", default='eating', type=str, \
+	parser.add_argument("--dataset", dest="dataset", default='smoking', type=str, \
 			help="Dataset ('eating' or 'smoking')")
 	parser.add_argument("--clf", dest="clf_name", default='sbMIL', type=str, \
 			help="Classifier ('RF', 'SVM', 'LinearSVC', 'SIL', 'LinearSIL', 'MIForest', 'sMIL', 'sbMIL', 'misvm')")
@@ -317,12 +318,12 @@ if __name__ == "__main__":
 			help="Number of single-instance bags in the training data from the held-out participant.")
 	parser.add_argument("--verbose", dest="verbose", default=1, type=int, \
 			help="Indicates how much information should be reported (0=None, 1=Some, 2=Quite a bit)")
-	parser.add_argument("--bag-size", dest="bag_size", default=-1, type=int, \
+	parser.add_argument("--bag-size", dest="bag_size", default=100, type=int, \
 			help="If clf is an MIL classifier, bag-size specifies the size of each training bag")
 	parser.add_argument("--test-participant", dest="active_participant_counter", default = 0, type=int, \
 			help="Index of the held-out participant. The classifier will be evaluated on this individual's data.")
 			
-	parser.add_argument("--dir", dest="data_dir", default='../data/eating_detection_inertial_ubicomp2015', type=str, \
+	parser.add_argument("--dir", dest="data_dir", default='../data/smoking-data', type=str, \
 			help="Directory where the dataset is stored")
 	parser.add_argument("--load", dest="load_pickle_path", default='../data/eatng_detection_inertial_ubicomp2015/data.pickle', type=str, \
 			help="Path from which to load the pickle file. This will significantly speed up loading the data. If 'none' (default), the data will be reloaded from --dir")	
