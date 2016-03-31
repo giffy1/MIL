@@ -27,9 +27,9 @@ def main(working_dir, save_path):
 	
 	fscores = []
 	for n in range(1,max(N)):
+		count = 0
+		avg_fscore = 0
 		for p in participants:
-			avg_fscore = 0
-			count = 0
 			res_path = os.path.join(res_dir, 'lopo_p%d_n%d.pickle' % (p, n))
 			if os.path.isfile(res_path):
 				with open(res_path, 'rb') as f:
