@@ -16,19 +16,19 @@ matplotlib.use('Agg') #ensures plot can be viewed on server
 
 from matplotlib import pyplot
 
-participants = range(20)
+participants = range(19)
 # number of positive sessions for each participant:
-N = [4, 3, 4, 4, 4, 3, 3, 3, 4, 4, 3, 4, 3, 4, 3, 3, 4, 4, 4, 3]
+N = [8, 3, 15, 17, 4, 7, 4, 3, 9, 26, 41, 7, 5, 1, 3, 8, 3, 3, 3]
 
 def main(working_dir, save_path):
 	
 	res_dir = working_dir + '/res'
 	
 	fscores = []
-	for n in range(1,4):
-		avg_fscore = 0
-		count = 0
+	for n in range(1,max(N)):
 		for p in participants:
+			avg_fscore = 0
+			count = 0
 			res_path = os.path.join(res_dir, 'lopo_p%d_n%d.pickle' % (p, n))
 			if os.path.isfile(res_path):
 				with open(res_path, 'rb') as f:
@@ -41,7 +41,7 @@ def main(working_dir, save_path):
 			fscores.append(avg_fscore / count)
 		
 	pyplot.figure()
-	pyplot.plot(range(1,4), fscores)
+	pyplot.plot(range(1,max(N)), fscores)
 	pyplot.title("sbMIL performance varying number of positive sessions")
 	pyplot.xlabel("number of bags N")
 	pyplot.ylabel("F1 Score")
