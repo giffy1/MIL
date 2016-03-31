@@ -5,7 +5,7 @@ import sys
 sys.path.insert(0, '..')
 from qsub import qsub
 
-participants = range(20)
+participants = range(19)
 M = range(0,501,50)
 bag_size = [1,60,120,180,240,300]
 
@@ -73,7 +73,7 @@ def main():
 			+ ' --K=' + str(args.K) + ' --clf="' + str(args.clf_name) + '" --eta=' + str(args.eta) \
 			+ ' --n-jobs=' + str(args.n_jobs) + ' --desc="' + str(args.description) + '" --cv=' + str(args.cv) + ' --cv-method="' \
 			+ str(args.cv_method) + '" --niter=' + str(args.n_iter) + ' --kernel="' + str(args.kernel) + '" --n-trials=' \
-			+ str(args.n_trials)
+			+ str(args.n_trials) + ' --dataset="smoking"'
 			
 	with open(os.path.join(params_dir, 'params.txt'), 'wb') as f:
 		f.write(arg_str)
