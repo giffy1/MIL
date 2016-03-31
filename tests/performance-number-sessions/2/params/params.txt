@@ -1,0 +1,1 @@
+ --dir=../../data/smoking-data/ --load=../data/data.pickle --save=../data/data.pickle --K=0 --M=500 --clf="sbMIL" --eta=0.5 --n-jobs=4 --desc="SIL based on Linear SVC implementation" --cv=10 --cv-method="randomized" --niter=10 --kernel="linear_av" --n-trials=10 --dataset="smoking"
