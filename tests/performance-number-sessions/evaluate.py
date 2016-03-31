@@ -81,7 +81,7 @@ def main():
 	for p in participants:
 		for n in range(1,N[p]+1,int(1 + N[p] / 6)):
 			save_path = os.path.join(res_dir, 'lopo_p%d_n%d.pickle' % (p, n))
-			submit_this_job = ('python %s/w_lopo.py --save_path=%s --test-participant=%d --N=%d --bag-size=-1' % (args.src, save_path, p, n)) + arg_str
+			submit_this_job = ('python %s/w_lopo.py --save_path=%s --test-participant=%d --N=%d --bag-size=100' % (args.src, save_path, p, n)) + arg_str
 			print submit_this_job
 			job_id = 'lopo_p%d_n%d' % (p, n)
 			log_file = log_dir + '/lopo_p%d_n%dlog.txt' % (p, n)
