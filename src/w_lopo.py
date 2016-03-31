@@ -19,7 +19,8 @@ from sklearn.grid_search import GridSearchCV, RandomizedSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 import misvm
-from load_eating_data import load_data
+from load_eating_data import load_data as load_eating_data
+from load_smoking_data import load_data as load_smoking_data
 import pickle
 from argparse import ArgumentParser
 from util import farey, accuracy_precision_recall_fscore, pprint_header, score
@@ -27,10 +28,11 @@ from miforest.miforest import MIForest
 
 MIL = {'SIL', 'sMIL', 'sbMIL', 'misvm', 'MIForest'}
 
-def main(bag_size, active_participant_counter, clf_name, cv, n_iter, cv_method, M, N, K, verbose, \
+def main(dataset, bag_size, active_participant_counter, clf_name, cv, n_iter, cv_method, M, N, K, verbose, \
 	   data_dir, load_pickle_path, save_pickle_path, frame_size, step_size, units, \
 	   eta_, n_jobs, save_path, description, n_trials, kernel):
 	"""
+	@param dataset : A string indicating which dataset to load. Choices include 'smoking' and 'eating'
 	@param bag_size : The size of the training bags.
 	@param active_participant_counter : Index of the held-out participant.
 	@param clf_name : Classifier; one of 'SVM', 'LinearSVC', 'RF', 'SIL', 'LinearSIL', 
@@ -62,11 +64,14 @@ def main(bag_size, active_participant_counter, clf_name, cv, n_iter, cv_method, 
 				can be specified, i.e. 'rbf', 'linear_av', etc.
 	"""
 	
-	dataset = load_data(data_dir, frame_size, step_size, units, load_pickle_path, save_pickle_path)
-	X = dataset['data']['X']
-	Y = dataset['data']['Y']
-	session_start = dataset['data']['sessions']['start']
-	session_labels = dataset['data']['sessions']['labels']
+	if dataset == 'smoking':
+		dataset = load_smoking_data(data_dir)
+	elif dataset == 'eating':
+		dataset = load_eating_data(data_dir, frame_size, step_size, units, load_pickle_path, save_pickle_path)
+		X = dataset['data']['X']
+		Y = dataset['data']['Y']
+		session_start = dataset['data']['sessions']['start']
+		session_labels = dataset['data']['sessions']['labels']
 	
 	if len(X) == 0:
 		raise Exception("No dataset loaded: Check to make sure the path is properly set.")
@@ -292,6 +297,8 @@ if __name__ == "__main__":
 	t0=time()
 	
 	parser = ArgumentParser()
+	parser.add_argument("--dataset", dest="dataset", default='eating', type=str, \
+			help="Dataset ('eating' or 'smoking')")
 	parser.add_argument("--clf", dest="clf_name", default='sbMIL', type=str, \
 			help="Classifier ('RF', 'SVM', 'LinearSVC', 'SIL', 'LinearSIL', 'MIForest', 'sMIL', 'sbMIL', 'misvm')")
 #	parser.add_argument("--param-grid", dest="param_grid", default=param_grid, \
