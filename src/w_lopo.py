@@ -68,10 +68,10 @@ def main(dataset, bag_size, active_participant_counter, clf_name, cv, n_iter, cv
 		dataset = load_smoking_data(data_dir)
 	elif dataset == 'eating':
 		dataset = load_eating_data(data_dir, frame_size, step_size, units, load_pickle_path, save_pickle_path)
-		X = dataset['data']['X']
-		Y = dataset['data']['Y']
-		session_start = dataset['data']['sessions']['start']
-		session_labels = dataset['data']['sessions']['labels']
+	X = dataset['data']['X']
+	Y = dataset['data']['Y']
+	session_start = dataset['data']['sessions']['start']
+	session_labels = dataset['data']['sessions']['labels']
 	
 	if len(X) == 0:
 		raise Exception("No dataset loaded: Check to make sure the path is properly set.")
