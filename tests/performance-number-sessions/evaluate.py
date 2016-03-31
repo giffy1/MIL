@@ -5,9 +5,9 @@ import sys
 sys.path.insert(0, '..')
 from qsub import qsub
 
-participants = range(20)
+participants = range(19)
 # number of positive sessions for each participant:
-N = [4, 3, 4, 4, 4, 3, 3, 3, 4, 4, 3, 4, 3, 4, 3, 3, 4, 4, 4, 3]
+N = [8, 3, 15, 17, 4, 7, 4, 3, 9, 26, 41, 7, 5, 1, 3, 8, 3, 3, 3]
 
 def main():
 	parser = argparse.ArgumentParser()
@@ -73,13 +73,13 @@ def main():
 			+ ' --K=' + str(args.K) + ' --M=' + str(args.M) + ' --clf="' + str(args.clf_name) + '" --eta=' + str(args.eta) \
 			+ ' --n-jobs=' + str(args.n_jobs) + ' --desc="' + str(args.description) + '" --cv=' + str(args.cv) + ' --cv-method="' \
 			+ str(args.cv_method) + '" --niter=' + str(args.n_iter) + ' --kernel="' + str(args.kernel) + '" --n-trials=' \
-			+ str(args.n_trials)
+			+ str(args.n_trials) + ' --dataset="smoking"'
 			
 	with open(os.path.join(params_dir, 'params.txt'), 'wb') as f:
 		f.write(arg_str)
 
 	for p in participants:
-		for n in range(1,N[p]+1):
+		for n in range(1,N[p]+1,int(1 + N[p] / 6)):
 			save_path = os.path.join(res_dir, 'lopo_p%d_n%d.pickle' % (p, n))
 			submit_this_job = ('python %s/w_lopo.py --save_path=%s --test-participant=%d --N=%d --bag-size=-1' % (args.src, save_path, p, n)) + arg_str
 			print submit_this_job
