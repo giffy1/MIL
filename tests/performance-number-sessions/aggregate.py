@@ -43,7 +43,9 @@ def main(working_dir, save_path):
 			fscores.append(avg_fscore / count)
 		
 	pyplot.figure()
-	pyplot.plot(x, fscores)
+	h1, = pyplot.plot(x, fscores, label="sbMIL")
+	h2, = pyplot.plot(84.7, label="Baseline")
+	pyplot.legend(handles=[h1, h2])
 	pyplot.title("sbMIL performance varying number of sessions")
 	pyplot.xlabel("number of sessions N")
 	pyplot.ylabel("F1 Score")
