@@ -43,6 +43,7 @@ def main(working_dir, save_path):
 			fscores.append(avg_fscore / count)
 		
 	pyplot.figure()
+	print fscores
 	h1, = pyplot.plot(x, [84.7]*len(x), label="Baseline")
 	h2, = pyplot.plot(x, fscores, label="sbMIL")
 	pyplot.legend(handles=[h1, h2])
