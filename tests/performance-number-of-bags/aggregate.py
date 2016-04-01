@@ -27,9 +27,9 @@ def main(working_dir, save_path):
 	
 	res_dir = working_dir + '/res'
 	
-	x = []
-	fscores = []
+	
 	for b in bag_sizes:
+		x = []
 		fscores = []
 		for n in N[b]:
 			avg_fscore = 0
