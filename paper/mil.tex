@@ -185,21 +185,13 @@ In order to reason in a practical sense about the trade-off between performance 
 
 The lab-20 eating dataset comprises of 25Hz 3-axis accelerometer data collected using a wrist-worn inertial sensor from 20 individuals. Individuals were provided food to eat and were asked to perform other possible confounding actions as they please, including talking on the phone, brushing their teeth and combing their hair. The average duration across participants is 31 minutes 21 seconds and comprises of approximately 48\% eating sessions. Note, however, that the proportion of eating gestures is much smaller, since non-eating gestures are frequently present within eating sessions.
 
-We use Thomaz's evaluation as the baseline result for comparison. In his work, he uses a Random Forest classifier over 15 statistical features (mean, variance, skew, kurtosis and root mean square over each axis) extracted over windows of 6 seconds with 50\% overlap. He reports a 0.42 average LOPO f1 score. We achieve similar performance using a linear SVM.
-
-\subsection{RisQ Dataset}
-
-The RisQ smoking dataset contains 50Hz fused 9-axis inertial data in the form of quaternions from 15 subjects. Parate reports a precision of 91\% and recall of 81\%. The pipeline consists of (1) computing the trajectory from the quaternion stream, (2) identifying candidate windows by locating peak-trough-peak patterns, (3) extracting 37 angle, velocity, displacement and duration features, (4) classifying windows using a Random Forest and (5) smoothing the predictions using a Conditional Random Field.
-
-In our work, we use the same pipeline but replace the Random Forest classifier with a sbMIL classifier to allow for sparse labels.
+We use Thomaz's evaluation as the baseline result for comparison. In his work, he uses a Random Forest classifier over 15 statistical features (mean, variance, skew, kurtosis and root mean square over each axis) extracted over windows of 6 seconds with 50\% overlap. This generates 12379 labeled instances, of which 1480 (11.96\%) are eating. He reports a 0.42 average f1 score over LOPO evaluations. We achieve similar performance using a linear SVM.
 
 \begin{figure}
 \centering
   \includegraphics[width=0.9\columnwidth]{figures/sbMIL_bag_size2}
-  \caption{Average LOPO f1 score of sbMIL on Lab-20 dataset as a function of the bag size}~\label{fig:figure1}
+  \caption{Average LOPO f1 score of sbMIL on Lab-20 dataset as a function of the bag size in blue; SVM f1 score in green.}~\label{fig:figure1}
 \end{figure}
-
-\section{Experimental Setup}
 
 \begin{figure*}
   \centering
@@ -208,22 +200,26 @@ In our work, we use the same pipeline but replace the Random Forest classifier w
   \subfloat[M = 300]{{\includegraphics[width=5cm]{figures/_M300} }}%
   \qquad
   \subfloat[M = 450]{{\includegraphics[width=5cm]{figures/_M450} }}%
-  \caption{Average LOPO performance of sbMIL on Lab-20 dataset as a function of the bag size given 150, 300 and 450 additional labeled training instances respectively }~\label{fig:figure2}
+  \caption{Average LOPO performance of sbMIL on Lab-20 dataset as a function of the bag size given 150, 300 and 450 additional labeled training instances respectively. }~\label{fig:figure2}
 \end{figure*}
 
-In order to reason about the effectiveness of MIL techniques in gesture recognition, we evaluate the average LOPO performance for various bag sizes. Figure \ref{fig:figure1} shows for the Lab-20 eating dataset that as the bag size decreases, the performance of each MIL technique drops, and it is upper bounded by the baseline SVM performance.
+\subsection{RisQ Dataset}
+
+The RisQ smoking dataset consists of 50Hz fused 9-axis inertial data in the form of quaternions from 14 subjects. The raw data stream is converted into a local trajectory in 3D space. Classification is done using a Random Forest, followed by a Conditional Random Field for smoothing predictions, over feature vectors of candidate windows identified by locating peak-trough-peak patterns indicative of smoking gestures. There are 11900 candidate windows, of which 358 (3.00\%) are smoking gestures. A total of 37 features are extracted, including angular, velocity, displacement and duration features. Parate et al. report a LOPO precision of 91\% and recall of 81\%, which corresponds to f1 score of 85.7\%.
+
+In our work, we use the same pipeline but replace the Random Forest classifier with a sbMIL classifier to allow for sparse labels.
+
+\section{Experimental Setup}
+
+In order to reason about the effectiveness of MIL techniques in gesture recognition, we evaluate the average LOPO performance for various bag sizes. Figure \ref{fig:figure1} shows that for the Lab-20 eating dataset as the bag size decreases, the performance of each MIL technique drops, and it is upper bounded by the baseline SVM performance.
 
 Evidently, the performance is greater given more finely-grained labels. However, given that these labels may be difficult to acquire, we must ask: How many such labels do we need?
 
-In order to address this, we evaluate several experiments in which $M$ fine-grained labels are provided by 5 participants and $N$ coarse-grained labels are provided by the remaining 14 participants. The coarse-grained labels may either be labeled sessions, which may vary in duration, or partitions of the data with a fixed duration. As a personalization step for enhancing performance, we additionally include $K$ instances from the held-out participant in the training data, which are then excluded from the test set. Our experiments involve varying the values of $N$, $M$ and $K$.
+In order to address this, we evaluate several experiments in which $M$ fine-grained labels are provided over a fixed number of participants and $N$ coarse-grained labels are provided by the remaining participants. In the Lab-20 dataset, fine-grained labels are acquired from 5 participants and coarse-grained labels from the remaining 14 participants. In the RisQ dataset, they are acquired from 5 and 8 participants respectively. The coarse-grained labels may either be labeled sessions, which may vary in duration, or partitions of the data with a fixed duration. As a personalization step for enhancing performance, we additionally include $K$ instances from the held-out participant in the training data, which are then excluded from the test set. Our experiments involve varying the values of $N$, $M$ and $K$.
 
 In each of the experiments, a subset of the training data is used and is therefore selected uniformly from the entire training data; to smooth out noise introduced by the randomness, the performance is averaged over 10 trials. The performance reported is in each case the best performance achieved using cross-validation over the model hyperparameters. These parameters include the expected class weights, the sparse balancing parameter $\eta$ and the SVM regularization constant $C$.
 
-\section{Evaluation}
-
-\subsection{Lab-20 Eating}
-
-From figure \ref{fig:figure1} it is clear that the performance drops very quickly as the granularity of the labels decreases. However, figure \ref{fig:figure2} demonstrates that this drop in performance is minimal even for large bag sizes, if in additional to coarse labels, fine grained labels are provided. This is shown when 150, 300 or 450 labeled training instances are provided from the lab data. When $M = 450$, the performance remains roughly the same, meaning it may be acceptable to use field data with bag sizes of up to 300.
+Note that the terms \textit{instance} and \textit{finely labeled data} are often used interchangeably, as are \textit{session} and \textit{coarsely labeled data}.
 
 \begin{figure*}
   \centering
@@ -232,48 +228,30 @@ From figure \ref{fig:figure1} it is clear that the performance drops very quickl
   \subfloat[bag size : 150 (15 min)]{{\includegraphics[width=5cm]{figures/_b150} }}%
   \qquad
   \subfloat[bag size : 300 (30 min)]{{\includegraphics[width=5cm]{figures/_b300} }}%
-  \caption{Average LOPO performance of sbMIL on Lab-20 dataset as a function of the number of bags given bag sizes of 15, 150 and 300 respectively}~\label{fig:figure3}
+  \caption{Average LOPO performance of sbMIL on Lab-20 dataset as a function of the number of bags given bag sizes of 15, 150 and 300 respectively and fixed number of labeled instances $M = 1500$}~\label{fig:figure3}
 \end{figure*}
 
-Figure \ref{fig:figure3} shows the average LOPO performance on the Lab-20 eating dataset as the number of bags increases for bag sizes of 15, 150 and 300 instances. These correspond roughly to 1.5, 15 and 30 minute bags respectively. As the amount of training data increases, the f1 score increases, as expected. Interestingly, the performance is greater given larger bags, even when fewer labels are available. This suggests that many unlabeled instances are preferable to few labeled instances. This is the essential advantage of using MIL techniques.
+\section{Evaluation}
+
+\subsection{Lab-20 Eating}
+
+Figure \ref{fig:figure1} shows in blue the average f1 score over all LOPO evaluations, varying the label granularity. The baseline standard SVM performance is shown in green for comparison. From Figure \ref{fig:figure1} it is clear that the performance drops very quickly as the granularity of the labels decreases.
+
+However, Figure \ref{fig:figure2} demonstrates that this drop in performance is minimal even for large bag sizes, if in addition to coarse-grained labels, fine-grained labels are provided. More precisely, Figure \ref{fig:figure2} shows the average f1 score over all LOPO evaluations, varying the label granularity but fixing the number of finely labeled training instances $M$ from the lab data. This is shown when 150, 300 or 450 labeled training instances are provided from the lab data. In each case, the number of training bags from the field remains constant but the granularity of the labels over those bags is varied. When $M = 150$, the f1 score drops noticeably; however, remains much larger than when no single instances are included, as shown in Figure \ref{fig:figure1}. When $M = 300$, the performance drop is insignificant, and when $M = 450$, the performance remains roughly the same, indicating that it may be acceptable to use field data with bag sizes of up to 300.
+
+This alone could alternatively suggest that the additional field data we are providing does not give a significant boost in performance. To show that it indeed does increase the performance, we consider the case when the number of labeled training instances $M$ is fixed and the number of training bags $N$ varies.
+
+Figure \ref{fig:figure3} shows the average LOPO f1 score on the Lab-20 eating dataset as the number of bags increases for bag sizes of 15, 150 and 300 instances. These correspond roughly to 1.5, 15 and 30 minute bags respectively. The number of labeled training instances is fixed at $M = 1500$. As the amount of training data increases, the f1 score increases, as expected. Interestingly, the performance is greater given larger bags, even when fewer labels are available. This suggests that many unlabeled instances are preferable to few labeled instances. This is the essential advantage of using MIL techniques.
+
+\subsubsection{Personalization}
+
+Lastly, we examine the effect of using a small number of instances and bags from the held-out user as training data. This enables us to personalize the model to the test individual. In a realistic setting, it would require that a new user label a small number of either instances or sessions. This can easily be done by performing the gesture while indicating it to the device in some way (i.e. voice command, holding a button while performing the gesture), or by indicating the start and end of a small number of sessions. In the former case, the user must be careful that the label is aligned with the gesture; otherwise, this will introduce noise and possibly hurt the performance of the classifier. In the latter case, the model is robust to human error and there is less burden placed on the user for personalizing the model.
+
+
 
 \subsection{RisQ Dataset}
 
-In the RisQ dataset
-
-\section{Typeset Text}
-The styles contained in this document have been modified from the
-default styles to reflect ACM formatting conventions. For example,
-content paragraphs like this one are formatted using the Normal style.
-
-\LaTeX\ sometimes will create overfull lines that extend into columns.
-To attempt to combat this, the \texttt{.cls} file has a command,
-\texttt{{\textbackslash}sloppy}, that essentially asks \LaTeX\ to
-prefer underfull lines with extra whitespace.  For more details on
-this, and info on how to control it more finely, check out
-{\url{http://www.economics.utoronto.ca/osborne/latex/PMAKEUP.HTM}}.
-
-\subsection{References and Citations}
-
-Use a numbered list of references at the end of the article, ordered
-alphabetically by last name of first author, and referenced by numbers
-in
-brackets~\cite{acm_categories,ethics,Klemmer:2002:WSC:503376.503378}.
-Your references should be published materials accessible to the
-public. Internal technical reports may be cited only if they are
-easily accessible (i.e., you provide the address for obtaining the
-report within your citation) and may be obtained by any reader for a
-nominal fee. Proprietary information may not be cited. Private
-communications should be acknowledged in the main text, not referenced
-(e.g., ``[Borriello, personal communication]'').
-
-References should be in ACM citation format:
-\url{http://acm.org/publications/submissions/latex_style}. This
-includes citations to internet
-resources~\cite{acm_categories,cavender:writing,CHINOSAUR:venue,psy:gangnam}
-according to ACM format, although it is often appropriate to include
-URLs directly in the text, as above.
-
+...
 
 % Use a numbered list of references at the end of the article, ordered
 % alphabetically by first author, and referenced by numbers in
@@ -295,190 +273,15 @@ URLs directly in the text, as above.
 % communications should be acknowledged in the main text, not referenced
 % (e.g., ``[Robertson, personal communication]'').
 
-\begin{table}
-  \centering
-  \begin{tabular}{l r r r}
-    % \toprule
-    & & \multicolumn{2}{c}{\small{\textbf{Test Conditions}}} \\
-    \cmidrule(r){3-4}
-    {\small\textit{Name}}
-    & {\small \textit{First}}
-      & {\small \textit{Second}}
-    & {\small \textit{Final}} \\
-    \midrule
-    Marsden & 223.0 & 44 & 432,321 \\
-    Nass & 22.2 & 16 & 234,333 \\
-    Borriello & 22.9 & 11 & 93,123 \\
-    Karat & 34.9 & 2200 & 103,322 \\
-    % \bottomrule
-  \end{tabular}
-  \caption{Table captions should be placed below the table. We
-    recommend table lines be 1 point, 25\% black. Minimize use of
-    table grid lines.}~\label{tab:table1}
-\end{table}
+\section{Future Work}
 
-\section{Sections}
+In future work, we like to extend the lab-to-field system to address the issue of data transfer. In many cases the field data may diverge significantly from the lab data, in which case the label granularity recommendations may not be suitable.
 
-The heading of a section should be in Helvetica or Arial 9-point bold,
-all in capitals. Sections should \textit{not} be numbered.
-
-\subsection{Subsections}
-
-Headings of subsections should be in Helvetica or Arial 9-point bold
-with initial letters capitalized.  For sub-sections and
-sub-subsections, a word like \emph{the} or \emph{of} is not
-capitalized unless it is the first word of the heading.
-
-\subsubsection{Sub-subsections}
-
-Headings for sub-subsections should be in Helvetica or Arial 9-point
-italic with initial letters capitalized.  Standard
-\texttt{{\textbackslash}section}, \texttt{{\textbackslash}subsection},
-and \texttt{{\textbackslash}subsubsection} commands will work fine in
-this template.
-
-\section{Figures/Captions}
-
-Place figures and tables at the top or bottom of the appropriate
-column or columns, on the same page as the relevant text (see
-Figure~\ref{fig:figure1}). A figure or table may extend across both
-columns to a maximum width of 17.78 cm (7 in.).
-
-Captions should be Times New Roman or Times Roman 9-point bold.  They
-should be numbered (e.g., ``Table~\ref{tab:table1}'' or
-``Figure~\ref{fig:figure1}''), centered and placed beneath the figure
-or table.  Please note that the words ``Figure'' and ``Table'' should
-be spelled out (e.g., ``Figure'' rather than ``Fig.'') wherever they
-occur. Figures, like Figure~\ref{fig:figure2}, may span columns and
-all figures should also include alt text for improved accessibility.
-Papers and notes may use color figures, which are included in the page
-limit; the figures must be usable when printed in black-and-white in
-the proceedings.
-
-The paper may be accompanied by a short video figure up to five
-minutes in length. However, the paper should stand on its own without
-the video figure, as the video may not be available to everyone who
-reads the paper.  
-
-\subsection{Inserting Images}
-When possible, include a vector formatted graphic (i.e. PDF or EPS).
-When including bitmaps,  use an image editing tool to resize the image
-at the appropriate printing resolution (usually 300 dpi).
-
-\section{Quotations}
-Quotations may be italicized when \textit{``placed inline''} (Anab,
-23F).
-
-\begin{quote}
-Longer quotes, when placed in their own paragraph, need not be
-italicized or in quotation marks when indented (Ramon, 39M).  
-\end{quote}
-
-\section{Language, Style, and Content}
-
-The written and spoken language of SIGCHI is English. Spelling and
-punctuation may use any dialect of English (e.g., British, Canadian,
-US, etc.) provided this is done consis- tently. Hyphenation is
-optional. To ensure suitability for an international audience, please
-pay attention to the following:
-
-\begin{itemize}
-\item Write in a straightforward style.
-\item Try to avoid long or complex sentence structures.
-\item Briefly define or explain all technical terms that may be
-  unfamiliar to readers.
-\item Explain all acronyms the first time they are used in your
-  text---e.g., ``Digital Signal Processing (DSP)''.
-\item Explain local references (e.g., not everyone knows all city
-  names in a particular country).
-\item Explain ``insider'' comments. Ensure that your whole audience
-  understands any reference whose meaning you do not describe (e.g.,
-  do not assume that everyone has used a Macintosh or a particular
-  application).
-\item Explain colloquial language and puns. Understanding phrases like
-  ``red herring'' may require a local knowledge of English.  Humor and
-  irony are difficult to translate.
-\item Use unambiguous forms for culturally localized concepts, such as
-  times, dates, currencies, and numbers (e.g., ``1--5--97'' or
-  ``5/1/97'' may mean 5 January or 1 May, and ``seven o'clock'' may
-  mean 7:00 am or 19:00). For currencies, indicate equivalences:
-  ``Participants were paid {\fontfamily{txr}\selectfont \textwon}
-  25,000, or roughly US \$22.''
-\item Be careful with the use of gender-specific pronouns (he, she)
-  and other gendered words (chairman, manpower, man-months). Use
-  inclusive language that is gender-neutral (e.g., she or he, they,
-  s/he, chair, staff, staff-hours, person-years). See the
-  \textit{Guidelines for Bias-Free Writing} for further advice and
-  examples regarding gender and other personal
-  attributes~\cite{Schwartz:1995:GBF}. Be particularly aware of
-  considerations around writing about people with disabilities.
-\item If possible, use the full (extended) alphabetic character set
-  for names of persons, institutions, and places (e.g.,
-  Gr{\o}nb{\ae}k, Lafreni\'ere, S\'anchez, Nguy{\~{\^{e}}}n,
-  Universit{\"a}t, Wei{\ss}enbach, Z{\"u}llighoven, \r{A}rhus, etc.).
-  These characters are already included in most versions and variants
-  of Times, Helvetica, and Arial fonts.
-\end{itemize}
-
-\section{Accessibility}
-The Executive Council of SIGCHI has committed to making SIGCHI
-conferences more inclusive for researchers, practitioners, and
-educators with disabilities. As a part of this goal, the all authors
-are asked to work on improving the accessibility of their
-submissions. Specifically, we encourage authors to carry out the
-following five steps:
-\begin{enumerate}
-\item Add alternative text to all figures
-\item Mark table headings
-\item Add tags to the PDF
-\item Verify the default language
-\item Set the tab order to ``Use Document Structure''
-\end{enumerate}
-For more information and links to instructions and resources, please
-see: \url{http://chi2016.acm.org/accessibility}.  The
-\texttt{{\textbackslash}hyperref} package allows you to create well tagged PDF files,
-please see the preamble of this template for an example.
-
-\section{Page Numbering, Headers and Footers}
-Your final submission should not contain footer or header information
-at the top or bottom of each page. Specifically, your final submission
-should not include page numbers. Initial submissions may include page
-numbers, but these must be removed for camera-ready. Page numbers will
-be added to the PDF when the proceedings are assembled.
-
-\section{Producing and Testing PDF Files}
-
-We recommend that you produce a PDF version of your submission well
-before the final deadline.  Your PDF file must be ACM DL
-Compliant. The requirements for an ACM Compliant PDF are available at:
-{\url{http://www.sheridanprinting.com/typedept/ACM-distilling-settings.htm}}.
-
-Test your PDF file by viewing or printing it with the same software we
-will use when we receive it, Adobe Acrobat Reader Version 10. This is
-widely available at no cost. Note that most
-reviewers will use a North American/European version of Acrobat
-reader, so please check your PDF accordingly.
-
-When creating your PDF from Word, ensure that you generate a tagged
-PDF from improved accessibility. This can be done by using the Adobe
-PDF add-in, also called PDFMaker. Select Acrobat | Preferences from
-the ribbon and ensure that ``Enable Accessibility and Reflow with
-tagged Adobe PDF'' is selected. You can then generate a tagged PDF by
-selecting ``Create PDF'' from the Acrobat ribbon.
+We also plan to use this model in order to develop a large-scale 6-axis (accelerometer and gyroscope) activity dataset containing both finely labeled lab data and coarsely labeled field data. We are interested primarily in health-related gestures, including eating and drinking, exercise, washing and brushing teeth.
 
 \section{Conclusion}
 
-It is important that you write for the SIGCHI audience. Please read
-previous years' proceedings to understand the writing style and
-conventions that successful authors have used. It is particularly
-important that you state clearly what you have done, not merely what
-you plan to do, and explain how your work is different from previously
-published work, i.e., the unique contribution that your work makes to
-the field. Please consider what the reader will learn from your
-submission, and how they will find your work useful. If you write with
-these questions in mind, your work is more likely to be successful,
-both in being accepted into the conference, and in influencing the
-work of our field.
+...
 
 \section{Acknowledgments}
 

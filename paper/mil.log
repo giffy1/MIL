@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  1 APR 2016 08:50
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  1 APR 2016 10:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1149,118 +1149,101 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Non-PDF special ignored!
 
 ]
-<figures/sbMIL_bag_size2.png, id=123, 644.6484pt x 416.2752pt>
+<figures/sbMIL_bag_size2.png, id=83, 644.6484pt x 416.2752pt>
 File: figures/sbMIL_bag_size2.png Graphic file (type png)
 
 <use figures/sbMIL_bag_size2.png>
-Package pdftex.def Info: figures/sbMIL_bag_size2.png used on input line 198.
+Package pdftex.def Info: figures/sbMIL_bag_size2.png used on input line 192.
 (pdftex.def)             Requested size: 219.58264pt x 141.79211pt.
 
-<figures/_M150.png, id=125, 578.16pt x 433.62pt>
+<figures/_M150.png, id=85, 578.16pt x 433.62pt>
 File: figures/_M150.png Graphic file (type png)
  <use figures/_M150.png>
-Package pdftex.def Info: figures/_M150.png used on input line 206.
+Package pdftex.def Info: figures/_M150.png used on input line 198.
 (pdftex.def)             Requested size: 142.26378pt x 106.69768pt.
 
-<figures/_M300.png, id=126, 578.16pt x 433.62pt>
+<figures/_M300.png, id=86, 578.16pt x 433.62pt>
 File: figures/_M300.png Graphic file (type png)
  <use figures/_M300.png>
-Package pdftex.def Info: figures/_M300.png used on input line 208.
+Package pdftex.def Info: figures/_M300.png used on input line 200.
 (pdftex.def)             Requested size: 142.26378pt x 106.69768pt.
 
-<figures/_M450.png, id=127, 578.16pt x 433.62pt>
+<figures/_M450.png, id=87, 578.16pt x 433.62pt>
 File: figures/_M450.png Graphic file (type png)
  <use figures/_M450.png>
-Package pdftex.def Info: figures/_M450.png used on input line 210.
+Package pdftex.def Info: figures/_M450.png used on input line 202.
 (pdftex.def)             Requested size: 142.26378pt x 106.69768pt.
 
-[2]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-<figures/_b30.png, id=142, 578.16pt x 433.62pt>
+[2] <figures/_b30.png, id=100, 578.16pt x 433.62pt>
 File: figures/_b30.png Graphic file (type png)
  <use figures/_b30.png>
-Package pdftex.def Info: figures/_b30.png used on input line 230.
+Package pdftex.def Info: figures/_b30.png used on input line 226.
 (pdftex.def)             Requested size: 142.26378pt x 106.69768pt.
 
-<figures/_b150.png, id=143, 578.16pt x 433.62pt>
+<figures/_b150.png, id=101, 578.16pt x 433.62pt>
 File: figures/_b150.png Graphic file (type png)
  <use figures/_b150.png>
-Package pdftex.def Info: figures/_b150.png used on input line 232.
+Package pdftex.def Info: figures/_b150.png used on input line 228.
 (pdftex.def)             Requested size: 142.26378pt x 106.69768pt.
 
-<figures/_b300.png, id=144, 578.16pt x 433.62pt>
+<figures/_b300.png, id=102, 578.16pt x 433.62pt>
 File: figures/_b300.png Graphic file (type png)
  <use figures/_b300.png>
-Package pdftex.def Info: figures/_b300.png used on input line 234.
+Package pdftex.def Info: figures/_b300.png used on input line 230.
 (pdftex.def)             Requested size: 142.26378pt x 106.69768pt.
 
-Underfull \vbox (badness 3049) has occurred while \output is active []
+Underfull \vbox (badness 1728) has occurred while \output is active []
 
  [3 <./figures/_M150.png> <./figures/_M300.png> <./figures/_M450.png> <./figure
 s/sbMIL_bag_size2.png>]
-Underfull \vbox (badness 1442) has occurred while \output is active []
-
- [4 <./figures/_b30.png> <./figures/_b150.png> <./figures/_b300.png>]
-LaTeX Font Info:    Try loading font information for T1+txr on input line 405.
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/txfonts/t1txr.fd
-File: t1txr.fd 2000/12/15 v3.1
-)
-LaTeX Font Info:    Try loading font information for TS1+txr on input line 405.
-
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/txfonts/ts1txr.fd
-File: ts1txr.fd 2000/12/15 v3.1
-)
-Underfull \hbox (badness 1057) in paragraph at lines 437--441
-\T1/ptm/m/n/10 (+20) For more in-for-ma-tion and links to in-struc-tions and re
--
- []
-
 
 Package balance Warning: You have called \balance in second column
 (balance)                Columns might not be balanced.
 
-[5] (./mil.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 559.
-
-Overfull \vbox (1.12248pt too high) has occurred while \output is active []
-
-
-[6]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 559.
+[4 <./figures/_b30.png> <./figures/_b150.png> <./figures/_b300.png>] (./mil.bbl
+)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 360.
+ [5]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 360.
  (./mil.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 559.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 559.
-Package rerunfilecheck Info: File `mil.out' has not changed.
-(rerunfilecheck)             Checksum: 6C50F816F1BCDB7FD63032B9385CE54B;1413.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 559.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 360.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 360.
+
+
+Package rerunfilecheck Warning: File `mil.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `mil.out':
+(rerunfilecheck)             Before: 8DF8FFD4EFA5E5E2A9EB78F001EB8201;805
+(rerunfilecheck)             After:  A31C750090D6D52263DDB1BE8506A0B6;811.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 360.
  ) 
 Here is how much of TeX's memory you used:
- 19342 strings out of 493315
- 336658 string characters out of 6137904
- 440340 words of memory out of 5000000
- 22094 multiletter control sequences out of 15000+600000
- 92840 words of font info for 245 fonts, out of 8000000 for 9000
+ 19206 strings out of 493315
+ 334966 string characters out of 6137904
+ 432248 words of memory out of 5000000
+ 22015 multiletter control sequences out of 15000+600000
+ 84593 words of font info for 228 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  63i,10n,96p,1275b,512s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/tex
-live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
-ive/2013/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb></usr/local/texlive/20
-13/texmf-dist/fonts/type1/public/txfonts/t1xbtt.pfb></usr/local/texlive/2013/te
-xmf-dist/fonts/type1/public/txfonts/t1xtt.pfb></usr/local/texlive/2013/texmf-di
-st/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2013/texmf-dist/font
-s/type1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type
-1/urw/symbol/usyr.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times
-/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmr8a.pf
-b></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on mil.pdf (6 pages, 323058 bytes).
+pdfTeX warning (dest): name{subsection.31} has been referenced but does not e
+xist, replaced by a fixed one
+
+{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
+live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texli
+ve/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
+e/2013/texmf-dist/fonts/type1/public/txfonts/t1xbtt.pfb></usr/local/texlive/201
+3/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb></usr/local/texlive/2013/texm
+f-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2013/texmf-dist/
+fonts/type1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/
+type1/urw/symbol/usyr.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/t
+imes/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmr8
+a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on mil.pdf (5 pages, 307953 bytes).
 PDF statistics:
- 324 PDF objects out of 1000 (max. 8388607)
- 288 compressed objects within 3 object streams
- 88 named destinations out of 1000 (max. 500000)
- 36088 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 240 PDF objects out of 1000 (max. 8388607)
+ 206 compressed objects within 3 object streams
+ 62 named destinations out of 1000 (max. 500000)
+ 28840 words of extra memory for PDF output out of 29859 (max. 10000000)
 
