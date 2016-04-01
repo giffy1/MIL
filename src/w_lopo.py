@@ -196,7 +196,7 @@ def main(dataset, bag_size, active_participant_counter, clf_name, cv, n_iter, cv
 				X_B = [X_B[k:k+bag_size, :] for k in xrange(0, len(X_B), bag_size)]
 				Y_B = [max(Y_B[k:k+bag_size]) for k in xrange(0, len(Y_B), bag_size)]
 			
-			X_test = [X_test[k:k+1, :] for k in xrange(len(X_test))]
+			X_test = [X_test[k:k+1, :] for k in xrange(len(X_test))] #TODO: bag or single-instance?
 	
 		#shuffle single-instance bags:	
 		indices = range(len(X_SI))
