@@ -44,8 +44,8 @@ def main(working_dir, save_path):
 		
 	pyplot.figure()
 	pyplot.plot(x, fscores)
-	pyplot.title("sbMIL performance varying number of positive sessions")
-	pyplot.xlabel("number of bags N")
+	pyplot.title("sbMIL performance varying number of sessions")
+	pyplot.xlabel("number of sessions N")
 	pyplot.ylabel("F1 Score")
 	pyplot.savefig(save_path + 'sessions.png')
 	
