@@ -144,7 +144,7 @@
 
 \section{Introduction}
 
-The ubiquity of mobile devices has led to a growing body of research in designing and solving gesture recognition tasks. These efforts have enormous implications in the mobile health community, self-tracking fitness industry and the development of state-of-the-art human-computer interfacing. The standard approach to gestural recognition employs an appropriate supervised classifier, which often performs exceptionally well given large amounts of labeled data and a well-chosen feature representation. The bottleneck to this approach is that acquiring sufficient gesture labels may be challenging, time-consuming or costly. While many techniques have been adopted to reduce the data annotation effort, this often comes at the expense of noisy labels due to factors such as human error.
+The ubiquity of mobile devices has led to a growing body of research in designing and solving gesture recognition tasks. These efforts have enormous implications in the mobile health community, self-tracking fitness industry and the development of state-of-the-art human-computer interfacing. The standard approach to gestural recognition employs an appropriate supervised classifier, which often performs exceptionally well given large amounts of labeled data and a well-chosen feature representation. The bottleneck to this approach is that acquiring sufficient gesture labels may be challenging, time-consuming or costly. This is of particular interest for data collected in the field, which is essential for building a generalizable,  deployable model. While many techniques have been adopted to reduce the data annotation effort, this often comes at the expense of noisy labels due to factors such as human error.
 
 A commonly used lightweight approach to gesture annotation is experience sampling [-1], where human subjects are prompted to label their current activity or recount their previous activity break-down. This is often best suited when the activities span a large enough time interval; otherwise, acquiring fine-grained labels remains difficult and especially prone to human error.
 
@@ -154,7 +154,7 @@ Trabelsi et al. [-1] eliminate the need for training data altogether by using an
 
 Recent work by Stikic and Schiele [-1] explores the feasibility of using Multi-Instance Learning (MIL) to reduce the labeling effort of activity recognition tasks while incurring minimal additional classification error. Although they show that comparable performance can be achieved with coarse-grained labels, they do not consider the case when the developers provide a small number of fine-grained labels in addition to field data.
 
-In this work we demonstrate the on time-domain inertial data and evaluate the extent to which session-level and gesture-level labels improve performance. We additionally assess the boost in performance given a small number of fine-grained labels from the test user in a leave-one-participant-out evaluation. The
+In this work we demonstrate the effectiveness of MIL on time-domain inertial data and evaluate the extent to which session-level and gesture-level labels improve performance. We additionally assess the boost in performance given a small number of fine-grained labels from the test user in a leave-one-participant-out evaluation.
 
 \section{Multi-Instance Learning}
 
@@ -247,11 +247,9 @@ Figure \ref{fig:figure3} shows the average LOPO f1 score on the Lab-20 eating da
 
 Lastly, we examine the effect of using a small number of instances and bags from the held-out user as training data. This enables us to personalize the model to the test individual. In a realistic setting, it would require that a new user label a small number of either instances or sessions. This can easily be done by performing the gesture while indicating it to the device in some way (i.e. voice command, holding a button while performing the gesture), or by indicating the start and end of a small number of sessions. In the former case, the user must be careful that the label is aligned with the gesture; otherwise, this will introduce noise and possibly hurt the performance of the classifier. In the latter case, the model is robust to human error and there is less burden placed on the user for personalizing the model.
 
-Figure 
-
 \begin{figure}
 \centering
-  \includegraphics[width=0.9\columnwidth]{figures/sessions}
+  \includegraphics[width=0.9\columnwidth]{figures/test_instances}
   \caption{Average LOPO f1 score of sbMIL on RisQ dataset varying the number of labeled sessions}~\label{fig:figure4}
 \end{figure}
 
@@ -264,6 +262,11 @@ Figure
 \end{figure}
 
 To show that this model generalizes well, we perform similar tests on the RisQ smoking dataset. In this case, we demonstrate that the performance increases as the number of labeled sessions increases. Figure \ref{fig:figure5} shows the average LOPO f1 score of the sbMIL classifier for various number of labeled sessions. We see nearly a 15\% increase in performance given only 5 labeled sessions, comparable to the Random Forest/Condition Random Field baseline performance in the original RisQ pipeline.
+
+\section{From Lab to Field Data}
+
+
+
 
 % Use a numbered list of references at the end of the article, ordered
 % alphabetically by first author, and referenced by numbers in
@@ -287,7 +290,7 @@ To show that this model generalizes well, we perform similar tests on the RisQ s
 
 \section{Future Work}
 
-In future work, we like to extend the lab-to-field system to address the issue of data transfer. In many cases the field data may diverge significantly from the lab data, in which case the label granularity recommendations may not be suitable.
+In future work, we would like to extend the lab-to-field system to address the issue of data transfer. In many cases the field data may diverge significantly from the lab data, in which case the label granularity recommendations may not be suitable.
 
 We also plan to use this model in order to develop a large-scale 6-axis (accelerometer and gyroscope) activity dataset containing both finely labeled lab data and coarsely labeled field data. We are interested primarily in health-related gestures, including eating and drinking, exercise, washing and brushing teeth.
 
