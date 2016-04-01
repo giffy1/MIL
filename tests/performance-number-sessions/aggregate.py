@@ -19,14 +19,15 @@ from matplotlib import pyplot
 
 participants = range(19)
 # number of positive sessions for each participant:
-N = [8, 3, 15, 17, 4, 7, 4, 3, 9, 26, 41, 7, 5, 1, 3, 8, 3, 3, 3]
+#N = [8, 3, 15, 17, 4, 7, 4, 3, 9, 26, 41, 7, 5, 1, 3, 8, 3, 3, 3]
+N=6
 
 def main(working_dir, save_path):
 	
 	res_dir = working_dir + '/res'
 	x = []
 	fscores = []
-	for n in range(1,max(N)):
+	for n in range(1,N):
 		count = 0
 		avg_fscore = 0
 		for p in participants:
