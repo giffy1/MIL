@@ -27,6 +27,7 @@ def main(working_dir, save_path):
 	
 	res_dir = working_dir + '/res'
 	
+	x = []
 	fscores = []
 	for b in bag_sizes:
 		fscores = []
@@ -40,12 +41,11 @@ def main(working_dir, save_path):
 						r = pickle.load(f)
 					avg_fscore += r['Results']['F1 Score']['Test']
 					count += 1
-			if count == 0:
-				fscores.append(0)
-			else:
+			if count > 0:
+				x.append(N[b])
 				fscores.append(avg_fscore / count)
 		
-		pyplot.plot(N[b], fscores, label="bag-size = " + str(b))
+		pyplot.plot(x, fscores, label="bag-size = " + str(b))
 		pyplot.title("sbMIL performance varying number of bags")
 		pyplot.xlabel("number of bags N")
 		pyplot.ylabel("F1 Score")
