@@ -20,7 +20,7 @@ from matplotlib import pyplot
 participants = range(19)
 # number of positive sessions for each participant:
 #N = [8, 3, 15, 17, 4, 7, 4, 3, 9, 26, 41, 7, 5, 1, 3, 8, 3, 3, 3]
-N=6
+N=7
 
 def main(working_dir, save_path):
 	
