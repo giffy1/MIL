@@ -31,7 +31,7 @@ def main(working_dir, save_path):
 	fscores = []
 	for b in bag_sizes:
 		fscores = []
-		for n in range(N[b]):
+		for n in N[b]:
 			avg_fscore = 0
 			count = 0
 			for p in participants:
