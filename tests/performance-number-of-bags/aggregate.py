@@ -27,7 +27,7 @@ def main(working_dir, save_path):
 	
 	res_dir = working_dir + '/res'
 	
-	
+	handles = []
 	for b in bag_sizes:
 		x = []
 		fscores = []
@@ -45,10 +45,12 @@ def main(working_dir, save_path):
 				x.append(n)
 				fscores.append(avg_fscore / count)
 		
-		pyplot.plot(x, fscores, label="bag-size = " + str(b))
+		h, = pyplot.plot(x, fscores, label="bag-size = " + str(b))
+		handles.append(h)
 		pyplot.title("sbMIL performance varying number of bags")
 		pyplot.xlabel("number of bags N")
 		pyplot.ylabel("F1 Score")
+		pyplot.legend(handles=handles)
 	pyplot.savefig(save_path + 'number-of-bags.png')
 	
 
