@@ -6,44 +6,56 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Database file #1: sample.bib
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-You've used 12 entries,
+Warning--empty address in Parate:2014
+Warning--page numbers missing in both pages and numpages fields in Parate:2014
+Warning--empty address in Andrews03supportvector
+Warning--empty publisher in bunescu:icml07
+Warning--page numbers missing in both pages and numpages fields in bunescu:icml07
+Warning--require articleno with numpages field in Doran:2014:TEA:2666867.2666935
+Warning--empty address in Thomaz:2015
+Warning--page numbers missing in both pages and numpages fields in Thomaz:2015
+Warning--require articleno with numpages field in Froehlich:2007:MSS:1247660.1247670
+Warning--can't use both author and editor fields in Stikic:2009
+Warning--page numbers missing in both pages and numpages fields in Trabelsi:2013
+You've used 8 entries,
             5283 wiz_defined-function locations,
-            1310 strings with 16157 characters,
-and the built_in function-call counts, 8216 in all, are:
-= -- 1005
-> -- 252
+            1291 strings with 16726 characters,
+and the built_in function-call counts, 7814 in all, are:
+= -- 928
+> -- 282
 < -- 1
-+ -- 68
-- -- 96
-* -- 479
-:= -- 979
-add.period$ -- 68
-call.type$ -- 12
-change.case$ -- 69
-chr.to.int$ -- 12
-cite$ -- 12
-duplicate$ -- 725
-empty$ -- 533
-format.name$ -- 108
-if$ -- 1912
++ -- 96
+- -- 138
+* -- 537
+:= -- 844
+add.period$ -- 40
+call.type$ -- 8
+change.case$ -- 59
+chr.to.int$ -- 8
+cite$ -- 19
+duplicate$ -- 654
+empty$ -- 459
+format.name$ -- 123
+if$ -- 1827
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 17
-newline$ -- 137
-num.names$ -- 72
-pop$ -- 251
+missing$ -- 35
+newline$ -- 96
+num.names$ -- 48
+pop$ -- 298
 preamble$ -- 1
-purify$ -- 116
+purify$ -- 91
 quote$ -- 0
-skip$ -- 193
+skip$ -- 152
 stack$ -- 0
-substring$ -- 650
-swap$ -- 52
-text.length$ -- 1
+substring$ -- 670
+swap$ -- 47
+text.length$ -- 80
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 100
-warning$ -- 0
-while$ -- 76
+type$ -- 68
+warning$ -- 11
+while$ -- 46
 width$ -- 0
-write$ -- 218
+write$ -- 147
+(There were 11 warnings)

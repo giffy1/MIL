@@ -32,117 +32,85 @@
 \ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
 \ifx \showURL      \undefined \def \showURL       #1{#1}          \fi
 
-\bibitem{acm_categories}
-{ACM}. 1998.
-\newblock How to Classify Works Using ACM's Computing Classification System.
-\newblock   (1998).
+\bibitem{Parate:2014}
+{{Abhinav Parate}}, {{Meng-Chieh Chiu}}, {{Chaniel Chadowitz}}, {{Deepak
+  Ganesan}}, {and} {{Evangelos Kalogerakis}}. 2014.
+\newblock \showarticletitle{Risq: Recognizing smoking gestures with inertial
+  sensors on a wristband}. In {\em Proceedings of the 12th annual international
+  conference on Mobile systems, applications, and services}. ACM.
 \newblock
-\newblock
-\shownote{\url{http://www.acm.org/class/how_to_use.html}.}
 
 
-\bibitem{ethics}
-{R.~E. Anderson}. 1992.
-\newblock \showarticletitle{{Social Impacts of Computing: Codes of Professional
-  Ethics}}.
-\newblock {\em Social Science Computer Review December\/} {10}, 4 (1992),
-  453--469.
+\bibitem{Andrews03supportvector}
+{Stuart Andrews}, {Ioannis Tsochantaridis}, {and} {Thomas Hofmann}. 2003.
+\newblock \showarticletitle{Support vector machines for multiple-instance
+  learning}. In {\em Advances in Neural Information Processing Systems 15}. MIT
+  Press, 561--568.
 \newblock
+
+
+\bibitem{bunescu:icml07}
+{Razvan~C. Bunescu} {and} {Raymond~J. Mooney}. 2007.
+\newblock \showarticletitle{Multiple Instance Learning for Sparse Positive
+  Bags}. In {\em Proceedings of the 24th Annual International Conference on
+  Machine Learning (ICML-2007)}. Corvallis, OR.
+\newblock
+\showURL{%
+\url{http://nn.cs.utexas.edu/?bunescu:icml07}}
+
+
+\bibitem{Doran:2014:TEA:2666867.2666935}
+{Gary Doran} {and} {Soumya Ray}. 2014.
+\newblock \showarticletitle{A Theoretical and Empirical Analysis of Support
+  Vector Machine Methods for Multiple-instance Classification}.
+\newblock {\em Mach. Learn.\/} {97}, 1-2 (Oct. 2014), 79--102.
+\newblock
+\showISSN{0885-6125}
 \showDOI{%
-\url{http://dx.doi.org/10.1177/089443939201000402}}
+\url{http://dx.doi.org/10.1007/s10994-013-5429-5}}
 
 
-\bibitem{cavender:writing}
-{Anna Cavender}, {Shari Trewin}, {and} {Vicki Hanson}. 2014.
-\newblock Accessible Writing Guide.
-\newblock   (2014).
+\bibitem{Thomaz:2015}
+{{Edison Thomaz}}, {{Irfan Essa}}, {and} {{Gregory D. Abowd}}. 2015.
+\newblock \showarticletitle{A Practical Approach for Recognizing Eating Moments
+  with Wrist-Mounted Inertial Sensing}. In {\em Proceedings of the ACM
+  International Joint Conference on Pervasive Ubiquitous Computing}. ACM.
 \newblock
-\newblock
-\shownote{\url{http://www.sigaccess.org/welcome-to-sigaccess/resources/accessible-writing-guide/}.}
 
 
-\bibitem{CHINOSAUR:venue}
-{@\_CHINOSAUR}. 2014.
-\newblock "VENUE IS TOO COLD" \#BINGO \#CHI2014.
-\newblock Tweet.   (1 May 2014).
+\bibitem{Froehlich:2007:MSS:1247660.1247670}
+{Jon Froehlich}, {Mike~Y. Chen}, {Sunny Consolvo}, {Beverly Harrison}, {and}
+  {James~A. Landay}. 2007.
+\newblock \showarticletitle{MyExperience: A System for in Situ Tracing and
+  Capturing of User Feedback on Mobile Phones}. In {\em Proceedings of the 5th
+  International Conference on Mobile Systems, Applications and Services} {\em
+  (MobiSys '07)}. ACM, New York, NY, USA, 57--70.
 \newblock
-\newblock
-\shownote{Retrieved Febuary 2, 2015 from
-  \url{https://twitter.com/_CHINOSAUR/status/461864317415989248}.}
-
-
-\bibitem{heilig:sensorama}
-{Morton~L. Heilig}. 1962.
-\newblock Sensorama Simulator.
-\newblock U.S. Patent 3,050,870.   (28 August 1962).
-\newblock
-\newblock
-\shownote{Filed Februrary 22, 1962.}
-
-
-\bibitem{kaye:puc}
-{Jofish Kaye} {and} {Paul Dourish}. 2014.
-\newblock \showarticletitle{Special issue on science fiction and ubiquitous
-  computing}.
-\newblock {\em Personal and Ubiquitous Computing\/} {18}, 4 (2014), 765--766.
-\newblock
-\showISSN{1617-4909}
+\showISBNx{978-1-59593-614-1}
 \showDOI{%
-\url{http://dx.doi.org/10.1007/s00779-014-0773-4}}
+\url{http://dx.doi.org/10.1145/1247660.1247670}}
 
 
-\bibitem{Klemmer:2002:WSC:503376.503378}
-{Scott~R. Klemmer}, {Michael Thomsen}, {Ethan Phelps-Goodman}, {Robert Lee},
-  {and} {James~A. Landay}. 2002.
-\newblock \showarticletitle{Where Do Web Sites Come from?: Capturing and
-  Interacting with Design History}. In {\em Proceedings of the SIGCHI
-  Conference on Human Factors in Computing Systems} {\em (CHI '02)}. ACM, New
-  York, NY, USA, 1--8.
+\bibitem{Stikic:2009}
+{Maja Stikic} {and} {Bernt Schiele}. 2009.
+\newblock {\em Location and Context Awareness: 4th International Symposium,
+  LoCA 2009 Tokyo, Japan, May 7-8, 2009 Proceedings}.
+\newblock Springer Berlin Heidelberg, Berlin, Heidelberg, Chapter Activity
+  Recognition from Sparsely Labeled Data Using Multi-Instance Learning,
+  156--173.
 \newblock
-\showISBNx{1-58113-453-3}
+\showISBNx{978-3-642-01721-6}
 \showDOI{%
-\url{http://dx.doi.org/10.1145/503376.503378}}
+\url{http://dx.doi.org/10.1007/978-3-642-01721-6_10}}
 
 
-\bibitem{supermetroid:snes}
-{{Nintendo R\&D1}} {and} {{Intelligent Systems}}. 1994.
-\newblock \emph{Super Metroid}.
-\newblock Game [SNES].   (18 April 1994).
-\newblock
-\newblock
-\shownote{Nintendo, Kyoto, Japan. Played August 2011.}
-
-
-\bibitem{psy:gangnam}
-{Psy}. 2012.
-\newblock Gangnam Style.
-\newblock Video.   (15 July 2012).
-\newblock
-\newblock
-\shownote{Retrieved August 22, 2014 from
-  \url{https://www.youtube.com/watch?v=9bZkp7q19f0}.}
-
-
-\bibitem{Schwartz:1995:GBF}
-{Marilyn Schwartz}. 1995.
-\newblock {\em Guidelines for Bias-Free Writing}.
-\newblock ERIC, Bloomington, IN, USA.
-\newblock
-
-
-\bibitem{sutherland:sketchpad}
-{Ivan~E. Sutherland}. 1963.
-\newblock {\em Sketchpad, a Man-Machine Graphical Communication System}.
-\newblock Ph.D. Dissertation. Massachusetts Institute of Technology, Cambridge,
-  MA.
-\newblock
-
-
-\bibitem{winner:politics}
-{Langdon Winner}. 1999.
-\newblock {\em The Social Shaping of Technology\/} (2nd ed.).
-\newblock Open University Press, UK, Chapter Do artifacts have politics?,
-  28--40.
+\bibitem{Trabelsi:2013}
+{D. Trabelsi}, {Samer Mohammed}, {F. Chamroukhi}, {L. Oukhellou}, {and} {Yacine
+  Amirat}. 2013.
+\newblock \showarticletitle{An unsupervised approach for automatic activity
+  recognition based on hidden Markov model regression}.
+\newblock {\em IEEE Transactions on Automation Science and Engineering\/}
+  {Regular paper, in press, DOI: 10.1109/TASE.2013.2256349} (2013).
 \newblock
 
 
