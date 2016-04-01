@@ -247,9 +247,7 @@ Figure \ref{fig:figure3} shows the average LOPO f1 score on the Lab-20 eating da
 
 Lastly, we examine the effect of using a small number of instances and bags from the held-out user as training data. This enables us to personalize the model to the test individual. In a realistic setting, it would require that a new user label a small number of either instances or sessions. This can easily be done by performing the gesture while indicating it to the device in some way (i.e. voice command, holding a button while performing the gesture), or by indicating the start and end of a small number of sessions. In the former case, the user must be careful that the label is aligned with the gesture; otherwise, this will introduce noise and possibly hurt the performance of the classifier. In the latter case, the model is robust to human error and there is less burden placed on the user for personalizing the model.
 
-
-
-\subsection{RisQ Dataset}
+Figure 
 
 \begin{figure}
 \centering
@@ -257,7 +255,15 @@ Lastly, we examine the effect of using a small number of instances and bags from
   \caption{Average LOPO f1 score of sbMIL on RisQ dataset varying the number of labeled sessions}~\label{fig:figure4}
 \end{figure}
 
-To show that this model generalizes well, we perform similar tests on the RisQ smoking dataset. In this case, we demonstrate that the performance increases as the number of labeled sessions increases. Figure \ref{fig:figure4} shows the average LOPO f1 score of the sbMIL classifier for various number of labeled sessions. We see nearly a 10\% increase in performance given a small number
+\subsection{RisQ Dataset}
+
+\begin{figure}
+\centering
+  \includegraphics[width=0.9\columnwidth]{figures/sessions}
+  \caption{Average LOPO f1 score of sbMIL on RisQ dataset varying the number of labeled sessions}~\label{fig:figure5}
+\end{figure}
+
+To show that this model generalizes well, we perform similar tests on the RisQ smoking dataset. In this case, we demonstrate that the performance increases as the number of labeled sessions increases. Figure \ref{fig:figure5} shows the average LOPO f1 score of the sbMIL classifier for various number of labeled sessions. We see nearly a 15\% increase in performance given only 5 labeled sessions, comparable to the Random Forest/Condition Random Field baseline performance in the original RisQ pipeline.
 
 % Use a numbered list of references at the end of the article, ordered
 % alphabetically by first author, and referenced by numbers in
