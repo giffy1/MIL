@@ -42,7 +42,7 @@ def main(working_dir, save_path):
 					avg_fscore += r['Results']['F1 Score']['Test']
 					count += 1
 			if count > 0:
-				x.append(N[b])
+				x.append(n)
 				fscores.append(avg_fscore / count)
 		
 		pyplot.plot(x, fscores, label="bag-size = " + str(b))
