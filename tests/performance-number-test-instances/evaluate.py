@@ -5,19 +5,8 @@ import sys
 sys.path.insert(0, '..')
 from qsub import qsub
 
-participants = range(20)
-bag_sizes = range(30,301,30)
-N = {}
-N[30] = range(0,81,5)
-N[60] = range(0,41,4)
-N[90] = range(0,37,3)
-N[120] = range(0,25,3)
-N[150] = range(0,19,2)
-N[180] = range(0,15,2)
-N[210] = range(0,13,2)
-N[240] = range(0,9,1)
-N[270] = range(0,7,1)
-N[300] = range(0,7,1)
+participants = range(19)
+K = range(20)
 
 def main():
 	parser = argparse.ArgumentParser()
@@ -80,24 +69,23 @@ def main():
 		os.mkdir(params_dir, 0755)
 		
 	arg_str = ' --dir=' + str(args.data_dir) + ' --load=' + str(args.load_pickle_path) + ' --save=' + str(args.save_pickle_path) \
-			+ ' --K=' + str(args.K) + ' --M=' + str(args.M) + ' --clf="' + str(args.clf_name) + '" --eta=' + str(args.eta) \
+			+ ' --N=' + str(args.N) + ' --M=' + str(args.M) + ' --clf="' + str(args.clf_name) + '" --eta=' + str(args.eta) \
 			+ ' --n-jobs=' + str(args.n_jobs) + ' --desc="' + str(args.description) + '" --cv=' + str(args.cv) + ' --cv-method="' \
 			+ str(args.cv_method) + '" --niter=' + str(args.n_iter) + ' --kernel="' + str(args.kernel) + '" --n-trials=' \
-			+ str(args.n_trials)
+			+ str(args.n_trials) + ' --dataset="smoking"'
 			
 	with open(os.path.join(params_dir, 'params.txt'), 'wb') as f:
 		f.write(arg_str)
 
 	for p in participants:
-		for b in bag_sizes:
-			for n in N[b]:
-				save_path = os.path.join(res_dir, 'lopo_p%d_n%d_b%d.pickle' % (p, n, b))
-				submit_this_job = ('python %s/w_lopo.py --save_path=%s --test-participant=%d --N=%d --bag-size=%d' % (args.src, save_path, p, n, b)) + arg_str
-				print submit_this_job
-				job_id = 'lopo_p%d_n%d_b%d' % (p, n, b)
-				log_file = log_dir + '/lopo_p%d_n%d_b%dlog.txt' % (p, n, b)
-				err_file = err_dir + '/lopo_p%d_n%d_b%derr.txt' % (p, n, b)
-				qsub(submit_this_job, job_id, log_file, err_file, n_cores=args.n_jobs)
+		for k in K:
+			save_path = os.path.join(res_dir, 'lopo_p%d_k%d.pickle' % (p, k))
+			submit_this_job = ('python %s/w_lopo.py --save_path=%s --test-participant=%d --K=%d' % (args.src, save_path, p, k)) + arg_str
+			print submit_this_job
+			job_id = 'lopo_p%d_k%d' % (p, k)
+			log_file = log_dir + '/lopo_p%d_k%dlog.txt' % (p, k)
+			err_file = err_dir + '/lopo_p%d_k%derr.txt' % (p, k)
+			qsub(submit_this_job, job_id, log_file, err_file, n_cores=args.n_jobs)
 
 if __name__ == '__main__':
 	main()

@@ -6,7 +6,7 @@ sys.path.insert(0, '..')
 from qsub import qsub
 
 participants = range(19)
-K = range(4)
+K = range(20)
 
 def main():
 	parser = argparse.ArgumentParser()
