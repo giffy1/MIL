@@ -37,13 +37,13 @@ def main(working_dir, save_path):
 		fscores.append(avg_fscore / count)
 		
 	pyplot.plot(K, fscores)
-	pyplot.savefig(save_path)
+	pyplot.savefig(save_path + 'test_instances.png')
 	
 
 if __name__ == '__main__':
 	parser = ArgumentParser()
 	parser.add_argument('-d', '--dir', dest='working_dir', default='/home/snoran/work/')	
-	parser.add_argument("--save", dest="save_path", default='/home/snoran/work/res/plot.png', \
+	parser.add_argument("--save", dest="save_path", default='/home/snoran/work/res/plot', \
 			help="Path of the plot file.")	
 			
 	args = parser.parse_args()
