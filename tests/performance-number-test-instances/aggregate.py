@@ -17,7 +17,7 @@ matplotlib.use('Agg') #ensures plot can be viewed on server
 
 from matplotlib import pyplot
 
-participants = range(19)
+participants = range(20)
 K = range(20)
 
 def main(working_dir, save_path):
@@ -39,6 +39,9 @@ def main(working_dir, save_path):
 		fscores.append(avg_fscore / count)
 		
 	pyplot.plot(K, fscores)
+	pyplot.title("sbMIL performance varying number of instances from the held-out participant")
+	pyplot.xlabel("number of instances")
+	pyplot.ylabel("F1 Score")
 	pyplot.savefig(save_path + 'test_instances.png')
 	
 
