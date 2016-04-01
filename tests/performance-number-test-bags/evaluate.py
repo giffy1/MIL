@@ -5,8 +5,8 @@ import sys
 sys.path.insert(0, '..')
 from qsub import qsub
 
-participants = range(19)
-K = range(20)
+participants = range(20)
+K = range(4)
 
 def main():
 	parser = argparse.ArgumentParser()
@@ -72,13 +72,13 @@ def main():
 			+ ' --N=' + str(args.N) + ' --M=' + str(args.M) + ' --clf="' + str(args.clf_name) + '" --eta=' + str(args.eta) \
 			+ ' --n-jobs=' + str(args.n_jobs) + ' --desc="' + str(args.description) + '" --cv=' + str(args.cv) + ' --cv-method="' \
 			+ str(args.cv_method) + '" --niter=' + str(args.n_iter) + ' --kernel="' + str(args.kernel) + '" --n-trials=' \
-			+ str(args.n_trials) + ' --dataset="smoking"'
+			+ str(args.n_trials) + ' --dataset="eating" --bag-size=-1'
 			
 	with open(os.path.join(params_dir, 'params.txt'), 'wb') as f:
 		f.write(arg_str)
 
-	for p in participants:
-		for k in K:
+	for k in K:
+		for p in participants:
 			save_path = os.path.join(res_dir, 'lopo_p%d_k%d.pickle' % (p, k))
 			submit_this_job = ('python %s/w_lopo.py --save_path=%s --test-participant=%d --K=%d' % (args.src, save_path, p, k)) + arg_str
 			print submit_this_job
