@@ -23,6 +23,7 @@ def main(working_dir, save_path):
 	
 	res_dir = working_dir + '/res'
 
+	x = []
 	fscores = []
 	for k in K:
 		avg_fscore = 0
@@ -34,9 +35,11 @@ def main(working_dir, save_path):
 					r = pickle.load(f)
 				avg_fscore += r['Results']['F1 Score']['Test']
 				count += 1
-		fscores.append(avg_fscore / count)
+		if count > 0:
+			x.append(k)
+			fscores.append(avg_fscore / count)
 		
-	pyplot.plot(K, fscores)
+	pyplot.plot(x, fscores)
 	pyplot.savefig(save_path)
 	
 
