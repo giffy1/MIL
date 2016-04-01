@@ -32,6 +32,7 @@ def main(working_dir, save_path):
 			if os.path.isfile(res_path):
 				with open(res_path, 'rb') as f:
 					r = pickle.load(f)
+				print r['Results']['F1 Score']['Test']
 				avg_fscore += r['Results']['F1 Score']['Test']
 				count += 1
 		fscores.append(avg_fscore / count)
