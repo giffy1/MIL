@@ -17,18 +17,11 @@ matplotlib.use('Agg') #ensures plot can be viewed on server
 from matplotlib import pyplot
 
 participants = range(20)
-bag_sizes = [100,200,300]
+bag_sizes = [30,150,300]
 N = {}
-N[30] = range(0,81,5)
-N[60] = range(0,41,4)
-N[90] = range(0,37,3)
-N[120] = range(0,25,3)
-N[150] = range(0,19,2)
-N[180] = range(0,15,2)
-N[210] = range(0,13,2)
-N[240] = range(0,9,1)
-N[270] = range(0,7,1)
-N[300] = range(0,7,1)
+N[30] = range(0,81,1)
+N[150] = range(0,20,1)
+N[300] = range(0,10,1)
 
 def main(working_dir, save_path):
 	
@@ -52,12 +45,11 @@ def main(working_dir, save_path):
 			else:
 				fscores.append(avg_fscore / count)
 		
-		pyplot.figure()
-		pyplot.plot(N[b], fscores)
-		pyplot.title("sbMIL performance varying number of bags; bag-size = " + str(b))
+		pyplot.plot(N[b], fscores, label="bag-size = " + str(b))
+		pyplot.title("sbMIL performance varying number of bags")
 		pyplot.xlabel("number of bags N")
 		pyplot.ylabel("F1 Score")
-		pyplot.savefig(save_path + '_b' + str(b) + '.png')
+	pyplot.savefig(save_path + 'number-of-bags.png')
 	
 
 if __name__ == '__main__':
