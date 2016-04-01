@@ -30,7 +30,7 @@ MIL = {'SIL', 'sMIL', 'sbMIL', 'misvm', 'MIForest'}
 
 def main(dataset, bag_size, active_participant_counter, clf_name, cv, n_iter, cv_method, M, N, K, verbose, \
 	   data_dir, load_pickle_path, save_pickle_path, frame_size, step_size, units, \
-	   eta_, n_jobs, save_path, description, n_trials, kernel):
+	   eta_, n_jobs, save_path, description, n_trials, kernel, is_test_SI):
 	"""
 	@param dataset : A string indicating which dataset to load. Choices include 'smoking' and 'eating'
 	@param bag_size : The size of the training bags.
@@ -192,11 +192,31 @@ def main(dataset, bag_size, active_participant_counter, clf_name, cv, n_iter, cv
 						labels.append(session_labels[k][j])
 				X_B = bags
 				Y_B = labels
+				
+				if is_test_SI:
+					X_test = [X_test[k:k+1, :] for k in xrange(len(X_test))]
+				else:
+					bags = []
+					labels = []
+					for j in range(len(session_labels[active_participant_counter])):
+						if j < len(session_labels[active_participant_counter])-1:
+							end = session_start[active_participant_counter][j+1]
+						else:
+							end = -1 #it's ok to miss 1 sample
+
+						bags.append(X_test[session_start[active_participant_counter][j]:end, :])
+						labels.append(session_labels[active_participant_counter][j])
+					X_T = bags
+					Y_T = labels
 			else:
 				X_B = [X_B[k:k+bag_size, :] for k in xrange(0, len(X_B), bag_size)]
 				Y_B = [max(Y_B[k:k+bag_size]) for k in xrange(0, len(Y_B), bag_size)]
 			
-			X_test = [X_test[k:k+1, :] for k in xrange(len(X_test))] #TODO: bag or single-instance?
+				if is_test_SI:
+					X_test = [X_test[k:k+1, :] for k in xrange(len(X_test))]
+				else:
+					X_test = [X_test[k:k+bag_size, :] for k in xrange(0,len(X_test), bag_size)]
+					Y_test = [Y_test[k:k+bag_size, :] for k in xrange(0,len(Y_test), bag_size)]
 	
 		#shuffle single-instance bags:	
 		indices = range(len(X_SI))
@@ -211,16 +231,39 @@ def main(dataset, bag_size, active_participant_counter, clf_name, cv, n_iter, cv
 		Y_B = [np.nan_to_num(Y_B[k]) for k in indices[:N]]
 		
 		#shuffle test data:
+		indices = range(len(X_T))
+		np.random.shuffle(indices)
+		X_T = [np.nan_to_num(X_T[k]) for k in indices]
+		Y_T = [np.nan_to_num(Y_T[k]) for k in indices]
+		
+		pl = 0
+		X_test2 = []
+		Y_test2 = []
+		for k in indices:
+			length = len(X_T[k])
+			if k >= K:
+				X_test2.extend(np.nan_to_num(X_test[pl:pl+length]))
+				Y_test2.extend(np.nan_to_num(Y_test[pl:pl+length]))
+			pl += length
+				
+				
+		X_test = X_test2
+		Y_test = Y_test2
+		
+		#shuffle test data:
 		indices = range(len(X_test))
 		np.random.shuffle(indices)
 		X_test = [np.nan_to_num(X_test[k]) for k in indices]
 		Y_test = [np.nan_to_num(Y_test[k]) for k in indices]
 		
-		X_T = X_test[:K]
-		Y_T = Y_test[:K]
+		X_T = X_T[:K]
+		Y_T = Y_T[:K]
 		
-		X_test = X_test[K:]
-		Y_test = Y_test[K:]
+#		X_T = X_test[:K]
+#		Y_T = Y_test[:K]
+#		
+#		X_test = X_test[K:]
+#		Y_test = Y_test[K:]
 		
 		#combine into single training data set with mixed bags and single-instances
 		X_train = X_SI + X_B + X_T
@@ -313,11 +356,11 @@ if __name__ == "__main__":
 			help="Number of instances used for training in each LOPO iteration")
 	parser.add_argument("--M", dest="M", default=20, type=int, \
 			help="Number of single-instance bags used for training in each LOPO iteration")
-	parser.add_argument("--K", dest="K", default=0, type=int, \
+	parser.add_argument("--K", dest="K", default=4, type=int, \
 			help="Number of single-instance bags in the training data from the held-out participant.")
 	parser.add_argument("--verbose", dest="verbose", default=1, type=int, \
 			help="Indicates how much information should be reported (0=None, 1=Some, 2=Quite a bit)")
-	parser.add_argument("--bag-size", dest="bag_size", default=100, type=int, \
+	parser.add_argument("--bag-size", dest="bag_size", default=-1, type=int, \
 			help="If clf is an MIL classifier, bag-size specifies the size of each training bag")
 	parser.add_argument("--test-participant", dest="active_participant_counter", default = 0, type=int, \
 			help="Index of the held-out participant. The classifier will be evaluated on this individual's data.")
@@ -348,6 +391,8 @@ if __name__ == "__main__":
 			help="Number of trials over which to average the performance metrics")
 	parser.add_argument("--kernel", dest="kernel", default='linear', type=str, \
 			help="Kernel type, i.e. 'linear', 'rbf', 'linear_av', etc.")
+	parser.add_argument("--single-instance", dest="is_test_SI", default=False, type=bool, \
+			help="Whether the test labels used for training are bags (in which case the bag size is the same as the other training data) or single-instances (default).")
 			
 	args = parser.parse_args()
 	
