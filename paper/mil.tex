@@ -42,6 +42,7 @@
 % \usepackage[all]{hypcap}    % Fixes bug in hyperref caption linking
 \usepackage{ccicons}          % Cite your images correctly!
 % \usepackage[utf8]{inputenc} % for a UTF8 editor only
+\usepackage{subfig}
 
 % If you want to use todo notes, marginpars etc. during creation of
 % your draft document, you have to enable the "chi_draft" option for
@@ -131,7 +132,7 @@
 \maketitle
 
 \begin{abstract}
-  In the supervised learning setting, it is essential to have sufficient labeled data; however, in many domains, such as activity recognition, existing labeled data may not be available and the annotation process is often too cumbersome, time-consuming and prone to human error. In this work, we explore the use of Multiple-Instance Learning (MIL) in order to reduce the need for fine-grained labels. We examine the drop in performance on two existing time-domain gesture-annotated datasets and show that MIL given coarse-grain ground-truth annotations can achieve performance metrics comparable with standard supervised Machine Learning approaches given fine-grain labels. We evaluate the performance in a leave-one-participant-out fashion given all combinations of (1) coarse-grain labels, (2) fine-grain labels, and (3) labels from the held-out participant; our analysis shows that coarse-grain labels may suffice for many applications and that even very few labels from the held-out participant improve performance significantly.
+  In the supervised learning setting, it is essential to have sufficient labeled data; however, in many domains, such as activity recognition, existing labeled data may not be available and the annotation process is often too cumbersome, time-consuming and prone to human error. In this work, we explore the use of Multiple-Instance Learning (MIL) in order to reduce the need for fine-grained labels. We examine the drop in performance on two existing time-domain gesture-annotated datasets and show that MIL given coarse-grain ground-truth annotations can achieve performance metrics comparable with standard supervised Machine Learning approaches given fine-grain labels. We evaluate the performance in a leave-one-participant-out fashion given (1) coarsely labeled field data, (2) finely labeled lab data and (3) coarsely labeled data from the held-out participant. Our analysis shows that we can achieve competitive performance given a small number of fine-grained labels in addition to many coarse-grained labels and that even very few labeled sessions from the held-out participant improve performance significantly. We use this to design a system that gives recommendations to developers on the granularity of the field data, based on an initial lab dataset.
 \end{abstract}
 
 \category{H.5.m.}{Information Interfaces and Presentation
@@ -151,13 +152,13 @@ One of the most common solutions to reduce human error in data collection is vid
 
 Trabelsi et al. [-1] eliminate the need for training data altogether by using an unsupervised learning approach based on a Hidden Markov Model. While this technique achieves performance comparable to supervised learning approaches, it only provides a partition of the data by class and does not make precise label predictions in the absence of labeled data. When a large number of classes are present or positive labels are sparse, then sufficient annotated data once again becomes essential to realize robust, deployable classification systems.
 
-Recent work by Stikic and Schiele [-1] explores the feasibility of using Multi-Instance Learning (MIL) to reduce the labeling effort of activity recognition tasks while incurring minimal additional classification error.
+Recent work by Stikic and Schiele [-1] explores the feasibility of using Multi-Instance Learning (MIL) to reduce the labeling effort of activity recognition tasks while incurring minimal additional classification error. Although they show that comparable performance can be achieved with coarse-grained labels, they do not consider the case when the developers provide a small number of fine-grained labels in addition to field data.
 
-In this work we further compare the performance of various Multi-Instance Learning techniques on time-domain inertial data and evaluate the extent to which session-level and gesture-level labels improve performance. We additionally assess the boost in performance given a small number of fine-grained labels from the test user in a leave-one-participant-out evaluation. The
+In this work we demonstrate the on time-domain inertial data and evaluate the extent to which session-level and gesture-level labels improve performance. We additionally assess the boost in performance given a small number of fine-grained labels from the test user in a leave-one-participant-out evaluation. The
 
 \section{Multi-Instance Learning}
 
-In the Multi-Instance Learning (MIL) framework, we jointly consider instances, the atomic units over which predictions are made (i.e. gestures), and bags of instances, which may be sessions or longer, manageable time intervals over which an activity is performed. In the binary setting, each bag is assigned a positive label if at least one instance in the bag is positive; bags with no positive instances are assumed to be negative.
+In the Multi-Instance Learning (MIL) framework, we jointly consider instances, the atomic units over which predictions are made (i.e. gestures), and bags of instances, which may correspond to sessions or longer, manageable time intervals over which an activity is performed. In the binary setting, each bag is assigned a positive label if at least one instance in the bag is positive; bags with no positive instances are assumed to be negative.
 
 The most naive MIL approach is Single-Instance Learning (SIL) [-1], which makes the usually false assumption that every instance in a positive bag is positive. This reduces the problem to a supervised instance-level classification task, which is generally done using a Support Vector Machine (SVM). When positive instances are sparse, the SIL assumption significantly hurts the classification performance.
 
@@ -174,43 +175,68 @@ where $w \frac{\phi(X)}{\left| X \right|} + b$ is the normalized prediction scor
 
 Bunescu and Mooney additionally introduce a balancing parameter $\eta$, indicating the expected class distribution of instances within bags. The sparse balancing MIL (sbMIL) approach initially trains a sMIL classifier, then relabels the $\eta \left| X \right|$ most positive instances as positive and the remaining instances as negative. The final hyperplane is then learned using SIL given the relabeled data.
 
-\section{Experimental Setup}
+In this work we employ the sbMIL due to the sparsity of positive labels.
 
-In order to reason in a practical sense about the trade-off between performance and labeling effort under various MIL formulations, we perform several evaluations on two existing datasets: the lab-20 eating detection dataset developed by Edison Thomaz [-1] and the RisQ dataset developed by Parate et al. [-1]. In order to assess how well the model generalizes to unseen users, we perform leave-one-participant-out (LOPO) evaluations; that is, the model is trained on all but one participant and then evaluated on the held out participant.
+\section{Data}
+
+In order to reason in a practical sense about the trade-off between performance and labeling effort under the MIL formulation, we perform several evaluations on two existing datasets: the lab-20 eating dataset developed by Edison Thomaz [-1] and the RisQ dataset developed by Parate et al. [-1]. In order to assess how well the model generalizes to unseen users, we perform leave-one-participant-out (LOPO) evaluations; that is, the model is trained on all but one participant and then evaluated on the held out participant.
 
 The lab-20 eating dataset comprises of 25Hz 3-axis accelerometer data collected using a wrist-worn inertial sensor from 20 individuals. Individuals were provided food to eat and were asked to perform other possible confounding actions as they please, including talking on the phone, brushing their teeth and combing their hair. The average duration across participants is 31 minutes 21 seconds and comprises of approximately 48\% eating sessions. Note, however, that the proportion of eating gestures is much smaller, since non-eating gestures are frequently present within eating sessions.
 
-We use Thomaz's evaluation as the baseline result for comparison. In his work, he uses a Random Forest classifier over statistical features extracted over windows of about 6 seconds with 50\% overlap. He reports a 0.42 average LOPO f1 score. We achieve the same performance using a linear SVM.
+We use Thomaz's evaluation as the baseline result for comparison. In his work, he uses a Random Forest classifier over 15 statistical features (mean, variance, skew, kurtosis and root mean square over each axis) extracted over windows of 6 seconds with 50\% overlap. He reports a 0.42 average LOPO f1 score. We achieve similar performance using a linear SVM.
 
-The RisQ dataset contains fused 9-axis inertial data in the form of quaternions from ?? subjects. Parate reports a precision of 91\% and recall of 81\%. The pipeline consists of (1) computing the trajectory from the quaternion stream, (2) identifying candidate windows by locating peak-trough-peak patterns, (3) extracting angle, velocity, displacement and duration features, (4) classifying windows using a Random Forest and (5) smoothing the predictions using a Conditional Random Field.
+The RisQ dataset contains fused 9-axis inertial data in the form of quaternions from 15 subjects. Parate reports a precision of 91\% and recall of 81\%. The pipeline consists of (1) computing the trajectory from the quaternion stream, (2) identifying candidate windows by locating peak-trough-peak patterns, (3) extracting angle, velocity, displacement and duration features, (4) classifying windows using a Random Forest and (5) smoothing the predictions using a Conditional Random Field.
 
-In our work, we use the same pipeline but replace the Random Forest with a Multi-Instance Learner, allowing labels to be sparse.
-
-\section{Evaluation}
+In our work, we use the same pipeline but replace the Random Forest with a Multi-Instance Learner to allow for sparse labels.
 
 \begin{figure}
 \centering
   \includegraphics[width=0.9\columnwidth]{figures/sbMIL_bag_size2}
-  \caption{Average F1 Score across LOPO evaluations of sbMIL}~\label{fig:figure1}
+  \caption{Average LOPO f1 score of sbMIL on Lab-20 dataset as a function of the bag size}~\label{fig:figure1}
 \end{figure}
 
-\subsection{Lab-20 Eating}
+\section{Experimental Setup}
 
-In order to reason about the effectiveness of MIL techniques in gesture recognition, we evaluate the average LOPO performance for various bag sizes. Figure \ref{fig:figure1} shows that as the bag size decreases, the performance of each MIL technique drops, and it is upper bounded by the baseline SVM performance.
+\begin{figure*}
+  \centering
+  \subfloat[M = 150]{{\includegraphics[width=5cm]{figures/_M150} }}%
+  \qquad
+  \subfloat[M = 300]{{\includegraphics[width=5cm]{figures/_M300} }}%
+  \qquad
+  \subfloat[M = 450]{{\includegraphics[width=5cm]{figures/_M450} }}%
+  \caption{Average LOPO performance of sbMIL on Lab-20 dataset as a function of the bag size given 150, 300 and 450 additional labeled training instances respecitvely }~\label{fig:figure2}
+\end{figure*}
+
+In order to reason about the effectiveness of MIL techniques in gesture recognition, we evaluate the average LOPO performance for various bag sizes. Figure \ref{fig:figure1} shows for the Lab-20 eating dataset that as the bag size decreases, the performance of each MIL technique drops, and it is upper bounded by the baseline SVM performance.
 
 Evidently, the performance is greater given more finely-grained labels. However, given that these labels may be difficult to acquire, we must ask: How many such labels do we need?
 
-In order to address this, we evaluate several experiments in which $M$ fine-grained labels are provided by 5 participants and $N$ coarse-grained labels for a fixed bag size ?? are provided by the remaining 14 participants. In order to enhance the model's generalization capabilities, we additionally include $K$ instances from the held-out participant in the training data, which are then excluded from the test set. Our experiments involve varying the values of $N$, $M$ and $K$.
+In order to address this, we evaluate several experiments in which $M$ fine-grained labels are provided by 5 participants and $N$ coarse-grained labels are provided by the remaining 14 participants. The coarse-grained labels may either be labeled sessions, which may vary in duration, or partitions of the data with a fixed duration. As a personalization step for enhancing performance, we additionally include $K$ instances from the held-out participant in the training data, which are then excluded from the test set. Our experiments involve varying the values of $N$, $M$ and $K$.
 
-Figure ?? shows the best cross-validated F1 Score for SIL, miSVM, sMIL and sbMIL averaged over each held-out participant. The bag size is ??, the value of N is fixed to be maximal for each training set, K is set to 10 and the value of M is varied. Figure ?? shows the same evaluation when N is fixed to 0, i.e. the training set consists of only single instances from 5 participants.
+In each of the experiments, a subset of the training data is used and is therefore selected uniformly from the entire training data; to smooth out noise introduced by the randomness, the performance is averaged over 10 trials. The performance reported is in each case the best performance achieved using cross-validation over the model hyperparameters. These parameters include the expected class weights, the sparse balancing parameter $\eta$ and the SVM regularization constant $C$.
 
-\section{Page Size and Columns}
-On each page your material should fit within a rectangle of 7 $\times$
-9.15 inches (18 $\times$ 23.2 cm), centered on a US Letter page (8.5
-$\times$ 11 inches), beginning 0.85 inches (1.9 cm) from the top of
-the page, with a 0.3 inches (0.85 cm) space between two 3.35 inches
-(8.4 cm) columns. Right margins should be justified, not
-ragged. Please be sure your document and PDF are US letter and not A4.
+\section{Evaluation}
+
+\subsection{Lab-20 Eating}
+
+From figure \ref{fig:figure1} it is clear that the performance drops very quickly as the granularity of the labels decreases. However, figure \ref{fig:figure2} demonstrates that this drop in performance is minimal even for large bag sizes, if in additional to coarse labels, fine grained labels are provided. This is shown when 150, 300 or 450 labeled training instances are provided from the lab data. When $M = 450$, the performance remains roughly the same, meaning it may be acceptable to use field data with bag sizes of up to 300.
+
+\begin{figure*}
+  \centering
+  \subfloat[bag size : 15 (1 min 30 s)]{{\includegraphics[width=5cm]{figures/_b30} }}%
+  \qquad
+  \subfloat[bag size : 150 (15 min)]{{\includegraphics[width=5cm]{figures/_b150} }}%
+  \qquad
+  \subfloat[bag size : 300 (30 min)]{{\includegraphics[width=5cm]{figures/_b300} }}%
+  \caption{sbMIL }~\label{fig:figure3}
+\end{figure*}
+
+Figure \ref{fig:figure3} shows the average LOPO performance on the Lab-20 eating dataset as the number of bags increases for bag sizes of 15, 150 and 300 instances. These correspond roughly to 1.5, 15 and 30 minute bags respectively. As the amount of training data increases, the f1 score increases, as expected. Interestingly, the performance is greater given larger bags, even when fewer labels are available. This suggests that many unlabeled instances are preferable to few labeled instances. This is the essential advantage of using MIL techniques.
+
+
+
+\subsection{RisQ Dataset}
+
 
 \section{Typeset Text}
 The styles contained in this document have been modified from the
@@ -365,16 +391,6 @@ Place figures and tables at the top or bottom of the appropriate
 column or columns, on the same page as the relevant text (see
 Figure~\ref{fig:figure1}). A figure or table may extend across both
 columns to a maximum width of 17.78 cm (7 in.).
-
-\begin{figure*}
-  \centering
-  \includegraphics[width=1.75\columnwidth]{figures/map}
-  \caption{In this image, the map maximizes use of space. You can make
-    figures as wide as you need, up to a maximum of the full width of
-    both columns. Note that \LaTeX\ tends to render large figures on a
-    dedicated page. Image: \ccbynd~ayman on
-    Flickr.}~\label{fig:figure3}
-\end{figure*}
 
 Captions should be Times New Roman or Times Roman 9-point bold.  They
 should be numbered (e.g., ``Table~\ref{tab:table1}'' or
