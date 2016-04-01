@@ -17,14 +17,14 @@ matplotlib.use('Agg') #ensures plot can be viewed on server
 from matplotlib import pyplot
 
 participants = range(20)
-n_SI = range(0,20)
+K = range(0,20)
 
 def main(working_dir, save_path):
 	
 	res_dir = working_dir + '/res'
 
 	fscores = []
-	for k in n_SI:
+	for k in K:
 		avg_fscore = 0
 		count = 0
 		for p in participants:
@@ -36,7 +36,7 @@ def main(working_dir, save_path):
 				count += 1
 		fscores.append(avg_fscore / count)
 		
-	pyplot.plot(n_SI, fscores)
+	pyplot.plot(K, fscores)
 	pyplot.savefig(save_path)
 	
 
