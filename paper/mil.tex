@@ -182,7 +182,7 @@ In order to reason in a practical sense about the trade-off between performance 
 
 The lab-20 eating dataset comprises of 25Hz 3-axis accelerometer data collected using a wrist-worn inertial sensor from 20 individuals. Individuals were provided food to eat and were asked to perform other possible confounding actions as they please, including talking on the phone, brushing their teeth and combing their hair. The average duration across participants is 31 minutes 21 seconds and comprises of approximately 48\% eating sessions. Note, however, that the proportion of eating gestures is much smaller, since non-eating gestures are frequently present within eating sessions.
 
-We use Thomaz's evaluation as the baseline result for comparison. In his work, he uses a Random Forest classifier over 15 statistical features (mean, variance, skew, kurtosis and root mean square over each axis) extracted over windows of 6 seconds with 50\% overlap. This generates 12379 labeled instances, of which 1480 (11.96\%) are eating. He reports a 0.42 average f1 score over LOPO evaluations. We achieve the same performance using a linear SVM on the entire dataset. However, because our evaluations are done on less than a third of the dataset.
+We use Thomaz's evaluation as the baseline result for comparison. In his work, he uses a Random Forest classifier over 15 statistical features (mean, variance, skew, kurtosis and root mean square over each axis) extracted over windows of 6 seconds with 50\% overlap. This generates 12379 labeled instances, of which 1480 (11.96\%) are eating. He reports a 0.42 average f1 score over LOPO evaluations. We achieve the same performance using a linear SVM on the entire dataset. However, only a subset of the 
 
 \begin{figure}
 \centering
@@ -240,26 +240,28 @@ This alone could alternatively suggest that the additional field data we are pro
 
 Figure \ref{fig:figure3} shows the average LOPO f1 score on the Lab-20 eating dataset as the number of bags increases for bag sizes of 15, 150 and 300 instances. These correspond roughly to 1.5, 15 and 30 minute bags respectively. The number of labeled training instances is fixed at $M = 1500$. As the amount of training data increases, the f1 score increases, as expected. Interestingly, the performance is greater given larger bags, even when fewer labels are available. This suggests that many unlabeled instances are preferable to few labeled instances. This is the essential advantage of using MIL techniques.
 
-\subsubsection{Personalization}
-
-We examine the effect of using a small number of instances and bags from the held-out user as training data. This enables us to personalize the model to the test individual. In a realistic setting, it would require that a new user label a small number of either instances or sessions. This can easily be done by performing the gesture while indicating it to the device in some way (i.e. voice command, holding a button while performing the gesture), or by indicating the start and end of a small number of sessions. In the former case, the user must be careful that the label is aligned with the gesture; otherwise, this will introduce noise and possibly hurt the performance of the classifier. In the latter case, the model is robust to human error and there is less burden placed on the user for personalizing the model.
-
-\begin{figure}
-\centering
-  \includegraphics[width=0.9\columnwidth]{figures/test_instances}
-  \caption{Average LOPO f1 score of sbMIL on RisQ dataset varying the number of labeled sessions}~\label{fig:figure4}
-\end{figure}
-
 \subsection{RisQ Dataset}
 
 \begin{figure}
 \centering
   \includegraphics[width=0.9\columnwidth]{figures/sessions}
-  \caption{Average LOPO f1 score of sbMIL on RisQ dataset varying the number of labeled sessions}~\label{fig:figure5}
+  \caption{Average LOPO f1 score of sbMIL on RisQ dataset varying the number of labeled sessions}~\label{fig:figure4}
 \end{figure}
 
-To show that this model generalizes to other datasets, we perform similar tests on the RisQ smoking dataset. Figure \ref{fig:figure5} shows the average LOPO f1 score of the sbMIL classifier for various number of labeled sessions. Here, a session is a variable length time period of smoking, in which at least one smoking gesture occurred. The number of labeled instances is fixed at $M = 1500$, approximately 15-20\% of the total training data. We see nearly a 15\% increase in performance given only 5 additional labeled sessions, resulting in an f1 score comparable to the Random Forest/Condition Random Field baseline performance reported in the original RisQ pipeline.
+To show that this model generalizes to other datasets, we perform similar tests on the RisQ smoking dataset. Figure \ref{fig:figure4} shows the average LOPO f1 score of the sbMIL classifier for various number of labeled sessions. Here, a session is a variable length time period of smoking, in which at least one smoking gesture occurred. The number of labeled instances is fixed at $M = 1500$, approximately 15-20\% of the total training data. We see nearly a 15\% increase in performance given only 5 additional labeled sessions, resulting in an f1 score comparable to the Random Forest/Condition Random Field baseline performance reported in the original RisQ pipeline.
 
+
+\subsection{Personalization}
+
+We examine the effect of using a small number of instances and bags from the held-out user as training data. This enables us to personalize the model to the test individual. In a realistic setting, it would require that a new user label a small number of either instances or sessions. This can easily be done by performing the gesture while indicating it to the device in some way (i.e. voice command, holding a button while performing the gesture), or by indicating the start and end of a small number of sessions. In the former case, the user must be careful that the label is aligned with the gesture; otherwise, this will introduce noise and possibly hurt the performance of the classifier. In the latter case, the model is robust to human error and there is less burden placed on the user for personalizing the model.
+
+Figure \ref{fig:figure5} compares the average LOPO f1 score of sbMIL on the RisQ dataset, given a variable number of labeled instances versus labeled bags from the held-out participant. In each case a fixed training set consisting of 1500 labeled instances is used, in addition to the data from the held-out subject. It is clear from the
+
+\begin{figure}
+\centering
+  \includegraphics[width=0.9\columnwidth]{figures/test_instances}
+  \caption{Average LOPO f1 score of sbMIL on RisQ dataset varying the number of labeled sessions}~\label{fig:figure5}
+\end{figure}
 
 % Use a numbered list of references at the end of the article, ordered
 % alphabetically by first author, and referenced by numbers in
