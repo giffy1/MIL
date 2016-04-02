@@ -391,7 +391,7 @@ if __name__ == "__main__":
 			help="Number of trials over which to average the performance metrics")
 	parser.add_argument("--kernel", dest="kernel", default='linear', type=str, \
 			help="Kernel type, i.e. 'linear', 'rbf', 'linear_av', etc.")
-	parser.add_argument("--single-instance", dest="is_test_SI", default=False, type=bool, \
+	parser.add_argument("--single-instance", dest="is_test_SI", default=True, type=bool, \
 			help="Whether the test labels used for training are bags (in which case the bag size is the same as the other training data) or single-instances (default).")
 			
 	args = parser.parse_args()
