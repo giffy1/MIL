@@ -231,24 +231,24 @@ def main(dataset, bag_size, active_participant_counter, clf_name, cv, n_iter, cv
 		Y_B = [np.nan_to_num(Y_B[k]) for k in indices[:N]]
 		
 		#shuffle test data:
-#		indices = range(len(X_T))
-#		np.random.shuffle(indices)
-#		X_T = [np.nan_to_num(X_T[k]) for k in indices]
-#		Y_T = [np.nan_to_num(Y_T[k]) for k in indices]
+		indices = range(len(X_T)) #
+		np.random.shuffle(indices)
+		X_T = [np.nan_to_num(X_T[k]) for k in indices]
+		Y_T = [np.nan_to_num(Y_T[k]) for k in indices]
 		
-#		pl = 0
-#		X_test2 = []
-#		Y_test2 = []
-#		for k in indices:
-#			length = len(X_T[k])
-#			if k >= K:
-#				X_test2.extend(np.nan_to_num(X_test[pl:pl+length]))
-#				Y_test2.extend(np.nan_to_num(Y_test[pl:pl+length]))
-#			pl += length
-#				
-#				
-#		X_test = X_test2
-#		Y_test = Y_test2
+		pl = 0
+		X_test2 = []
+		Y_test2 = []
+		for k in indices:
+			length = len(X_T[k])
+			if k >= K:
+				X_test2.extend(np.nan_to_num(X_test[pl:pl+length]))
+				Y_test2.extend(np.nan_to_num(Y_test[pl:pl+length]))
+			pl += length
+				
+				
+		X_test = X_test2
+		Y_test = Y_test2 #
 		
 		#shuffle test data:
 		indices = range(len(X_test))
@@ -256,14 +256,14 @@ def main(dataset, bag_size, active_participant_counter, clf_name, cv, n_iter, cv
 		X_test = [np.nan_to_num(X_test[k]) for k in indices[K:]]
 		Y_test = [np.nan_to_num(Y_test[k]) for k in indices[K:]]
 		
-		X_T = [np.nan_to_num(X_test[k]) for k in indices[:K]]
-		Y_T = [np.nan_to_num(Y_test[k]) for k in indices[:K]]
+		X_T = [np.nan_to_num(X_T[k]) for k in range(K)] #
+		Y_T = [np.nan_to_num(Y_T[k]) for k in range(K)] #
 		
-#		X_T = X_test[:K]
-#		Y_T = Y_test[:K]
-#		
-#		X_test = X_test[K:]
-#		Y_test = Y_test[K:]
+#		X_T = X_T[:K] #
+#		Y_T = Y_T[:K] #
+		
+#		X_test = X_test[K:] #
+#		Y_test = Y_test[K:] #
 		
 		#combine into single training data set with mixed bags and single-instances
 		X_train = X_SI + X_B + X_T
