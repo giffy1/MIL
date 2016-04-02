@@ -132,7 +132,7 @@
 \maketitle
 
 \begin{abstract}
-  In the supervised learning setting, it is essential to have sufficient labeled data; however, in many domains, such as activity recognition, existing labeled data may not be available and the annotation process is often too cumbersome, time-consuming and prone to human error. In this work, we explore the use of Multiple-Instance Learning (MIL) in order to reduce the need for fine-grained labels. We examine the drop in performance on two existing time-domain gesture-annotated datasets and show that MIL given coarse-grain ground-truth annotations can achieve performance metrics comparable with standard supervised Machine Learning approaches given fine-grain labels. We evaluate the performance in a leave-one-participant-out fashion given (1) coarsely labeled field data, (2) finely labeled lab data and (3) coarsely labeled data from the held-out participant. Our analysis shows that we can achieve competitive performance given a small number of fine-grained labels in addition to many coarse-grained labels and that even very few labeled sessions from the held-out participant improve performance significantly. We use this to design a system that gives recommendations to developers on the granularity of the field data, based on an initial lab dataset.
+  In the supervised learning setting, it is essential to have sufficient labeled data; however, in many domains, such as activity recognition, existing labeled data may not be available and the annotation process is often too cumbersome, time-consuming and prone to human error. In this work, we explore the use of Multiple-Instance Learning (MIL) in order to reduce the need for fine-grained labels. We examine the drop in performance on two existing time-domain gesture-annotated datasets and show that MIL given coarse-grain ground-truth annotations can achieve performance metrics comparable with standard supervised Machine Learning approaches given fine-grain labels. We evaluate the performance in a leave-one-participant-out fashion given (1) coarsely labeled field data, (2) finely labeled lab data and (3) coarsely labeled data from the held-out participant. Our analysis shows that we can achieve competitive performance given a small number of fine-grained labels in addition to many coarse-grained labels and that even very few labeled sessions from the held-out participant improve performance significantly.
 \end{abstract}
 
 \category{G.3.}{Probability and Statistics}{Time series analysis} %{I.5.}{Pattern Recognition}{Signal processing}{I.5.1}{Models}{Statistical}
@@ -182,7 +182,7 @@ In order to reason in a practical sense about the trade-off between performance 
 
 The lab-20 eating dataset comprises of 25Hz 3-axis accelerometer data collected using a wrist-worn inertial sensor from 20 individuals. Individuals were provided food to eat and were asked to perform other possible confounding actions as they please, including talking on the phone, brushing their teeth and combing their hair. The average duration across participants is 31 minutes 21 seconds and comprises of approximately 48\% eating sessions. Note, however, that the proportion of eating gestures is much smaller, since non-eating gestures are frequently present within eating sessions.
 
-We use Thomaz's evaluation as the baseline result for comparison. In his work, he uses a Random Forest classifier over 15 statistical features (mean, variance, skew, kurtosis and root mean square over each axis) extracted over windows of 6 seconds with 50\% overlap. This generates 12379 labeled instances, of which 1480 (11.96\%) are eating. He reports a 0.42 average f1 score over LOPO evaluations. We achieve similar performance using a linear SVM.
+We use Thomaz's evaluation as the baseline result for comparison. In his work, he uses a Random Forest classifier over 15 statistical features (mean, variance, skew, kurtosis and root mean square over each axis) extracted over windows of 6 seconds with 50\% overlap. This generates 12379 labeled instances, of which 1480 (11.96\%) are eating. He reports a 0.42 average f1 score over LOPO evaluations. We achieve the same performance using a linear SVM on the entire dataset. However, because our evaluations are done on less than a third of the dataset.
 
 \begin{figure}
 \centering
@@ -204,7 +204,7 @@ We use Thomaz's evaluation as the baseline result for comparison. In his work, h
 
 The RisQ smoking dataset consists of 50Hz fused 9-axis inertial data in the form of quaternions from 14 subjects. The raw data stream is converted into a local trajectory in 3D space. Classification is done using a Random Forest, followed by a Conditional Random Field for smoothing predictions, over feature vectors of candidate windows identified by locating peak-trough-peak patterns indicative of smoking gestures. There are 11900 candidate windows, of which 358 (3.00\%) are smoking gestures. A total of 37 features are extracted, including angular, velocity, displacement and duration features. Parate et al. report a LOPO precision of 91\% and recall of 81\%, which corresponds to f1 score of 85.7\%.
 
-In our work, we use the same pipeline but replace the Random Forest classifier with a sbMIL classifier to allow for sparse labels.
+In our work, we use the same computational pipeline but replace the Random Forest classifier with a sbMIL classifier to allow for sparse labels.
 
 \section{Experimental Setup}
 
@@ -232,7 +232,7 @@ Note that the terms \textit{instance} and \textit{finely labeled data} are often
 
 \subsection{Lab-20 Eating}
 
-Figure \ref{fig:figure1} shows in blue the average f1 score over all LOPO evaluations, varying the label granularity. The baseline standard SVM performance is shown in green for comparison. From Figure \ref{fig:figure1} it is clear that the performance drops very quickly as the granularity of the labels decreases.
+Figure \ref{fig:figure1} shows in blue the average f1 score over all LOPO evaluations, varying the label granularity over a fixed subset of 1500 instances (15-20\%) of the Lab-20 eating data. The baseline standard SVM performance is shown in green for comparison. From Figure \ref{fig:figure1} it is clear that the performance drops very quickly as the granularity of the labels decreases.
 
 However, Figure \ref{fig:figure2} demonstrates that this drop in performance is minimal even for large bag sizes, if in addition to coarse-grained labels, fine-grained labels are provided. More precisely, Figure \ref{fig:figure2} shows the average f1 score over all LOPO evaluations, varying the label granularity but fixing the number of finely labeled training instances $M$ from the lab data. This is shown when 150, 300 or 450 labeled training instances are provided from the lab data. In each case, the number of training bags from the field remains constant but the granularity of the labels over those bags is varied. When $M = 150$, the f1 score drops noticeably; however, remains much larger than when no single instances are included, as shown in Figure \ref{fig:figure1}. When $M = 300$, the performance drop is insignificant, and when $M = 450$, the performance remains roughly the same, indicating that it may be acceptable to use field data with bag sizes of up to 300.
 
@@ -242,7 +242,7 @@ Figure \ref{fig:figure3} shows the average LOPO f1 score on the Lab-20 eating da
 
 \subsubsection{Personalization}
 
-Lastly, we examine the effect of using a small number of instances and bags from the held-out user as training data. This enables us to personalize the model to the test individual. In a realistic setting, it would require that a new user label a small number of either instances or sessions. This can easily be done by performing the gesture while indicating it to the device in some way (i.e. voice command, holding a button while performing the gesture), or by indicating the start and end of a small number of sessions. In the former case, the user must be careful that the label is aligned with the gesture; otherwise, this will introduce noise and possibly hurt the performance of the classifier. In the latter case, the model is robust to human error and there is less burden placed on the user for personalizing the model.
+We examine the effect of using a small number of instances and bags from the held-out user as training data. This enables us to personalize the model to the test individual. In a realistic setting, it would require that a new user label a small number of either instances or sessions. This can easily be done by performing the gesture while indicating it to the device in some way (i.e. voice command, holding a button while performing the gesture), or by indicating the start and end of a small number of sessions. In the former case, the user must be careful that the label is aligned with the gesture; otherwise, this will introduce noise and possibly hurt the performance of the classifier. In the latter case, the model is robust to human error and there is less burden placed on the user for personalizing the model.
 
 \begin{figure}
 \centering
@@ -259,10 +259,6 @@ Lastly, we examine the effect of using a small number of instances and bags from
 \end{figure}
 
 To show that this model generalizes to other datasets, we perform similar tests on the RisQ smoking dataset. Figure \ref{fig:figure5} shows the average LOPO f1 score of the sbMIL classifier for various number of labeled sessions. Here, a session is a variable length time period of smoking, in which at least one smoking gesture occurred. The number of labeled instances is fixed at $M = 1500$, approximately 15-20\% of the total training data. We see nearly a 15\% increase in performance given only 5 additional labeled sessions, resulting in an f1 score comparable to the Random Forest/Condition Random Field baseline performance reported in the original RisQ pipeline.
-
-\section{From Lab to Field Data}
-
-This insightf
 
 
 % Use a numbered list of references at the end of the article, ordered
@@ -287,9 +283,9 @@ This insightf
 
 \section{Future Work}
 
-In future work, we would like to extend the lab-to-field system to address the issue of data transfer. In many cases the field data may diverge significantly from the lab data, in which case the label granularity recommendations may not be suitable.
+In future work, we would like to design based on this analysis a black-box system that makes recommendations to developers on the specifics of the data collection process, given some initial finely labeled dataset. More precisely, the system will recommend what granularity the labeled field data should have, given constraints on the desired performance and the labeling workload.
 
-We also plan to use this model in order to develop a large-scale 6-axis (accelerometer and gyroscope) activity dataset containing both finely labeled lab data and coarsely labeled field data. We are interested primarily in health-related gestures, including eating and drinking, exercise, washing and brushing teeth.
+We plan to apply this model to develop a large-scale 6-axis (accelerometer and gyroscope) activity dataset containing both finely labeled lab data and coarsely labeled field data. We are interested primarily in health-related gestures, including eating and drinking, exercise, washing and brushing teeth.
 
 \section{Conclusion}
 
