@@ -48,11 +48,9 @@ def main():
 			help="Number of threads used (default = 1). Use -1 for maximal parallelization")
 			
 	parser.add_argument("--verbose", dest="verbose", default=1, type=int, \
-			help="Indicates how much information should be reported (0=None, 1=Some, 2=Quite a bit)")
-	parser.add_argument("--save", dest="save", default='results.pickle', type=str, \
-			help="Path of the pickle file containing the data. If none (default), the data will not be pickled")	
-	parser.add_argument("--desc", dest="description", default='MIForest test.', type=str, \
-			help="Description of the evaluation and parameter selection")
+			help="Indicates how much information should be reported (0=None, 1=Some, 2=Quite a bit)")	
+	parser.add_argument("--desc", dest="description", default='', type=str, \
+			help="Description of the evaluation / parameter selection")
 
 	args = parser.parse_args()
 
