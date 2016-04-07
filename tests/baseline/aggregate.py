@@ -14,40 +14,22 @@ from argparse import ArgumentParser
 
 matplotlib.use('Agg') #ensures plot can be viewed on server
 
-from matplotlib import pyplot
-
-participants = range(20)
-M = range(0,501,50)
-bag_size = [1,60,120,180,240,300]
+participants = range(19)
 
 def main(working_dir, save_path):
 	
 	res_dir = working_dir + '/res'
 	
-
-	for m in M:
-		fscores = []
-		for b in bag_size:
-			avg_fscore = 0
-			count = 0
-			for p in participants:
-				res_path = os.path.join(res_dir, 'lopo_p%d_m%d_b%d.pickle' % (p, m, b))
-				if os.path.isfile(res_path):
-					with open(res_path, 'rb') as f:
-						r = pickle.load(f)
-					avg_fscore += r['Results']['F1 Score']['Test']
-					count += 1
-			if count == 0:
-				fscores.append(0)
-			else:
-				fscores.append(avg_fscore / count)
-		
-		pyplot.figure()
-		pyplot.plot(bag_size, fscores)
-		pyplot.title("sbMIL performance varying bag size: M = " + str(m))
-		pyplot.xlabel("Bag Size")
-		pyplot.ylabel("F1 Score")
-		pyplot.savefig(save_path + '_M' + str(m) + '.png')
+	avg_fscore = 0
+	count = 0
+	for p in participants:
+		res_path = os.path.join(res_dir, 'lopo_p%d.pickle' %p)
+		if os.path.isfile(res_path):
+			with open(res_path, 'rb') as f:
+				r = pickle.load(f)
+			avg_fscore += r['Results']['F1 Score']['Test']
+			count += 1
+	print("Average F1 Score : %0.2f%% " %(100*avg_fscore / count))
 	
 
 if __name__ == '__main__':
