@@ -179,12 +179,6 @@ def main(data_dir, active_participant_counter, bag_size, held_out_bag_size, test
 		#test data
 		X_test = X[active_participant_counter]
 		Y_test = Y[active_participant_counter]
-		
-		if N < 0:
-			N=len(X_B)
-			
-		if M < 0:
-			M=len(X_SI)
 
 		#convert to bags:
 		if clf_name in MIL:
@@ -220,6 +214,12 @@ def main(data_dir, active_participant_counter, bag_size, held_out_bag_size, test
 		else: # standard supervised learning case
 			X_test = X_test[K:]
 			Y_test = Y_test[K:]
+			
+		if N < 0:
+			N=len(X_B)
+			
+		if M < 0:
+			M=len(X_SI)
 			
 		X_SI, Y_SI = shuffle(X_SI, Y_SI)
 		X_B, Y_B = shuffle(X_B, Y_B)
