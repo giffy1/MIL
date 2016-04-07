@@ -228,8 +228,17 @@ def main(data_dir, active_participant_counter, bag_size, held_out_bag_size, test
 		X_test, Y_test = shuffle(X_test, Y_test)
 
 		#combine into single training data set with mixed bags and single-instances
-		X_train = X_SI[:M] + X_B[:N] + X_T[:K]
-		Y_train = Y_SI[:M] + Y_B[:N] + Y_T[:K]
+		X_train = []
+		Y_train = []
+		if M > 0:
+			X_train += X_SI[:M]
+			Y_train += Y_SI[:M]
+		if N > 0:
+			X_train += X_B[:N]
+			Y_train += Y_B[:N]
+		if K > 0:
+			X_train += X_T[:K]
+			Y_train += Y_T[:K]
 		
 		if cv_method == 'grid':
 			gs = GridSearchCV(clf, param_grid, scoring=score, cv=cv, verbose=verbose, n_jobs = n_jobs)
