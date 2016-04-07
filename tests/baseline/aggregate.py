@@ -25,7 +25,6 @@ def main(working_dir):
 	
 	res_dir = working_dir + '/res'
 	
-	avg_fscore = 0
 	count = 0
 	total_conf = np.zeros((2,2))
 	for p in participants:
@@ -40,8 +39,7 @@ def main(working_dir):
 	print("Total Confusion Matrix ")
 	print(total_conf)
 	_, prf = accuracy_precision_recall_fscore(total_conf)
-	print prf
-	print("Average F1 Score : %0.2f%% " %(100*avg_fscore / count))
+	print("Average F1 Score : %0.2f%% " %(100*prf[0][2] / count))
 	
 
 if __name__ == '__main__':
