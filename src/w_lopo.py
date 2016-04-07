@@ -212,6 +212,8 @@ def main(data_dir, active_participant_counter, bag_size, held_out_bag_size, test
 			Y_test = [max(Y_test[k:k+test_bag_size]) for k in xrange(0, len(Y_test), test_bag_size)]
 
 		else: # standard supervised learning case
+			X_T = X_test[:K]
+			X_T = X_test[:K]
 			X_test = X_test[K:]
 			Y_test = Y_test[K:]
 			
