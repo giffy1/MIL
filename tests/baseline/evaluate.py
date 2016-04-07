@@ -49,7 +49,7 @@ def main():
 			
 	parser.add_argument("--verbose", dest="verbose", default=1, type=int, \
 			help="Indicates how much information should be reported (0=None, 1=Some, 2=Quite a bit)")	
-	parser.add_argument("--desc", dest="description", default='', type=str, \
+	parser.add_argument("--desc", dest="desc", default='', type=str, \
 			help="Description of the evaluation / parameter selection")
 
 	args = parser.parse_args()
