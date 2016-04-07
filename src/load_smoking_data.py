@@ -9,15 +9,9 @@ Script for loading RisQ smoking data by participant.
 """
 
 from __future__ import division
-from scipy.stats import kurtosis, skew
 import os
-from numpy import hstack, vstack, mean, var, sqrt, genfromtxt
 from argparse import ArgumentParser
-import pickle
-import warnings
-import csv
 
-import os
 import arff
 import numpy as np
 
@@ -79,12 +73,12 @@ def load_data(data_dir = 'smoking-data'):
 				if first_iteration:
 					session_start_i.append(0)
 					session_labels_i.append(max(y))
-					X_i = x
+					X_i = np.nan_to_num(x)
 					Y_i = y
 				else:
 					session_start_i.append(len(Y_i))
 					session_labels_i.append(max(y))
-					X_i = np.vstack((X_i, x))
+					X_i = np.vstack((X_i, np.nan_to_num(x)))
 					Y_i = np.hstack((Y_i, y))
 					
 			first_iteration = 0
@@ -97,23 +91,14 @@ def load_data(data_dir = 'smoking-data'):
 	#Note: participants 0, 5, 8, 9 and 10 include no smoking sessions
 	dataset = {'data': {'X': X, 'Y': Y, 'sessions' : {'start' : session_start, 'labels' : session_labels}}, \
 		     'parameters' : {}}
-
-	# TODO: Load/save from pickle?	
 	
 	return dataset
 
 if __name__ == "__main__":
 	parser = ArgumentParser()
 	parser.add_argument("-d", "--dir", dest="data_dir", default='../data/smoking-data/', \
-			help="Directory where the dataset is stored.")	
-#	parser.add_argument("--load", dest="load_pickle_path", default='none', \
-#			help="Path from which to load the pickle file. This will significantly speed up loading the data. " + \
-#			"If 'none' (default), the data will be reloaded from the specified directory.")	
-#	parser.add_argument("--save", dest="save_pickle_path", default='none', \
-#			help="Path where the data will be saved. If 'none' (default), the data will not be saved.")	
+			help="Directory where the dataset is stored.")		
 			
 	args = parser.parse_args()
 
 	dataset = load_data(**vars(args))
-	
-	#print dataset
