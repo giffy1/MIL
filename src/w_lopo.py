@@ -301,7 +301,7 @@ if __name__ == "__main__":
 	
 	parser = ArgumentParser()
 	
-	parser.add_argument("--dir", dest="data_dir", default='../data/eating_detection_inertial_ubicomp2015', type=str, \
+	parser.add_argument("--data-dir", dest="data_dir", default='../data/eating_detection_inertial_ubicomp2015', type=str, \
 			help="Directory where the dataset is stored")
 	parser.add_argument("--test-participant", dest="active_participant_counter", default = 0, type=int, \
 			help="Index of the held-out participant. The classifier will be evaluated on this individual's data.")
