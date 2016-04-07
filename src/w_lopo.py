@@ -331,7 +331,7 @@ if __name__ == "__main__":
 			help="Determines how hyperparameters are learned ('grid' or 'randomized')")
 	parser.add_argument("--cv", dest="cv", default=3, type=int, \
 			help="Determines split for cross-validation (see GridSearchCV.cv)")
-	parser.add_argument("--niter", dest="n_iter", default=10, type=int, \
+	parser.add_argument("--n-iter", dest="n_iter", default=10, type=int, \
 			help="The number of iterations in randomized cross-validation (see RandomizedSearchCV.cv)")
 	parser.add_argument("--n-trials", dest="n_trials", default=5, type=int, \
 			help="Number of trials over which to average the performance metrics")
