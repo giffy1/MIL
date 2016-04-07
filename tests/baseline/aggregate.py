@@ -27,7 +27,9 @@ def main(working_dir):
 		if os.path.isfile(res_path):
 			with open(res_path, 'rb') as f:
 				r = pickle.load(f)
-			avg_fscore += r['Results']['F1 Score']['Test']
+			fscore = r['Results']['F1 Score']['Test']
+			print("F1 Score for participant %d : %0.2f%%" %(p, 100*fscore))
+			avg_fscore += fscore
 			count += 1
 	print("Average F1 Score : %0.2f%% " %(100*avg_fscore / count))
 	
