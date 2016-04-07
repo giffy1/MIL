@@ -25,7 +25,6 @@ def main(working_dir):
 	
 	res_dir = working_dir + '/res'
 	
-	count = 0
 	total_conf = np.zeros((2,2))
 	for p in participants:
 		res_path = os.path.join(res_dir, 'lopo_p%d.pickle' %p)
@@ -34,12 +33,10 @@ def main(working_dir):
 				r = pickle.load(f)
 			conf = r['Results']['Confusion Matrix']['Test']
 			total_conf += conf
-			count += 1
-	total_conf /= count
 	print("Total Confusion Matrix ")
 	print(total_conf)
 	_, prf = accuracy_precision_recall_fscore(total_conf)
-	print("Average F1 Score : %0.2f%% " %(100*prf[0][2] / count))
+	print("Average F1 Score : %0.2f%% " %(100*prf[1][2]))
 	
 
 if __name__ == '__main__':
