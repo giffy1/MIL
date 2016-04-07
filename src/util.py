@@ -10,6 +10,17 @@ from time import time
 import datetime
 from sklearn.metrics import f1_score
 
+def shuffle(*args):
+	"""
+	Shuffles the given lists in parallel.
+	"""
+	indices = range(len(args[0]))
+	np.random.shuffle(indices)
+	shuffled = []
+	for i,lst in enumerate(args):
+		shuffled.append([lst[k] for k in indices])
+	return shuffled
+
 def score(estimator, X, y):
 	"""
 	Returns the mean F1 Score on the given test data and labels.
