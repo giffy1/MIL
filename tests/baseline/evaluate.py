@@ -29,7 +29,7 @@ def main():
 	parser.add_argument("--K", dest="K", default=0, type=int, \
 			help="Number of single-instance bags in the training data from the held-out participant.")
 	
-	parser.add_argument("--clf", dest="clf_name", default='sbMIL', type=str, \
+	parser.add_argument("--clf", dest="clf", default='sbMIL', type=str, \
 			help="Classifier ('RF', 'SVM', 'LinearSVC', 'SIL', 'LinearSIL', 'MIForest', 'sMIL', 'sbMIL', 'misvm')")
 	parser.add_argument("--eta", dest="eta", default=0.5, type=float, \
 			help="Balancing parameter for sbMIL, between 0 and 1 inclusively")	
