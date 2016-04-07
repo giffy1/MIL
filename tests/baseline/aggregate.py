@@ -16,7 +16,7 @@ matplotlib.use('Agg') #ensures plot can be viewed on server
 
 participants = range(19)
 
-def main(working_dir, save_path):
+def main(working_dir):
 	
 	res_dir = working_dir + '/res'
 	
@@ -35,8 +35,6 @@ def main(working_dir, save_path):
 if __name__ == '__main__':
 	parser = ArgumentParser()
 	parser.add_argument('-d', '--dir', dest='working_dir', default='.')	
-	parser.add_argument("--save", dest="save_path", default='./res/plots/plot.png', \
-			help="Path of the plot file.")	
 			
 	args = parser.parse_args()
 
