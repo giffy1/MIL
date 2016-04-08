@@ -40,9 +40,9 @@ def main(working_dir, verbose):
 				recall = r['Results']['Recall']['Test']
 				print("Confusion Matrix:")
 				print(conf)
-				print("Precision: %0.2%%" %(100*precision))
-				print("Recall: %0.2%%" %(100*recall))
-				print("F1 Score: %0.2%%" %(100*fscore))
+				print("Precision: %0.2f%%" %(100*precision))
+				print("Recall: %0.2f%%" %(100*recall))
+				print("F1 Score: %0.2f%%" %(100*fscore))
 				
 	print("Total Confusion Matrix ")
 	print(total_conf)
