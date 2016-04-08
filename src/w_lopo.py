@@ -301,11 +301,12 @@ def main(data_dir, active_participant_counter, bag_size, held_out_bag_size, test
 	print("Average Recall on the test data: %0.2f%%" %(100*avg_recall))
 	print("Average F1 Score on the test data: %0.2f%%\n" %(100*avg_fscore))
 	
-	print("Saving results to %s ..." %save)
-	
-	evaluation = {"Parameters" : params, "Results" : results}
-	with open(save, 'wb') as f:
-		pickle.dump(evaluation, f)
+	if save != 'none':
+		print("Saving results to %s ..." %save)
+		
+		evaluation = {"Parameters" : params, "Results" : results}
+		with open(save, 'wb') as f:
+			pickle.dump(evaluation, f)
 		
 if __name__ == "__main__":
 	t0=time()
@@ -351,7 +352,7 @@ if __name__ == "__main__":
 			
 	parser.add_argument("--verbose", dest="verbose", default=1, type=int, \
 			help="Indicates how much information should be reported (0=None, 1=Some, 2=Quite a bit)")
-	parser.add_argument("--save", dest="save", default='results.pickle', type=str, \
+	parser.add_argument("--save", dest="save", default='none', type=str, \
 			help="Path of the pickle file containing the data. If none (default), the data will not be pickled")	
 	parser.add_argument("--desc", dest="description", default='MIForest test.', type=str, \
 			help="Description of the evaluation and parameter selection")
