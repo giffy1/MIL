@@ -17,7 +17,7 @@ from sklearn.metrics import confusion_matrix
 from time import time
 from sklearn.grid_search import GridSearchCV, RandomizedSearchCV
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
+from sklearn.svm import SVC, LinearSVC
 import misvm
 import pickle
 from argparse import ArgumentParser
@@ -122,14 +122,16 @@ def main(data_dir, active_participant_counter, bag_size, held_out_bag_size, test
 		clf = misvm.MISVM(kernel=kernel, C=1.0, verbose=(verbose>1))
 	elif clf_name == 'LinearSIL':
 		clf = misvm.LinearSIL(C=1.0)
+	elif clf_name == 'LinearSVC':
+		clf = LinearSVC(C=1.0)
 		
 	if clf_name in {'RF', 'MIForest'}:
 		param_grid.update({'n_estimators' : n_estimators_array})
 	
-	if clf_name in {'SIL', 'sMIL', 'sbMIL', 'RF', 'SVM'}:
+	if clf_name in {'SIL', 'sMIL', 'sbMIL', 'RF', 'SVM', 'LinearSVC'}:
 		param_grid.update({'class_weight' : class_weights})
 		
-	if clf_name in {'SIL', 'sMIL', 'sbMIL', 'misvm', 'SVM', 'LinearSIL'}:
+	if clf_name in {'SIL', 'sMIL', 'sbMIL', 'misvm', 'SVM', 'LinearSIL', 'LinearSVC'}:
 		param_grid.update({'C' : C_array})
 	
 	if clf_name in {'SIL', 'sMIL', 'sbMIL', 'misvm', 'SVM'} and kernel == 'rbf':
