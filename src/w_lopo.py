@@ -93,6 +93,8 @@ def main(data_dir, active_participant_counter, bag_size, held_out_bag_size, test
 	Y = dataset['data']['Y']
 	session_start = dataset['data']['sessions']['start']
 	session_labels = dataset['data']['sessions']['labels']	
+	print data_dir
+	print dataset['description']
 						
 	#class weights are determined by a Farey sequence to make sure that redundant pairs, 
 	#i.e. (1,1) = (2,2), (2,3) = (4,6), etc. are not included.
@@ -240,6 +242,14 @@ def main(data_dir, active_participant_counter, bag_size, held_out_bag_size, test
 			X_train += X_T[:K]
 			Y_train += Y_T[:K]
 		
+		if clf_name in MIL:
+			print ("Total number of bags : %d" %len(X_train))
+			print ("Feature Dimensionality: %d " %X_train[0].shape[1])
+		else:
+			print ("Total number of instances : %d" %len(X_train))
+			print("Feature Dimensionality %d " %len(X_train[0]))
+		
+		sys.stdout.flush()
 		if cv_method == 'grid':
 			gs = GridSearchCV(clf, param_grid, scoring=score, cv=cv, verbose=verbose, n_jobs = n_jobs)
 		elif cv_method == 'randomized':
