@@ -15,7 +15,7 @@ import numpy as np
 import sys
 
 sys.path.insert(0, '../../src/')
-from util import accuracy_precision_recall_fscore
+from util import accuracy_precision_recall_fscore, pprint_header
 
 matplotlib.use('Agg') #ensures plot can be viewed on server
 
@@ -35,6 +35,8 @@ def main(working_dir, verbose):
 			total_conf += conf
 			
 			if verbose:
+				pprint_header("Participant: %d" %p)				
+				
 				fscore = r['Results']['F1 Score']['Test']
 				precision = r['Results']['Precision']['Test']
 				recall = r['Results']['Recall']['Test']
