@@ -45,7 +45,8 @@ def main(working_dir, verbose):
 				print("Precision: %0.2f%%" %(100*precision))
 				print("Recall: %0.2f%%" %(100*recall))
 				print("F1 Score: %0.2f%%" %(100*fscore))
-				
+		
+	pprint_header("Aggregate Results:")			
 	print("Total Confusion Matrix ")
 	print(total_conf)
 	_, prf = accuracy_precision_recall_fscore(total_conf)
