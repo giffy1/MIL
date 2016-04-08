@@ -21,7 +21,7 @@ matplotlib.use('Agg') #ensures plot can be viewed on server
 
 participants = range(19)
 
-def main(working_dir):
+def main(working_dir, verbose):
 	
 	res_dir = working_dir + '/res'
 	
@@ -33,6 +33,17 @@ def main(working_dir):
 				r = pickle.load(f)
 			conf = r['Results']['Confusion Matrix']['Test']
 			total_conf += conf
+			
+			if verbose:
+				fscore = r['Results']['F1 Score']['Test']
+				precision = r['Results']['Precision']['Test']
+				recall = r['Results']['Recall']['Test']
+				print("Confusion Matrix:")
+				print(conf)
+				print("Precision: %0.2%%" %(100*precision))
+				print("Recall: %0.2%%" %(100*recall))
+				print("F1 Score: %0.2%%" %(100*fscore))
+				
 	print("Total Confusion Matrix ")
 	print(total_conf)
 	_, prf = accuracy_precision_recall_fscore(total_conf)
@@ -41,7 +52,8 @@ def main(working_dir):
 
 if __name__ == '__main__':
 	parser = ArgumentParser()
-	parser.add_argument('-d', '--dir', dest='working_dir', default='.')	
+	parser.add_argument('-d', '--dir', dest='working_dir', default='.')
+	parser.add_argument('-v', '--verbose', dest='verbose', default=1)
 			
 	args = parser.parse_args()
 
