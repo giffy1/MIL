@@ -72,7 +72,7 @@ def main(data_dir, active_participant_counter, bag_size, held_out_bag_size, test
 				can be specified, i.e. 'rbf', 'linear_av', etc.
 
 	@param cv_method : The search method for cross-validation; either 'grid' or 
-				'randomized'.				
+				'randomized'.			
 	@param cv : Number of cross-validation folds.
 	@param n_iter : If the cross-validation search method is 'randomized', then 
 				n_iter is the number of randomly sampled parameter tuples.
@@ -96,15 +96,6 @@ def main(data_dir, active_participant_counter, bag_size, held_out_bag_size, test
 	print data_dir
 	print dataset['description']
 						
-	#class weights are determined by a Farey sequence to make sure that redundant pairs, 
-	#i.e. (1,1) = (2,2), (2,3) = (4,6), etc. are not included.
-	class_weights = [{1 : i, -1 : j} for (i,j) in farey(25)[1:]] #ignore first value where i=0
-	class_weights.extend([{1 : j, -1 : i} for (i,j) in farey(25)[1:]]) #swap i and j, ignore first value
-	C_array = np.logspace(-5, 15, 21, base=2).tolist()
-	gamma_array = np.logspace(-15, 3, 19, base=2).tolist()
-	eta_array = np.linspace(0,1,9).tolist()
-	n_estimators_array = [25,50,75,100,125,150]
-	param_grid = {}
 	
 	if clf_name == 'RF':
 		clf = RandomForestClassifier(n_estimators=185, verbose=(verbose>1))
@@ -125,6 +116,16 @@ def main(data_dir, active_participant_counter, bag_size, held_out_bag_size, test
 	elif clf_name == 'LinearSVC':
 		clf = LinearSVC(C=1.0)
 		
+	#class weights are determined by a Farey sequence to make sure that redundant pairs, 
+	#i.e. (1,1) = (2,2), (2,3) = (4,6), etc. are not included.
+	class_weights = [{1 : i, -1 : j} for (i,j) in farey(25)[1:]] #ignore first value where i=0
+	class_weights.extend([{1 : j, -1 : i} for (i,j) in farey(25)[1:]]) #swap i and j, ignore first value
+	C_array = np.logspace(-5, 15, 21, base=2).tolist()
+	gamma_array = np.logspace(-15, 3, 19, base=2).tolist()
+	eta_array = np.linspace(0,1,9).tolist()
+	n_estimators_array = [25,50,75,100,125,150]
+	param_grid = {}
+	
 	if clf_name in {'RF', 'MIForest'}:
 		param_grid.update({'n_estimators' : n_estimators_array})
 	
