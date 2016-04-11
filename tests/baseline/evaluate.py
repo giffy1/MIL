@@ -87,10 +87,13 @@ def main():
 	from load_data import load_data
 	dataset = load_data(args.data_dir)
 	
+	n_jobs_per_iter = args.n_jobs_per_iter
+	if args.cv_method == 'grid':
+		n_jobs_per_iter = 1
 	participants = len(dataset['data']['Y'])
-	n_iter = int(args.n_iter / args.n_jobs_per_iter)
+	n_iter = int(args.n_iter / n_jobs_per_iter)
 	for p in participants:
-		for i in range(1,args.n_jobs_per_cv):
+		for i in range(1,n_jobs_per_iter):
 			save_path = os.path.join(res_dir, 'lopo_p%d_i%d.pickle' % (p,i))
 			submit_this_job = 'python %s/w_lopo.py --save=%s --test-participant=%d --cv=%d ' % (args.src, save_path, p, n_iter) + arg_str
 			print submit_this_job
