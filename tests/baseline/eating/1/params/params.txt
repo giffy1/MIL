@@ -1,1 +1,0 @@
- --K="0" --M="-1" --N="-1" --bag-size="1" --clf="RF" --cv="10" --cv-method="randomized" --data-dir="../../data/eating_detection_inertial_ubicomp2015/" --desc="Baseline RF performance on eating data." --eta="0.5" --held-out-bag-size="-1" --kernel="linear" --n-iter="10" --n-jobs="4" --n-trials="1" --test-bag-size="1" --verbose="1"
