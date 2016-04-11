@@ -19,7 +19,7 @@ from util import accuracy_precision_recall_fscore, pprint_header
 
 matplotlib.use('Agg') #ensures plot can be viewed on server
 
-participants = range(19)
+participants = range(20)
 
 def main(working_dir, verbose):
 	
