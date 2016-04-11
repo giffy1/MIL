@@ -7,7 +7,9 @@
 /data/*/*
 !/data/*/load_data.py
 /tests/*/*/err
+/tests/*/*/*/err
 /tests/*/*/log
+/tests/*/*/*/log
 /src/misvm
 /src/miforest/data
 /src/miforest/MIL-Forest
