@@ -29,15 +29,12 @@ def main(working_dir, verbose):
 	for p in participants:
 		best_score = 0
 		best_r = {}
-		for i in range(1,5):
+		for i in range(1,6):
 			res_path = os.path.join(res_dir, 'lopo_p%d_i%d.pickle' %(p,i))
 			if os.path.isfile(res_path):
 				with open(res_path, 'rb') as f:
 					r = pickle.load(f)
 				score = r['Results']['F1 Score']['Validation']
-				print(score)
-				t = r['Results']['Confusion Matrix']['Test']
-				print(t)
 				if score > best_score:
 					conf = r['Results']['Confusion Matrix']['Test']
 					best_r = r
