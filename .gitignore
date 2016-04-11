@@ -4,7 +4,8 @@
 /src/*/*.pyc
 /tests/*/*.pyc
 /tests/*.pyc
-/data
+/data/*
+!/data/load_data.py
 /tests/*/*/err
 /tests/*/*/log
 /src/misvm
