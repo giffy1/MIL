@@ -18,7 +18,7 @@ import pickle
 import warnings
 import csv
 
-def load_data(data_dir = './', frame_size = 144, step_size = 72, units = 'u', pickle_path = './data.pickle'):
+def load_data(data_dir = './', frame_size = 144, step_size = 72, units = 'u', pickle_path = 'default'):
 	'''
 	Load Edison's Lab-20 eating dataset.
 	
@@ -34,21 +34,19 @@ def load_data(data_dir = './', frame_size = 144, step_size = 72, units = 'u', pi
 				units='s') or in samples (if units='u').
 	@param units : The unit of the provided frame size and step size. This may 
 				be either 'u' for samples or 's' for seconds.
-	@param load_pickle_path : The path where the .pickle data file is stored. By 
-				default, load_pickle_path='none', in which case the data 
-				is reloaded. Setting load_pickle_path appropriately will 
-				significantly speed up data loading.
-	@param save_pickle_path : The path where the .pickle data should be saved. By 
-				default, save_pickle_path='none', in which case the data 
-				is not saved.
+	@param pickle_path : Pickle file where the data is stored for quick access. The 
+				default is 'default', indicating that it should be saved to 
+				and loaded from the data directory.
 	
 	'''
 		
 	sampling_rate = 25
 	eating_labels = {1, 2, 3}
 	participant_time_offset = [18,14,39,63.5,91,39,15,10,29,47,90,28,35,21,12,11,24,14,12,-18,14]
-		
-	#load data from pickle file if possible (faster):
+	
+	#load data from pickle file if possible (faster):	
+	if pickle_path == 'default':
+			pickle_path = os.path.join(data_dir, 'data.pickle')
 	if pickle_path != 'none':
 		if not pickle_path.endswith('.pickle'):
 			pickle_path += '.pickle'	
@@ -204,7 +202,7 @@ if __name__ == "__main__":
 			help="The step size of the sliding window.")
 	parser.add_argument("--units", dest="units", default='u', \
 			help="The units in which the frame size and step size are defined ('s' for seconds, 'u' for samples).")	
-	parser.add_argument("--pickle", dest="pickle_path", default='./data.pickle', \
+	parser.add_argument("--pickle", dest="pickle_path", default='default', \
 			help="Path from which to load/save the data. This will significantly speed up loading the data. " + \
 			"If 'none' (default), the data will be reloaded from the specified directory.")		
 			
