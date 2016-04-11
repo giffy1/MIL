@@ -1,0 +1,3 @@
+/home/snoran/.bash_profile: line 22: cd: work/MIL: No such file or directory
+[Parallel(n_jobs=4)]: Done  42 tasks      | elapsed:   46.5s
+[Parallel(n_jobs=4)]: Done 100 out of 100 | elapsed:  1.8min finished

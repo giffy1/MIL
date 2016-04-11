@@ -1,0 +1,610 @@
+Failed to load data from ./data.pickle
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/1/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 1
+---------------------------------------------------------
+
+
+Positive Examples: 114
+Negative Examples: 676
+
+
+Shape of X_T: (790, 15)
+
+Shape of Y_T: (790,)
+
+GT Activity Time/Label: 131.8 4
+GT Activity Time/Label: 269.2 6
+GT Activity Time/Label: 347.9 3
+GT Activity Time/Label: 471.7 3
+GT Activity Time/Label: 571.5 5
+GT Activity Time/Label: 682.1 6
+GT Activity Time/Label: 1273.5 2
+GT Activity Time/Label: 1921.2 4
+GT Activity Time/Label: 2058.0 6
+GT Activity Time/Label: 2106.0 7
+GT Activity Time/Label: 2203.2 2
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/2/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 2
+---------------------------------------------------------
+
+
+Positive Examples: 17
+Negative Examples: 504
+
+
+Shape of X_T: (521, 15)
+
+Shape of Y_T: (521,)
+
+GT Activity Time/Label: 72.6 4
+GT Activity Time/Label: 212.8 6
+GT Activity Time/Label: 278.0 3
+GT Activity Time/Label: 393.9 6
+GT Activity Time/Label: 473.9 5
+GT Activity Time/Label: 605.7 6
+GT Activity Time/Label: 866.8 2
+GT Activity Time/Label: 1201.3 4
+GT Activity Time/Label: 1326.5 6
+GT Activity Time/Label: 1369.9 7
+GT Activity Time/Label: 1465.3 2
+GT Activity Time/Label: 1501.0 6
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/3/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 3
+---------------------------------------------------------
+
+
+Positive Examples: 97
+Negative Examples: 538
+
+
+Shape of X_T: (635, 15)
+
+Shape of Y_T: (635,)
+
+GT Activity Time/Label: 99.6 4
+GT Activity Time/Label: 242.3 6
+GT Activity Time/Label: 319.4 3
+GT Activity Time/Label: 446.2 3
+GT Activity Time/Label: 578.6 5
+GT Activity Time/Label: 700.1 1
+GT Activity Time/Label: 1494.3 4
+GT Activity Time/Label: 1626.6 6
+GT Activity Time/Label: 1661.9 7
+GT Activity Time/Label: 1736.5 2
+GT Activity Time/Label: 1849.0 6
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/4/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 4
+---------------------------------------------------------
+
+
+Positive Examples: 60
+Negative Examples: 628
+
+
+Shape of X_T: (688, 15)
+
+Shape of Y_T: (688,)
+
+GT Activity Time/Label: 124.4 4
+GT Activity Time/Label: 255.1 6
+GT Activity Time/Label: 351.9 3
+GT Activity Time/Label: 502.3 3
+GT Activity Time/Label: 601.3 5
+GT Activity Time/Label: 814.7 1
+GT Activity Time/Label: 1693.6 4
+GT Activity Time/Label: 1854.1 6
+GT Activity Time/Label: 1879.7 7
+GT Activity Time/Label: 1965.0 2
+GT Activity Time/Label: 2064.3 6
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/5/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 5
+---------------------------------------------------------
+
+
+Positive Examples: 58
+Negative Examples: 480
+
+
+Shape of X_T: (538, 15)
+
+Shape of Y_T: (538,)
+
+GT Activity Time/Label: 129.0 4
+GT Activity Time/Label: 255.6 6
+GT Activity Time/Label: 389.3 3
+GT Activity Time/Label: 502.2 3
+GT Activity Time/Label: 606.6 5
+GT Activity Time/Label: 811.4 1
+GT Activity Time/Label: 1164.8 4
+GT Activity Time/Label: 1296.6 6
+GT Activity Time/Label: 1364.4 7
+GT Activity Time/Label: 1535.3 2
+GT Activity Time/Label: 1630.7 6
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/6/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 6
+---------------------------------------------------------
+
+
+Positive Examples: 31
+Negative Examples: 468
+
+
+Shape of X_T: (499, 15)
+
+Shape of Y_T: (499,)
+
+GT Activity Time/Label: 128.0 4
+GT Activity Time/Label: 279.7 6
+GT Activity Time/Label: 350.8 3
+GT Activity Time/Label: 474.4 6
+GT Activity Time/Label: 553.3 5
+GT Activity Time/Label: 739.4 1
+GT Activity Time/Label: 1195.9 4
+GT Activity Time/Label: 1327.4 6
+GT Activity Time/Label: 1362.1 7
+GT Activity Time/Label: 1439.8 2
+GT Activity Time/Label: 1470.1 6
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/7/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 7
+---------------------------------------------------------
+
+
+Positive Examples: 63
+Negative Examples: 498
+
+
+Shape of X_T: (561, 15)
+
+Shape of Y_T: (561,)
+
+GT Activity Time/Label: 87.1 6
+GT Activity Time/Label: 302.2 4
+GT Activity Time/Label: 442.1 6
+GT Activity Time/Label: 586.4 3
+GT Activity Time/Label: 713.1 6
+GT Activity Time/Label: 873.1 5
+GT Activity Time/Label: 939.9 2
+GT Activity Time/Label: 1142.3 4
+GT Activity Time/Label: 1287.8 6
+GT Activity Time/Label: 1362.7 7
+GT Activity Time/Label: 1449.0 2
+GT Activity Time/Label: 1635.2 6
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/8/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 8
+---------------------------------------------------------
+
+
+Positive Examples: 104
+Negative Examples: 771
+
+
+Shape of X_T: (875, 15)
+
+Shape of Y_T: (875,)
+
+GT Activity Time/Label: 64.3 4
+GT Activity Time/Label: 208.2 6
+GT Activity Time/Label: 318.0 3
+GT Activity Time/Label: 435.9 6
+GT Activity Time/Label: 557.8 5
+GT Activity Time/Label: 709.7 2
+GT Activity Time/Label: 1777.1 6
+GT Activity Time/Label: 1928.6 4
+GT Activity Time/Label: 2058.2 6
+GT Activity Time/Label: 2162.7 7
+GT Activity Time/Label: 2245.3 2
+GT Activity Time/Label: 2538.5 6
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/9/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 9
+---------------------------------------------------------
+
+
+Positive Examples: 151
+Negative Examples: 510
+
+
+Shape of X_T: (661, 15)
+
+Shape of Y_T: (661,)
+
+GT Activity Time/Label: 69.5 4
+GT Activity Time/Label: 214.9 6
+GT Activity Time/Label: 311.5 3
+GT Activity Time/Label: 436.0 3
+GT Activity Time/Label: 651.6 5
+GT Activity Time/Label: 753.6 1
+GT Activity Time/Label: 1435.3 4
+GT Activity Time/Label: 1564.2 6
+GT Activity Time/Label: 1603.3 7
+GT Activity Time/Label: 1678.3 2
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/10/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 10
+---------------------------------------------------------
+
+
+Positive Examples: 90
+Negative Examples: 389
+
+
+Shape of X_T: (479, 15)
+
+Shape of Y_T: (479,)
+
+GT Activity Time/Label: 122.7 4
+GT Activity Time/Label: 264.5 6
+GT Activity Time/Label: 337.3 3
+GT Activity Time/Label: 465.6 3
+GT Activity Time/Label: 560.6 5
+GT Activity Time/Label: 632.8 1
+GT Activity Time/Label: 1086.7 4
+GT Activity Time/Label: 1221.9 6
+GT Activity Time/Label: 1292.0 7
+GT Activity Time/Label: 1365.4 3
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/11/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 11
+---------------------------------------------------------
+
+
+Positive Examples: 91
+Negative Examples: 430
+
+
+Shape of X_T: (521, 15)
+
+Shape of Y_T: (521,)
+
+GT Activity Time/Label: 153.9 4
+GT Activity Time/Label: 296.4 6
+GT Activity Time/Label: 418.9 3
+GT Activity Time/Label: 545.4 6
+GT Activity Time/Label: 613.0 5
+GT Activity Time/Label: 696.7 2
+GT Activity Time/Label: 1163.8 4
+GT Activity Time/Label: 1299.1 6
+GT Activity Time/Label: 1413.0 7
+GT Activity Time/Label: 1479.8 3
+GT Activity Time/Label: 1513.9 6
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/12/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 12
+---------------------------------------------------------
+
+
+Positive Examples: 94
+Negative Examples: 718
+
+
+Shape of X_T: (812, 15)
+
+Shape of Y_T: (812,)
+
+GT Activity Time/Label: 75.7 4
+GT Activity Time/Label: 219.5 6
+GT Activity Time/Label: 328.3 3
+GT Activity Time/Label: 454.2 3
+GT Activity Time/Label: 566.3 5
+GT Activity Time/Label: 729.3 2
+GT Activity Time/Label: 1317.8 7
+GT Activity Time/Label: 1390.8 6
+GT Activity Time/Label: 1413.8 4
+GT Activity Time/Label: 1549.7 6
+GT Activity Time/Label: 1604.9 2
+GT Activity Time/Label: 2304.2 6
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/13/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 13
+---------------------------------------------------------
+
+
+Positive Examples: 89
+Negative Examples: 638
+
+
+Shape of X_T: (727, 15)
+
+Shape of Y_T: (727,)
+
+GT Activity Time/Label: 234.4 4
+GT Activity Time/Label: 384.4 6
+GT Activity Time/Label: 424.9 4
+GT Activity Time/Label: 555.0 3
+GT Activity Time/Label: 652.6 5
+GT Activity Time/Label: 790.0 2
+GT Activity Time/Label: 1289.4 3
+GT Activity Time/Label: 1856.4 9
+GT Activity Time/Label: 2117.4 6
+GT Activity Time/Label: 2132.4 8
+GT Activity Time/Label: 2183.1 6
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/15/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 15
+---------------------------------------------------------
+
+
+Positive Examples: 48
+Negative Examples: 507
+
+
+Shape of X_T: (555, 15)
+
+Shape of Y_T: (555,)
+
+GT Activity Time/Label: 179.7 4
+GT Activity Time/Label: 265.8 6
+GT Activity Time/Label: 311.1 3
+GT Activity Time/Label: 441.8 3
+GT Activity Time/Label: 525.0 5
+GT Activity Time/Label: 668.4 2
+GT Activity Time/Label: 722.8 6
+GT Activity Time/Label: 1017.2 3
+GT Activity Time/Label: 1303.5 9
+GT Activity Time/Label: 1524.6 6
+GT Activity Time/Label: 1553.0 8
+GT Activity Time/Label: 1583.9 6
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/16/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 16
+---------------------------------------------------------
+
+
+Positive Examples: 23
+Negative Examples: 477
+
+
+Shape of X_T: (500, 15)
+
+Shape of Y_T: (500,)
+
+GT Activity Time/Label: 71.9 4
+GT Activity Time/Label: 216.2 6
+GT Activity Time/Label: 272.0 3
+GT Activity Time/Label: 403.4 6
+GT Activity Time/Label: 448.3 5
+GT Activity Time/Label: 581.9 6
+GT Activity Time/Label: 614.8 2
+GT Activity Time/Label: 719.9 6
+GT Activity Time/Label: 765.6 3
+GT Activity Time/Label: 954.1 10
+GT Activity Time/Label: 1180.7 9
+GT Activity Time/Label: 1388.4 8
+GT Activity Time/Label: 1427.1 6
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/17/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 17
+---------------------------------------------------------
+
+
+Positive Examples: 85
+Negative Examples: 475
+
+
+Shape of X_T: (560, 15)
+
+Shape of Y_T: (560,)
+
+GT Activity Time/Label: 85.6 4
+GT Activity Time/Label: 234.1 6
+GT Activity Time/Label: 274.7 3
+GT Activity Time/Label: 402.4 6
+GT Activity Time/Label: 488.1 5
+GT Activity Time/Label: 621.4 6
+GT Activity Time/Label: 633.6 2
+GT Activity Time/Label: 775.4 6
+GT Activity Time/Label: 797.3 3
+GT Activity Time/Label: 1332.2 6
+GT Activity Time/Label: 1349.0 9
+GT Activity Time/Label: 1589.2 6
+GT Activity Time/Label: 1613.4 8
+GT Activity Time/Label: 1646.9 6
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/18/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 18
+---------------------------------------------------------
+
+
+Positive Examples: 124
+Negative Examples: 522
+
+
+Shape of X_T: (646, 15)
+
+Shape of Y_T: (646,)
+
+GT Activity Time/Label: 191.0 4
+GT Activity Time/Label: 344.6 6
+GT Activity Time/Label: 410.4 3
+GT Activity Time/Label: 537.0 3
+GT Activity Time/Label: 592.4 5
+GT Activity Time/Label: 753.5 2
+GT Activity Time/Label: 968.8 10
+GT Activity Time/Label: 1006.4 3
+GT Activity Time/Label: 1511.6 10
+GT Activity Time/Label: 1559.0 9
+GT Activity Time/Label: 1818.5 10
+GT Activity Time/Label: 1845.2 8
+GT Activity Time/Label: 1892.3 10
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/19/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 19
+---------------------------------------------------------
+
+
+Positive Examples: 41
+Negative Examples: 853
+
+
+Shape of X_T: (894, 15)
+
+Shape of Y_T: (894,)
+
+GT Activity Time/Label: 72.6 4
+GT Activity Time/Label: 218.5 6
+GT Activity Time/Label: 281.9 3
+GT Activity Time/Label: 409.4 3
+GT Activity Time/Label: 492.2 5
+GT Activity Time/Label: 681.9 6
+GT Activity Time/Label: 755.1 2
+GT Activity Time/Label: 1082.0 10
+GT Activity Time/Label: 1255.5 3
+GT Activity Time/Label: 1956.4 10
+GT Activity Time/Label: 2204.6 9
+GT Activity Time/Label: 2505.6 6
+GT Activity Time/Label: 2537.1 8
+GT Activity Time/Label: 2571.2 10
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/20/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 20
+---------------------------------------------------------
+
+
+Positive Examples: 47
+Negative Examples: 391
+
+
+Shape of X_T: (438, 15)
+
+Shape of Y_T: (438,)
+
+GT Activity Time/Label: 60.6 4
+GT Activity Time/Label: 202.7 6
+GT Activity Time/Label: 274.9 3
+GT Activity Time/Label: 402.9 3
+GT Activity Time/Label: 446.1 5
+GT Activity Time/Label: 573.2 6
+GT Activity Time/Label: 595.7 2
+GT Activity Time/Label: 696.2 10
+GT Activity Time/Label: 721.9 3
+GT Activity Time/Label: 917.9 10
+GT Activity Time/Label: 954.8 9
+GT Activity Time/Label: 1180.5 10
+GT Activity Time/Label: 1196.1 8
+GT Activity Time/Label: 1237.4 10
+Loading: ../../data/eating_detection_inertial_ubicomp2015/participants/21/datafiles/waccel_tc_ss_label.csv
+
+---------------------------------------------------------
+ Computing Features for Participant: 21
+---------------------------------------------------------
+
+
+Positive Examples: 53
+Negative Examples: 426
+
+
+Shape of X_T: (479, 15)
+
+Shape of Y_T: (479,)
+
+GT Activity Time/Label: 84.3 4
+GT Activity Time/Label: 226.8 6
+GT Activity Time/Label: 327.0 3
+GT Activity Time/Label: 450.6 6
+GT Activity Time/Label: 501.7 5
+GT Activity Time/Label: 640.6 6
+GT Activity Time/Label: 672.2 2
+GT Activity Time/Label: 929.2 10
+GT Activity Time/Label: 956.2 3
+GT Activity Time/Label: 1127.9 10
+GT Activity Time/Label: 1165.3 9
+GT Activity Time/Label: 1326.3 6
+GT Activity Time/Label: 1356.2 8
+GT Activity Time/Label: 1394.4 6
+../../data/eating_detection_inertial_ubicomp2015/
+Lab-20 Eating Dataset
+
+---------------------------------------------------------
+
+
+
+
+Train Model for Participant: 5
+
+2016-04-08 11:54:42
+
+
+
+
+---------------------------------------------------------
+
+
+---------------------------------------------------------
+
+
+
+
+Trial: 1
+
+2016-04-08 11:54:42
+
+
+
+
+---------------------------------------------------------
+
+Total number of instances : 11280
+Feature Dimensionality 15 
+Fitting 10 folds for each of 10 candidates, totalling 100 fits
+Time elapsed: 95.47 seconds.
+Best params: 
+{'C': 0.0625, 'class_weight': {1: 25, -1: 7}}
+Best F1-score on training data: 44.22%
+Confusion matrix on the training data:
+[[8521 1400]
+ [ 560  799]]
+Confusion matrix on the test data:
+[[394  86]
+ [ 26  32]]
+
+---------------------------------------------------------
+
+
+
+
+Results
+
+2016-04-08 11:56:18
+
+
+
+
+---------------------------------------------------------
+
+Average Precision on the training data: 36.33%
+Average Recall on the training data: 58.79%
+Average F1 Score on the training data: 44.91%
+
+Average Precision on the test data: 27.12%
+Average Recall on the test data: 55.17%
+Average F1 Score on the test data: 36.36%
+
+Saving results to eating/3/res/lopo_p4.pickle ...
+Total time elapsed: 113.40 seconds.

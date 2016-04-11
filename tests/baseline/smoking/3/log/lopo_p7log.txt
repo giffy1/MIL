@@ -1,0 +1,70 @@
+../../data/smoking-data/
+RisQ Smoking Dataset
+
+---------------------------------------------------------
+
+
+
+
+Train Model for Participant: 8
+
+2016-04-08 11:36:00
+
+
+
+
+---------------------------------------------------------
+
+
+---------------------------------------------------------
+
+
+
+
+Trial: 1
+
+2016-04-08 11:36:00
+
+
+
+
+---------------------------------------------------------
+
+Total number of instances : 3658
+Feature Dimensionality 37 
+Fitting 10 folds for each of 10 candidates, totalling 100 fits
+Time elapsed: 34.29 seconds.
+Best params: 
+{'C': 4.0, 'class_weight': {1: 7, -1: 8}}
+Best F1-score on training data: 37.09%
+Confusion matrix on the training data:
+[[3329   24]
+ [ 276   29]]
+Confusion matrix on the test data:
+[[56  0]
+ [17  3]]
+
+---------------------------------------------------------
+
+
+
+
+Results
+
+2016-04-08 11:36:35
+
+
+
+
+---------------------------------------------------------
+
+Average Precision on the training data: 54.72%
+Average Recall on the training data: 9.51%
+Average F1 Score on the training data: 16.20%
+
+Average Precision on the test data: 100.00%
+Average Recall on the test data: 15.00%
+Average F1 Score on the test data: 26.09%
+
+Saving results to 3/res/lopo_p7.pickle ...
+Total time elapsed: 36.19 seconds.

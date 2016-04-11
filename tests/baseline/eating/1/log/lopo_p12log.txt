@@ -1,0 +1,70 @@
+../../data/eating_detection_inertial_ubicomp2015/
+Lab-20 Eating Dataset
+
+---------------------------------------------------------
+
+
+
+
+Train Model for Participant: 13
+
+2016-04-08 13:05:24
+
+
+
+
+---------------------------------------------------------
+
+
+---------------------------------------------------------
+
+
+
+
+Trial: 1
+
+2016-04-08 13:05:24
+
+
+
+
+---------------------------------------------------------
+
+Total number of instances : 11153
+Feature Dimensionality 15 
+Fitting 10 folds for each of 10 candidates, totalling 100 fits
+Time elapsed: 106.49 seconds.
+Best params: 
+{'n_estimators': 75, 'class_weight': {1: 16, -1: 25}}
+Best F1-score on training data: 48.44%
+Confusion matrix on the training data:
+[[9793    0]
+ [   0 1360]]
+Confusion matrix on the test data:
+[[633   5]
+ [ 70  19]]
+
+---------------------------------------------------------
+
+
+
+
+Results
+
+2016-04-08 13:07:11
+
+
+
+
+---------------------------------------------------------
+
+Average Precision on the training data: 100.00%
+Average Recall on the training data: 100.00%
+Average F1 Score on the training data: 100.00%
+
+Average Precision on the test data: 79.17%
+Average Recall on the test data: 21.35%
+Average F1 Score on the test data: 33.63%
+
+Saving results to eating/1/res/lopo_p12.pickle ...
+Total time elapsed: 106.81 seconds.

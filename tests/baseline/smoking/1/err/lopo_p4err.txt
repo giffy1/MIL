@@ -1,0 +1,6 @@
+[Parallel(n_jobs=4)]: Done  42 tasks      | elapsed:   18.3s
+[Parallel(n_jobs=4)]: Done 100 out of 100 | elapsed:   40.4s finished
+/mnt/nfs/work1/marlin/snoran/MIL/src/util.py:65: RuntimeWarning: invalid value encountered in divide
+  precision = np.diag(conf) / np.sum(conf, axis=0)
+/mnt/nfs/work1/marlin/snoran/MIL/src/util.py:66: RuntimeWarning: invalid value encountered in divide
+  recall = np.diag(conf) / np.sum(conf, axis=1)

@@ -1,0 +1,66 @@
+
+---------------------------------------------------------
+
+
+
+
+Train Model for Participant: 16
+
+2016-04-07 15:09:41
+
+
+
+
+---------------------------------------------------------
+
+
+---------------------------------------------------------
+
+
+
+
+Trial: 1
+
+2016-04-07 15:09:41
+
+
+
+
+---------------------------------------------------------
+
+Fitting 10 folds for each of 10 candidates, totalling 100 fits
+Time elapsed: 41.09 seconds.
+Best params: 
+{'n_estimators': 125, 'class_weight': {1: 7, -1: 6}}
+Best F1-score on training data: 81.50%
+Confusion matrix on the training data:
+[[3175    0]
+ [   0  297]]
+Confusion matrix on the test data:
+[[234   0]
+ [ 12  16]]
+
+---------------------------------------------------------
+
+
+
+
+Results
+
+2016-04-07 15:10:23
+
+
+
+
+---------------------------------------------------------
+
+Average Precision on the training data: 100.00%
+Average Recall on the training data: 100.00%
+Average F1 Score on the training data: 100.00%
+
+Average Precision on the test data: 100.00%
+Average Recall on the test data: 57.14%
+Average F1 Score on the test data: 72.73%
+
+Saving results to 1/res/lopo_p14.pickle ...
+Total time elapsed: 43.14 seconds.
