@@ -1,6 +1,0 @@
-[Parallel(n_jobs=4)]: Done  42 tasks      | elapsed:   12.8s
-/home/snoran/.local/lib/python2.7/site-packages/sklearn/metrics/classification.py:1074: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no predicted samples.
-  'precision', 'predicted', average, warn_for)
-[Parallel(n_jobs=4)]: Done 100 out of 100 | elapsed:   28.9s finished
-/mnt/nfs/work1/marlin/snoran/MIL/src/util.py:66: RuntimeWarning: invalid value encountered in divide
-  recall = np.diag(conf) / np.sum(conf, axis=1)

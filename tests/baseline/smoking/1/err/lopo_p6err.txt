@@ -1,2 +1,0 @@
-[Parallel(n_jobs=4)]: Done  42 tasks      | elapsed:   17.9s
-[Parallel(n_jobs=4)]: Done 100 out of 100 | elapsed:   37.4s finished

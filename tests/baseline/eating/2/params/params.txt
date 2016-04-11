@@ -1,1 +1,0 @@
- --K="0" --M="500" --N="500" --bag-size="1" --clf="SVM" --cv-method="randomized" --data-dir="../../data/eating_detection_inertial_ubicomp2015/" --desc="" --eta="0.5" --held-out-bag-size="-1" --kernel="linear" --n-iter="10" --n-jobs="3" --n-trials="1" --test-bag-size="1" --verbose="1"
