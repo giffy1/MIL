@@ -1,0 +1,140 @@
+../../data/eating_detection_inertial_ubicomp2015/
+Lab-20 Eating Dataset
+
+---------------------------------------------------------
+
+
+
+
+Train Model for Participant: 12
+
+2016-04-11 08:44:51
+
+
+
+
+---------------------------------------------------------
+
+
+---------------------------------------------------------
+
+
+
+
+Trial: 1
+
+2016-04-11 08:44:51
+
+
+
+
+---------------------------------------------------------
+
+Total number of instances : 1000
+Feature Dimensionality 15 
+Fitting 2 folds for each of 10 candidates, totalling 20 fits
+Time elapsed: 1573.60 seconds.
+Best params: 
+{'C': 16.0, 'class_weight': {1: 18, -1: 7}}
+Best F1-score on training data: 37.58%
+Confusion matrix on the training data:
+[[839  43]
+ [ 82  36]]
+Confusion matrix on the test data:
+[[667  51]
+ [ 37  57]]
+
+---------------------------------------------------------
+
+
+
+
+Results
+
+2016-04-11 09:11:05
+
+
+
+
+---------------------------------------------------------
+
+Average Precision on the training data: 45.57%
+Average Recall on the training data: 30.51%
+Average F1 Score on the training data: 36.55%
+
+Average Precision on the test data: 52.78%
+Average Recall on the test data: 60.64%
+Average F1 Score on the test data: 56.44%
+
+Saving results to eating/2/res/lopo_p11_i3.pickle ...
+Total time elapsed: 1573.75 seconds.
+../../data/eating_detection_inertial_ubicomp2015/
+Lab-20 Eating Dataset
+
+---------------------------------------------------------
+
+
+
+
+Train Model for Participant: 12
+
+2016-04-11 10:49:35
+
+
+
+
+---------------------------------------------------------
+
+
+---------------------------------------------------------
+
+
+
+
+Trial: 1
+
+2016-04-11 10:49:35
+
+
+
+
+---------------------------------------------------------
+
+Total number of instances : 1000
+Feature Dimensionality 15 
+Fitting 2 folds for each of 10 candidates, totalling 20 fits
+Time elapsed: 995.35 seconds.
+Best params: 
+{'C': 32.0, 'class_weight': {1: 18, -1: 5}}
+Best F1-score on training data: 45.98%
+Confusion matrix on the training data:
+[[748 121]
+ [ 36  95]]
+Confusion matrix on the test data:
+[[586 132]
+ [  9  85]]
+
+---------------------------------------------------------
+
+
+
+
+Results
+
+2016-04-11 11:06:11
+
+
+
+
+---------------------------------------------------------
+
+Average Precision on the training data: 43.98%
+Average Recall on the training data: 72.52%
+Average F1 Score on the training data: 54.76%
+
+Average Precision on the test data: 39.17%
+Average Recall on the test data: 90.43%
+Average F1 Score on the test data: 54.66%
+
+Saving results to eating/2/res/lopo_p11_i3.pickle ...
+Total time elapsed: 995.44 seconds.

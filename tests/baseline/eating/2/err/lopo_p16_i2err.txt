@@ -1,0 +1,23 @@
+/home/snoran/.bash_profile: line 22: cd: work/MIL: No such file or directory
+/home/snoran/.local/lib/python2.7/site-packages/sklearn/metrics/classification.py:1074: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+/home/snoran/.local/lib/python2.7/site-packages/sklearn/metrics/classification.py:1074: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+/home/snoran/.local/lib/python2.7/site-packages/sklearn/metrics/classification.py:1074: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+/home/snoran/.local/lib/python2.7/site-packages/sklearn/metrics/classification.py:1074: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+[Parallel(n_jobs=5)]: Done  20 out of  20 | elapsed:  9.8min finished
+/home/snoran/.bash_profile: line 22: cd: work/MIL: No such file or directory
+/home/snoran/.local/lib/python2.7/site-packages/sklearn/metrics/classification.py:1074: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+/home/snoran/.local/lib/python2.7/site-packages/sklearn/metrics/classification.py:1074: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+/home/snoran/.local/lib/python2.7/site-packages/sklearn/metrics/classification.py:1074: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+[Parallel(n_jobs=3)]: Done  16 out of  20 | elapsed:  9.5min remaining:  2.4min
+[Parallel(n_jobs=3)]: Done  16 out of  20 | elapsed: 10.5min remaining:  2.6min
+[Parallel(n_jobs=3)]: Done  16 out of  20 | elapsed: 11.6min remaining:  2.9min
+[Parallel(n_jobs=3)]: Done  16 out of  20 | elapsed: 12.2min remaining:  3.0min
+[Parallel(n_jobs=3)]: Done  16 out of  20 | elapsed: 18.1min remaining:  4.5min
+[Parallel(n_jobs=3)]: Done  20 out of  20 | elapsed: 18.1min finished
