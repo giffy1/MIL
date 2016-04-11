@@ -5,8 +5,6 @@ import sys
 sys.path.insert(0, '..')
 from qsub import qsub
 
-participants = range(19)
-
 def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-d', '--dir', dest='dir', default='.')
@@ -46,6 +44,8 @@ def main():
 			help="Number of trials over which to average the performance metrics")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, \
 			help="Number of threads used (default = 1). Use -1 for maximal parallelization")
+	parser.add_argument("--n-jobs-per-iter", dest="n_jobs_per_iter", default=1, type=int, \
+			help="Number of machines used for each run of GridSearchCV")
 			
 	parser.add_argument("--verbose", dest="verbose", default=1, type=int, \
 			help="Indicates how much information should be reported (0=None, 1=Some, 2=Quite a bit)")	
@@ -76,20 +76,28 @@ def main():
 	
 	arg_str = ''
 	for arg in args._get_kwargs():
-		if arg[0] != 'src' and arg[0] != 'dir':
+		if arg[0] != 'src' and arg[0] != 'dir' and arg[0] != 'cv':
 			arg_str += ' --' + arg[0].replace('_', '-') + '="' + str(arg[1]) + '"'
 		
 	with open(os.path.join(params_dir, 'params.txt'), 'wb') as f:
 		f.write(arg_str)
-
+	
+	#pre-load dataset once (to find number of participants)
+	sys.path.insert(0, args.data_dir)
+	from load_data import load_data
+	dataset = load_data(args.data_dir)
+	
+	participants = len(dataset['data']['Y'])
+	n_iter = int(args.n_iter / args.n_jobs_per_iter)
 	for p in participants:
-		save_path = os.path.join(res_dir, 'lopo_p%d.pickle' % p)
-		submit_this_job = 'python %s/w_lopo.py --save=%s --test-participant=%d ' % (args.src, save_path, p) + arg_str
-		print submit_this_job
-		job_id = 'lopo_p%d' % p
-		log_file = log_dir + '/lopo_p%dlog.txt' % p
-		err_file = err_dir + '/lopo_p%derr.txt' % p
-		qsub(submit_this_job, job_id, log_file, err_file, n_cores=args.n_jobs)
+		for i in range(1,args.n_jobs_per_cv):
+			save_path = os.path.join(res_dir, 'lopo_p%d_i%d.pickle' % (p,i))
+			submit_this_job = 'python %s/w_lopo.py --save=%s --test-participant=%d --cv=%d ' % (args.src, save_path, p, n_iter) + arg_str
+			print submit_this_job
+			job_id = 'lopo_p%d_i%d' % (p,i)
+			log_file = log_dir + '/lopo_p%d_i%dlog.txt' % (p,i)
+			err_file = err_dir + '/lopo_p%d_i%derr.txt' % (p,i)
+			qsub(submit_this_job, job_id, log_file, err_file, n_cores=args.n_jobs)
 
 if __name__ == '__main__':
 	main()
