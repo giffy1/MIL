@@ -76,7 +76,7 @@ def main():
 	
 	arg_str = ''
 	for arg in args._get_kwargs():
-		if arg[0] != 'src' and arg[0] != 'dir' and arg[0] != 'cv':
+		if arg[0] not in {'src', 'dir', 'cv', 'n_jobs_per_iter'}:
 			arg_str += ' --' + arg[0].replace('_', '-') + '="' + str(arg[1]) + '"'
 		
 	with open(os.path.join(params_dir, 'params.txt'), 'wb') as f:
