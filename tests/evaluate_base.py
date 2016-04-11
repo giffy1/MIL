@@ -140,12 +140,13 @@ class BaseEvaluator():
 						file_str = '_p%d' %p + self._tuple_to_str(self.variables.keys(), vals)
 					
 					save_path = os.path.join(self.res_dir, 'lopo' + file_str + '.pickle')
-					submit_this_job = 'python %s/w_lopo.py --save=%s --test-participant=%d --cv=%d --n-jobs=%d' % (self.args.src, save_path, p, n_iter, np.random.randint(1,7)) + self.arg_str + var_arg_str
+					njobs = np.random.randint(1,7)
+					submit_this_job = 'python %s/w_lopo.py --save=%s --test-participant=%d --cv=%d --n-jobs=%d' % (self.args.src, save_path, p, n_iter, njobs) + self.arg_str + var_arg_str
 					print submit_this_job + '\n'
 					job_id = 'lopo' + file_str
 					log_file = os.path.join(self.log_dir, 'log' + file_str + '.txt')
 					err_file = os.path.join(self.err_dir, 'err' + file_str + '.txt')
-					qsub(submit_this_job, job_id, log_file, err_file, n_cores=self.args.n_jobs)
+					qsub(submit_this_job, job_id, log_file, err_file, n_cores=njobs)
 	
 	def _get_base_arg_str(self):
 		"""
