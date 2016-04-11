@@ -28,6 +28,7 @@ def main(working_dir, verbose):
 	total_conf = np.zeros((2,2))
 	for p in participants:
 		best_score = 0
+		best_r = {}
 		for i in range(1,5):
 			res_path = os.path.join(res_dir, 'lopo_p%d_i%d.pickle' %(p,i))
 			if os.path.isfile(res_path):
@@ -36,15 +37,16 @@ def main(working_dir, verbose):
 				score = r['Results']['F1 Score']['Validation']
 				if score > best_score:
 					conf = r['Results']['Confusion Matrix']['Test']
+					best_r = r
 					best_score = score
 		total_conf += conf
 			
 		if verbose:
 			pprint_header("Participant: %d" %p)				
 			
-			fscore = r['Results']['F1 Score']['Test']
-			precision = r['Results']['Precision']['Test']
-			recall = r['Results']['Recall']['Test']
+			fscore = best_r['Results']['F1 Score']['Test']
+			precision = best_r['Results']['Precision']['Test']
+			recall = best_r['Results']['Recall']['Test']
 			print("Confusion Matrix:")
 			print(conf)
 			print("Precision: %0.2f%%" %(100*precision))
