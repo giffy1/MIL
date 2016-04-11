@@ -36,6 +36,7 @@ def main(working_dir, verbose):
 					r = pickle.load(f)
 				score = r['Results']['F1 Score']['Validation']
 				print score
+				print r['Results']['Confusion Matrix']['Test']
 				if score > best_score:
 					conf = r['Results']['Confusion Matrix']['Test']
 					best_r = r
