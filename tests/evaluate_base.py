@@ -144,7 +144,7 @@ class BaseEvaluator():
 					job_id = 'lopo' + file_str
 					log_file = os.path.join(self.log_dir, 'log' + file_str + '.txt')
 					err_file = os.path.join(self.err_dir, 'err' + file_str + '.txt')
-					#qsub(submit_this_job, job_id, log_file, err_file, n_cores=self.args.n_jobs)
+					qsub(submit_this_job, job_id, log_file, err_file, n_cores=self.args.n_jobs)
 	
 	def _get_base_arg_str(self):
 		"""
