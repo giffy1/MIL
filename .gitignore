@@ -10,6 +10,10 @@
 /tests/*/*/*/err
 /tests/*/*/log
 /tests/*/*/*/log
+!/tests/*/*/res/
+!/tests/*/*/*/res/
+/tests/*/*/res/*.pickle
+/tests/*/*/*/res/*.pickle
 /src/misvm
 /src/miforest/data
 /src/miforest/MIL-Forest
