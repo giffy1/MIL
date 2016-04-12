@@ -21,7 +21,7 @@ from sklearn.svm import SVC, LinearSVC
 import misvm
 import pickle
 from argparse import ArgumentParser
-from util import farey, accuracy_precision_recall_fscore, pprint_header, score, shuffle
+from util import farey, accuracy_precision_recall_fscore, pprint_header, score, shuffle, mil_train_test_split
 from miforest.miforest import MIForest
 import sys
 
@@ -238,12 +238,17 @@ def main(data_dir, active_participant_counter, bag_size, held_out_bag_size, test
 		if M > 0:
 			X_train += X_SI[:M]
 			Y_train += Y_SI[:M]
-		if N > 0:
-			X_train += X_B[:N]
-			Y_train += Y_B[:N]
 		if K > 0:
 			X_train += X_T[:K]
 			Y_train += Y_T[:K]
+		if N > 0:
+			X_train += X_B[:N]
+			Y_train += Y_B[:N]
+
+		if test_bag_size > 1:
+			cv_iterator = mil_train_test_split(X_SI[:M], X_T[:K] + X_B[:N], cv)
+		else:
+			cv_iterator = mil_train_test_split(X_SI[:M] + X_T[:K], X_B[:N], cv)
 		
 		if clf_name in MIL:
 			print ("Total number of bags : %d" %len(X_train))
@@ -254,7 +259,7 @@ def main(data_dir, active_participant_counter, bag_size, held_out_bag_size, test
 		
 		sys.stdout.flush()
 		if cv_method == 'grid':
-			gs = GridSearchCV(clf, param_grid, scoring=score, cv=cv, verbose=verbose, n_jobs = n_jobs)
+			gs = GridSearchCV(clf, param_grid, scoring=score, cv=cv_iterator, verbose=verbose, n_jobs = n_jobs)
 		elif cv_method == 'randomized':
 			#scoring='f1_weighted'
 			gs = RandomizedSearchCV(clf, param_distributions=param_grid, scoring=score, cv=cv, n_jobs = n_jobs, n_iter=n_iter, verbose=verbose)
@@ -331,16 +336,16 @@ if __name__ == "__main__":
 	parser.add_argument("--test-participant", dest="active_participant_counter", default = 0, type=int, \
 			help="Index of the held-out participant. The classifier will be evaluated on this individual's data.")
 	
-	parser.add_argument("--bag-size", dest="bag_size", default=-1, type=int, \
+	parser.add_argument("--bag-size", dest="bag_size", default=10, type=int, \
 			help="If clf is an MIL classifier, bag-size specifies the size of each training bag")
 	parser.add_argument("--held-out-bag-size", dest="held_out_bag_size", default=-1, type=int, \
 			help=".")
 	parser.add_argument("--test-bag-size", dest="test_bag_size", default=1, type=int, \
 			help=".")	
 
-	parser.add_argument("--N", dest="N", default=20, type=int, \
+	parser.add_argument("--N", dest="N", default=50, type=int, \
 			help="Number of instances used for training in each LOPO iteration")
-	parser.add_argument("--M", dest="M", default=100, type=int, \
+	parser.add_argument("--M", dest="M", default=1000, type=int, \
 			help="Number of single-instance bags used for training in each LOPO iteration")
 	parser.add_argument("--K", dest="K", default=0, type=int, \
 			help="Number of single-instance bags in the training data from the held-out participant.")
