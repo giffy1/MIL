@@ -57,6 +57,8 @@ def main(working_dir, verbose):
 	print("Total Confusion Matrix ")
 	print(total_conf)
 	_, prf = accuracy_precision_recall_fscore(total_conf)
+	print("Average Precision : %0.2f%% " %(100*prf[1][0]))
+	print("Average Recall : %0.2f%% " %(100*prf[1][1]))
 	print("Average F1 Score : %0.2f%% " %(100*prf[1][2]))
 	
 
