@@ -88,3 +88,29 @@ def pprint_header(header):
 	print ""
 	print "---------------------------------------------------------"
 	print ""
+	
+def mil_train_test_split(X_SI, X_B, kfolds):
+	"""
+	Generates a size kfolds list of train-test splits for cross-validation, 
+	specifically for MIL techniques. All bag-level data remains in the 
+	training data and a subset of the single-instance bags are used for 
+	validation.
+	
+	@param X_SI : The single instance bags
+	@param X_B : Bag-level data
+	@param kfolds : The number of folds
+	
+	Returns a list of tuples, each of which contains training and test indices. 
+	Note : This assumes the final training dataset is X_SI + X_B.
+	"""
+	m = len(X_SI)
+	n = len(X_B)
+	cv_iterator = []
+	indices, = shuffle(range(m))
+	samples_per_fold = int(m / kfolds)
+	for k in range(kfolds):
+		test_indices = indices[k*samples_per_fold:(k+1)*samples_per_fold]
+		train_indices = indices[:k*samples_per_fold] + indices[(k+1)*samples_per_fold:]
+		train_indices.extend(range(m, m + n))
+		cv_iterator.append((train_indices, test_indices))
+	return cv_iterator
