@@ -5,10 +5,13 @@ Created on Sun Mar 20 13:27:08 2016
 @author: snoran
 """
 
+from __future__ import division
+
 import numpy as np
 from time import time
 import datetime
-from sklearn.metrics import f1_score
+import sys
+from sklearn.metrics import f1_score, confusion_matrix, classification_report
 
 def shuffle(*args):
 	"""
@@ -39,7 +42,11 @@ def score(estimator, X, y):
 		Mean F1 score of self.predict(X) wrt. y.
 	"""
 	y_pred = 2*np.greater(estimator.predict(X), 0) - 1 #+/-1
-	return f1_score(y, y_pred)
+	print(classification_report(y, y_pred))
+	print(confusion_matrix(y, y_pred))
+	fscore = f1_score(y, y_pred)
+	sys.stdout.flush()
+	return fscore
 
 def farey( n, asc=True ):
 	"""
@@ -89,7 +96,7 @@ def pprint_header(header):
 	print "---------------------------------------------------------"
 	print ""
 	
-def mil_train_test_split(X_SI, X_B, kfolds):
+def mil_train_test_split(X_SI, X_B, N, M):
 	"""
 	Generates a size kfolds list of train-test splits for cross-validation, 
 	specifically for MIL techniques. All bag-level data remains in the 
@@ -98,19 +105,28 @@ def mil_train_test_split(X_SI, X_B, kfolds):
 	
 	@param X_SI : The single instance bags
 	@param X_B : Bag-level data
-	@param kfolds : The number of folds
 	
 	Returns a list of tuples, each of which contains training and test indices. 
 	Note : This assumes the final training dataset is X_SI + X_B.
 	"""
-	m = len(X_SI)
-	n = len(X_B)
+	n_single_instance_participants = len(X_SI)
+	n_bag_participants = len(X_B)
 	cv_iterator = []
-	indices, = shuffle(range(m))
-	samples_per_fold = int(m / kfolds)
-	for k in range(kfolds):
-		test_indices = indices[k*samples_per_fold:(k+1)*samples_per_fold]
-		train_indices = indices[:k*samples_per_fold] + indices[(k+1)*samples_per_fold:]
-		train_indices.extend(range(m, m + n))
+	for k in range(n_single_instance_participants):
+		train_indices = []
+		index = 0
+		
+		#instance-level:
+		for j in range(n_single_instance_participants):
+			if j!=k:
+				train_indices.extend(range(index, index + min(len(X_SI[j]), M)))
+			else:
+				test_indices=range(index, index + len(X_SI[j]))
+			index+=len(X_SI[j])
+			
+		#bag-level:
+		for j in range(n_bag_participants):
+			train_indices.extend(range(index, index + min(len(X_B[j]), N)))
+			index+=len(X_B[j])
 		cv_iterator.append((train_indices, test_indices))
 	return cv_iterator
