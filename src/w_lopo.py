@@ -268,7 +268,7 @@ def main(data_dir, active_participant_counter, bag_size, held_out_bag_size, test
 		gs = gs.fit(X_train, Y_train)
 		tf = time()
 
-		print("Time elapsed: %0.2f seconds." %(tf-t0))		
+		print("Time elapsed: %0.2f seconds." %(tf-t0))
 		
 		print("Best params: ")
 		print(gs.best_params_)	
