@@ -31,7 +31,7 @@ def single_instances_to_sessions(X, Y, session_labels, session_start):
 			
 	return bags, labels, single_instance_labels
 	
-def main(data_dir, data_file, bag_size, active_participant_counter):
+def main(data_dir, data_file, bag_size, active_participant_counter, M, N):
 
 #data_dir = '../data/eating_detection_inertial_ubicomp2015/'
 #data_dir = '../data/smoking-data/'
@@ -45,8 +45,6 @@ def main(data_dir, data_file, bag_size, active_participant_counter):
 	Y = dataset['data']['Y']
 	session_start = dataset['data']['sessions']['start']
 	session_labels = dataset['data']['sessions']['labels']	
-	print data_dir
-	print dataset['description']
 	
 	participant_indices = range(len(X))
 	n_si_participants = 5
@@ -64,7 +62,7 @@ def main(data_dir, data_file, bag_size, active_participant_counter):
 	for p in si_participant_indices:
 		x = X[p]
 		y = Y[p]
-		x,y = shuffle(x,y)
+		#x,y = shuffle(x,y)
 		X_SI.append(x)
 		Y_SI.append(y)
 	
@@ -75,9 +73,9 @@ def main(data_dir, data_file, bag_size, active_participant_counter):
 		if bag_size == -1:
 			x, y, _ = single_instances_to_sessions(X[p], Y[p], session_labels[p], session_start[p])
 		else:
-			x = [X[p][k:k+bag_size, :] for k in xrange(0, len(X[p]), bag_size)]
-			y = [max(Y[p][k:k+bag_size]) for k in xrange(0, len(Y[p]), bag_size)]
-		x,y = shuffle(x,y)	
+			x = [X[p][k:k+bag_size, :] for k in xrange(0, min(len(X[p]), N), bag_size)]
+			y = [max(Y[p][k:k+bag_size]) for k in xrange(0, min(len(Y[p]), N), bag_size)]
+		#x,y = shuffle(x,y)	
 		X_B.append(x)
 		Y_B.append(y)
 		
@@ -137,11 +135,13 @@ def main(data_dir, data_file, bag_size, active_participant_counter):
 #X_test, Y_test = shuffle(X_test, Y_test)
 
 	data = {}
-	data['training'] = {'instance' : {'X' : X_SI, 'Y' : Y_SI}, 'bag' : {'X' : X_B, 'Y' : Y_B}}
+	data['training'] = {'instance' : {'X' : X_SI, 'Y' : Y_SI, 'M': M}, 'bag' : {'X' : X_B, 'Y' : Y_B}}
 	data['test'] = {'X' : X_test, 'Y' : Y_test}
 	
 	with open(data_file, 'wb') as f:
 		pickle.dump(data, f)
+		
+	return data
 
 # print number of bags per participant	
 # [len(X_B[k]) for k in range(len(X_B))]

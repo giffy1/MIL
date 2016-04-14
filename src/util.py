@@ -96,7 +96,7 @@ def pprint_header(header):
 	print "---------------------------------------------------------"
 	print ""
 	
-def mil_train_test_split(X_SI, X_B, N, M):
+def mil_train_test_split(X_SI, X_B, M):
 	"""
 	Generates a size kfolds list of train-test splits for cross-validation, 
 	specifically for MIL techniques. All bag-level data remains in the 
@@ -112,6 +112,13 @@ def mil_train_test_split(X_SI, X_B, N, M):
 	n_single_instance_participants = len(X_SI)
 	n_bag_participants = len(X_B)
 	cv_iterator = []
+	if M == 0:
+		end_of_test_indices = sum([len(X_SI[k]) for k in range(len(X_SI))])
+		end_of_train_indices = end_of_test_indices + sum([len(X_B[k]) for k in range(len(X_B))])
+		test_indices = range(end_of_test_indices)
+		train_indices = range(end_of_test_indices, end_of_train_indices)
+		cv_iterator.append((train_indices, test_indices))
+		return cv_iterator
 	for k in range(n_single_instance_participants):
 		train_indices = []
 		index = 0
@@ -119,14 +126,16 @@ def mil_train_test_split(X_SI, X_B, N, M):
 		#instance-level:
 		for j in range(n_single_instance_participants):
 			if j!=k:
-				train_indices.extend(range(index, index + min(len(X_SI[j]), M)))
+				indices = range(index, index + len(X_SI[j]))
+				train_indices.extend(indices[:M])
 			else:
 				test_indices=range(index, index + len(X_SI[j]))
 			index+=len(X_SI[j])
 			
 		#bag-level:
 		for j in range(n_bag_participants):
-			train_indices.extend(range(index, index + min(len(X_B[j]), N)))
+			indices = range(index, index + len(X_B[j]))
+			train_indices.extend(indices)
 			index+=len(X_B[j])
 		cv_iterator.append((train_indices, test_indices))
 	return cv_iterator

@@ -106,29 +106,33 @@ def parse_clf(clf_str):
 			params[param_str[:split_index].strip()] = json.loads(s)
 	return clf_name, params
 
-def main(data_file, clf_str, cv_method, kfolds, n_iter, n_jobs, n_trials, verbose, save, description):
+def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, description): #, M, N):
 	"""
 	TODO: Doc string
 	"""
 	
 	with open(data_file, 'rb') as f:
 		data = pickle.load(f)
-		
+	
 	X_SI = data['training']['instance']['X']
 	Y_SI = data['training']['instance']['Y']
+	M = data['training']['instance']['M']
 	X_B = data['training']['bag']['X']
 	Y_B = data['training']['bag']['Y']
+	X_val = []
+	Y_val = []
 	X_train = []
 	Y_train = []
-
 	for p in range(len(X_SI)):
-		X_train.extend(X_SI[p])
-		Y_train.extend(Y_SI[p])
+		X_val.extend(X_SI[p])
+		Y_val.extend(Y_SI[p])
+		X_train.extend(X_SI[p][:M])
+		Y_train.extend(Y_SI[p][:M])
 	for p in range(len(X_B)):
+		X_val.extend(X_B[p])
+		Y_val.extend(Y_B[p])
 		X_train.extend(X_B[p])
 		Y_train.extend(Y_B[p])
-#	X_train = list(np.vstack(X_SI)) + list(np.hstack(X_B))
-#	Y_train = list(np.hstack(Y_SI)) + list(np.hstack(Y_B))
 	X_test = data['test']['X']
 	Y_test = data['test']['Y']
 	
@@ -142,16 +146,16 @@ def main(data_file, clf_str, cv_method, kfolds, n_iter, n_jobs, n_trials, verbos
 		"Recall": {"Training" : 0.0, "Test" : 0.0}, \
 		"F1 Score": {"Training" : 0.0, "Test" : 0.0, "Validation" : 0.0} \
 	}
-
-	cv_iterator = mil_train_test_split(X_SI, X_B, 15, 20)
+	
+	cv_iterator = mil_train_test_split(X_SI, X_B, M)
 
 	if cv_method == 'grid':
-		gs = GridSearchCV(clf, param_grid, scoring=score, cv=cv_iterator, verbose=verbose, n_jobs = n_jobs)
+		gs = GridSearchCV(clf, param_grid, scoring=score, cv=cv_iterator, verbose=verbose, n_jobs = n_jobs, refit=False)
 	elif cv_method == 'randomized':
-		gs = RandomizedSearchCV(clf, param_distributions=param_grid, scoring=score, cv=cv_iterator, n_jobs = n_jobs, n_iter=n_iter, verbose=verbose)
+		gs = RandomizedSearchCV(clf, param_distributions=param_grid, scoring=score, cv=cv_iterator, n_jobs = n_jobs, n_iter=n_iter, verbose=verbose, refit=False)
 	
 	t0 = time()
-	gs = gs.fit(X_train, Y_train)
+	gs = gs.fit(X_val, Y_val)
 	tf = time()
 	
 	print("Best parameters set found on development set:\n")
@@ -161,10 +165,12 @@ def main(data_file, clf_str, cv_method, kfolds, n_iter, n_jobs, n_trials, verbos
 		print("%0.3f (+/-%0.03f) for %r"
 		% (mean_score, scores.std() * 2, params))
 	
+	clf.set_params(**gs.best_params_)
+	clf.fit(X_train, Y_train)
 	print("\nDetailed classification report:\n")
 	print("The model is trained on the full development set.")
 	print("The scores are computed on the full evaluation set.\n")
-	y_true, y_pred = Y_test, 2*np.greater(gs.predict(X_test),0)-1
+	y_true, y_pred = Y_test, 2*np.greater(clf.predict(X_test),0)-1
 	print(classification_report(y_true, y_pred))
 
 	print("\nTime elapsed: %0.2f seconds." %(tf-t0))
@@ -226,12 +232,8 @@ if __name__ == "__main__":
 			
 	parser.add_argument("--cv-method", dest="cv_method", default='randomized', type=str, \
 			help="Determines how hyperparameters are learned ('grid' or 'randomized')")
-	parser.add_argument("--cv", dest="kfolds", default=5, type=int, \
-			help="Determines split for cross-validation (see GridSearchCV.cv)")
 	parser.add_argument("--n-iter", dest="n_iter", default=10, type=int, \
 			help="The number of iterations in randomized cross-validation (see RandomizedSearchCV.cv)")
-	parser.add_argument("--n-trials", dest="n_trials", default=5, type=int, \
-			help="Number of trials over which to average the performance metrics")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, \
 			help="Number of threads used (default = 1). Use -1 for maximal parallelization")
 			
