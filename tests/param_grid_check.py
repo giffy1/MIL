@@ -18,3 +18,13 @@ for root, dirs, files in os.walk("."):
 				text = fd.read()
 			print(len(text))
 			print ("participant %d" %participant)
+		elif f.endswith("log.txt") and f.startswith("lopo"):
+			print(os.path.join(root, f))
+			for s in f[f.index("_"):f.index("log.txt")].split("_"):
+				if len(s) > 0:
+					if s[0] == "p":
+						participant = int(s[1:])
+			with open(os.path.join(root, f), 'rb') as fd:
+				text = fd.read()
+			print(len(text))
+			print ("participant %d" %participant)
