@@ -16,7 +16,8 @@ for root, dirs, files in os.walk("."):
 						participant = int(s[1:])
 			with open(os.path.join(root, f), 'rb') as fd:
 				text = fd.read()
-			print(len(text))
+			i=text.index("Best params:")
+			print(text[i:i+35])
 			print ("participant %d" %participant)
 		elif f.endswith("log.txt") and f.startswith("lopo"):
 			print(os.path.join(root, f))
@@ -26,5 +27,6 @@ for root, dirs, files in os.walk("."):
 						participant = int(s[1:])
 			with open(os.path.join(root, f), 'rb') as fd:
 				text = fd.read()
-			print(len(text))
+			i=text.index("Best params:")
+			print(text[i:i+35])
 			print ("participant %d" %participant)
