@@ -89,7 +89,7 @@ def main(aggregate, n_jobs):
 if __name__ == "__main__":
 	parser = ArgumentParser()
 	
-	parser.add_argument("-a", dest="aggregate", default=True, type=bool, help="")
+	parser.add_argument("-a", dest="aggregate", default=1, type=int, help="")
 	parser.add_argument("-n-jobs", dest="n_jobs", default=1, type=int, help="")	
 	
 	args = parser.parse_args()
