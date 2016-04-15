@@ -10,6 +10,8 @@ import os
 import sys
 from argparse import ArgumentParser
 import pickle
+import numpy as np
+from matplotlib import pyplot as plt
 
 sys.path.insert(0, '../tests')
 from qsub import qsub
@@ -22,7 +24,7 @@ bag_sizes = [1,5,10,20]
 
 working_dir = '.'
 
-def main(aggregate):
+def main(aggregate, n_jobs):
 
 	if not os.path.isdir(working_dir):
 		os.mkdir(working_dir, 0755)
@@ -40,7 +42,10 @@ def main(aggregate):
 		os.mkdir(res_dir, 0755)
 	
 	for m in M:
+		fscores = []
 		for b in bag_sizes:
+			avg_fscore = 0
+			participant_count = 0
 			for p in participants:
 				file_str = '_p' + str(p) + '_b' + str(b) + '_m' + str(m)
 				save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')
@@ -48,22 +53,29 @@ def main(aggregate):
 					if os.path.isfile(save_path):
 						with open(save_path, 'rb') as f:
 							r = pickle.load(f)
-							print(r["Results"]["F1 Score"]["Test"])
+							fscore = r["Results"]["F1 Score"]["Test"]
+							if not np.isnan(fscore):
+								avg_fscore += fscore
+								participant_count += 1
 				else:
 					data_file = os.path.join(res_dir, 'data' + file_str + '.pickle')
 					bag_data(data_dir, data_file, b, p, m, N)
 					
-					submit_this_job = 'python lopo.py -d=%s --n-jobs=3 --save=%s' %(data_file, save_path)
+					submit_this_job = 'python lopo.py -d=%s --n-jobs=%d --save=%s' %(data_file, n_jobs, save_path)
 					print submit_this_job + '\n'
 					job_id = 'lopo' + file_str
 					log_file = os.path.join(log_dir, 'log' + file_str + '.txt')
 					err_file = os.path.join(err_dir, 'err' + file_str + '.txt')
-					qsub(submit_this_job, job_id, log_file, err_file, n_cores=3)
+					qsub(submit_this_job, job_id, log_file, err_file, n_cores=n_jobs)
+			fscores.append(avg_fscore / participant_count)
+		plt.plot(bag_sizes, fscores)
+		plt.show()
 			
 if __name__ == "__main__":
 	parser = ArgumentParser()
 	
 	parser.add_argument("-a", dest="aggregate", default=True, type=bool, help="")
+	parser.add_argument("-n-jobs", dest="n_jobs", default=1, type=int, help="")	
 	
 	args = parser.parse_args()
 	
