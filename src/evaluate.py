@@ -41,16 +41,16 @@ def main(aggregate, n_jobs):
 	if not os.path.isdir(res_dir):
 		os.mkdir(res_dir, 0755)
 		
-	handles = []
-	for m in M:
-		fscores = []
-		for b in bag_sizes:
-			avg_fscore = 0
-			participant_count = 0
-			for p in participants:
-				file_str = '_p' + str(p) + '_b' + str(b) + '_m' + str(m)
-				save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')
-				if aggregate:
+	if aggregate:	
+		handles = []
+		for m in M:
+			fscores = []
+			for b in bag_sizes:
+				avg_fscore = 0
+				participant_count = 0
+				for p in participants:
+					file_str = '_p' + str(p) + '_b' + str(b) + '_m' + str(m)
+					save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')
 					if os.path.isfile(save_path):
 						with open(save_path, 'rb') as f:
 							r = pickle.load(f)
@@ -58,7 +58,22 @@ def main(aggregate, n_jobs):
 							if not np.isnan(fscore):
 								avg_fscore += fscore
 								participant_count += 1
-				else:
+						
+				fscores.append(avg_fscore / participant_count)
+			h, = plt.plot(bag_sizes, fscores, label="M=" + str(m))
+			handles.append(h)
+		plt.xlabel("Bag size")
+		plt.ylabel("F1 Score")
+		plt.title("Performance varying bag size and number of single instances")
+		plt.legend(handles = handles)
+		plt.show()
+	else:
+		for m in M:
+			fscores = []
+			for b in bag_sizes:
+				for p in participants:
+					file_str = '_p' + str(p) + '_b' + str(b) + '_m' + str(m)
+					save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')
 					data_file = os.path.join(res_dir, 'data' + file_str + '.pickle')
 					bag_data(data_dir, data_file, b, p, m, N)
 					
@@ -68,14 +83,6 @@ def main(aggregate, n_jobs):
 					log_file = os.path.join(log_dir, 'log' + file_str + '.txt')
 					err_file = os.path.join(err_dir, 'err' + file_str + '.txt')
 					qsub(submit_this_job, job_id, log_file, err_file, n_cores=n_jobs)
-			fscores.append(avg_fscore / participant_count)
-		h, = plt.plot(bag_sizes, fscores, label="M=" + str(m))
-		handles.append(h)
-	plt.xlabel("Bag size")
-	plt.ylabel("F1 Score")
-	plt.title("Performance varying bag size and number of single instances")
-	plt.legend(handles = handles)
-	plt.show()
 			
 if __name__ == "__main__":
 	parser = ArgumentParser()
