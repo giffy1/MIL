@@ -7,6 +7,7 @@ Created on Fri Apr 15 10:02:08 2016
 
 import os
 import json
+import numpy as np
 search = "Best params:"
 l = len(search)
 best_class_weights = [[]]*20
@@ -53,3 +54,6 @@ for root, dirs, files in os.walk("."):
 			
 	
 print best_class_weights
+print('\n\n\n')
+print [np.mean(best_class_weights[k], axis=0) for k in range(len(best_class_weights))]
+print [np.std(best_class_weights[k], axis=0) for k in range(len(best_class_weights))]
