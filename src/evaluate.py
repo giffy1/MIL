@@ -18,9 +18,9 @@ from qsub import qsub
 
 participants = range(20)
 data_dir = '../data/eating_detection_inertial_ubicomp2015/'
-N = 100 # N : number of instances per participant put into bags
-M = [0, 25, 50, 75, 100] # M : number of single-instance bags per participant
-bag_sizes = [1,5,10,20]
+N = 1000 # N : number of instances per participant put into bags
+M = [0,75, 150, 225, 300] # M : number of single-instance bags per participant
+bag_sizes = [1,5,10,20,40]
 
 working_dir = '.'
 
