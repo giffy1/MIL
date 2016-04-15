@@ -21,7 +21,7 @@ for root, dirs, files in os.walk("."):
 			try:
 				i=text.index(search)
 				j=text[i:].index("}")
-				print(text[i+l:i+l+j])
+				print(text[i+l:i+j+1])
 				print ("participant %d" %participant)
 			except:
 				pass
@@ -36,7 +36,7 @@ for root, dirs, files in os.walk("."):
 			try:
 				i=text.index(search)
 				j=text[i:].index("}")
-				print(text[i+l:i+l+j])
+				print(text[i+l:i+j+1])
 				print ("participant %d" %participant)
 			except:
 				pass
