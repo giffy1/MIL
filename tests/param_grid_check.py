@@ -9,6 +9,7 @@ import os
 import json
 search = "Best params:"
 l = len(search)
+best_class_weights = [[]]*20
 for root, dirs, files in os.walk("."):
 	for f in files:
 		if f.endswith(".txt") and f.startswith("log"):
@@ -26,6 +27,7 @@ for root, dirs, files in os.walk("."):
 				print best_params_str
 				best_params = json.loads(best_params_str.replace('-1:', '"-1":').replace('1:', '"1":').replace("'",'"'))
 				print (best_params['class_weight'])
+				best_class_weights[participant].append((best_params['class_weight']['1'], best_params['class_weight']['-1']))
 				print ("participant %d" %participant)
 			except:
 				pass
@@ -44,6 +46,7 @@ for root, dirs, files in os.walk("."):
 				print best_params_str
 				best_params = json.loads(best_params_str.replace('-1:', '"-1":').replace('1:', '"1":').replace("'",'"'))
 				print (best_params['class_weight'])
+				best_class_weights[participant].append((best_params['class_weight']['1'], best_params['class_weight']['-1']))
 				print ("participant %d" %participant)
 			except:
 				pass
