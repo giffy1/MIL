@@ -12,13 +12,15 @@ from time import time
 import datetime
 import sys
 from sklearn.metrics import f1_score, confusion_matrix, classification_report
+from numpy.random import RandomState
 
-def shuffle(*args):
+def shuffle(seed=None, *args):
 	"""
 	Shuffles the given lists in parallel.
 	"""
 	indices = range(len(args[0]))
-	np.random.shuffle(indices)
+	prng = RandomState(seed)	
+	prng.shuffle(indices)
 	shuffled = []
 	for i,lst in enumerate(args):
 		shuffled.append([lst[k] for k in indices])

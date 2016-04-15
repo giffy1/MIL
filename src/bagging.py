@@ -5,7 +5,6 @@ Created on Tue Apr 12 13:50:49 2016
 @author: snoran
 """
 
-import numpy as np
 from util import shuffle
 import sys
 import pickle
@@ -31,7 +30,7 @@ def single_instances_to_sessions(X, Y, session_labels, session_start):
 			
 	return bags, labels, single_instance_labels
 	
-def main(data_dir, data_file, bag_size, active_participant_counter, M, N):
+def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=None):
 
 #data_dir = '../data/eating_detection_inertial_ubicomp2015/'
 #data_dir = '../data/smoking-data/'
@@ -55,14 +54,14 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N):
 	
 	si_participant_indices = train_indices[:n_si_participants]
 	bag_participant_indices = train_indices[n_si_participants:n_si_participants+n_bag_participants+1]
-	
+		
 	#single-instance training data:
 	X_SI = []
 	Y_SI = []
 	for p in si_participant_indices:
 		x = X[p]
 		y = Y[p]
-		#x,y = shuffle(x,y)
+		x,y = shuffle(seed, x, y)
 		X_SI.append(x)
 		Y_SI.append(y)
 	
@@ -156,7 +155,7 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N):
 # is to use a positive M but never put them in the training data
 
 if __name__ == "__main__":
-	main('../data/eating_detection_inertial_ubicomp2015/', 'data_p0.pickle', 10, 0)
+	#main('../data/eating_detection_inertial_ubicomp2015/', 'data_p0.pickle', 10, 0, 25, 100)
 
 	parser = ArgumentParser()
 	
@@ -166,9 +165,13 @@ if __name__ == "__main__":
 			help="File where the bagged data will be stored.")
 	parser.add_argument("-p", "--participant", dest="active_participant_counter", default=0, type=int, \
 			help="Participant held out for evaluating the model.")	
-	parser.add_argument("-b", "--bag-size", dest="bag_size", default=-1, type=int, \
+	parser.add_argument("-b", "--bag-size", dest="bag_size", default=10, type=int, \
 			help="Bag Size (-1 for sessions)")
+	parser.add_argument("-m", "--M", dest="M", default=25, type=int, \
+			help="")
+	parser.add_argument("-n", "--N", dest="N", default=100, type=int, \
+			help="")
 	
 	args = parser.parse_args()
 	
-	main(**vars(args))
+	data = main(**vars(args))

@@ -77,7 +77,7 @@ def main(aggregate, n_jobs):
 					file_str = '_p' + str(p) + '_b' + str(b) + '_m' + str(m)
 					save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')
 					data_file = os.path.join(res_dir, 'data' + file_str + '.pickle')
-					bag_data(data_dir, data_file, b, p, m, N)
+					bag_data(data_dir, data_file, b, p, m, N, 0)
 					
 					submit_this_job = 'python lopo.py -d=%s --n-jobs=%d --save=%s --n-iter=%d' %(data_file, n_jobs, save_path, 25)
 					print submit_this_job + '\n'
