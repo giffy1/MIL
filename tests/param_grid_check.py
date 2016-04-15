@@ -7,7 +7,7 @@ Created on Fri Apr 15 10:02:08 2016
 
 import os
 import pickle
-for root, dirs, files in os.walk("/mydir"):
+for root, dirs, files in os.walk("."):
 	for f in files:
 		if f.endswith(".pickle") and f.startswith("lopo"):
 			for s in f[f.index("_"):f.index(".pickle")].split("_"):
