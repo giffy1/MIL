@@ -50,3 +50,6 @@ for root, dirs, files in os.walk("."):
 				print ("participant %d" %participant)
 			except:
 				pass
+			
+	
+print best_class_weights
