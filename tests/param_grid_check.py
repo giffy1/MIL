@@ -11,8 +11,9 @@ for root, dirs, files in os.walk("."):
 	for f in files:
 		if f.endswith(".pickle") and f.startswith("lopo"):
 			for s in f[f.index("_"):f.index(".pickle")].split("_"):
-				if s[0] == "p":
-					participant = int(s[1:])
+				if len(s) > 0:
+					if s[0] == "p":
+						participant = int(s[1:])
 			with open(os.path.join(root, f), 'rb') as fd:
 				r = pickle.load(fd)
 			k = r["Results"].keys()
