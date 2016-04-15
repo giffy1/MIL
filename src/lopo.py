@@ -21,7 +21,7 @@ from sklearn.svm import SVC, LinearSVC
 import misvm
 import pickle
 from argparse import ArgumentParser
-from util import farey, accuracy_precision_recall_fscore, pprint_header, score, mil_train_test_split
+from util import farey, accuracy_precision_recall_fscore, score, mil_train_test_split
 from miforest.miforest import MIForest
 import json
 
