@@ -40,7 +40,8 @@ def main(aggregate, n_jobs):
 	res_dir = working_dir + '/res'
 	if not os.path.isdir(res_dir):
 		os.mkdir(res_dir, 0755)
-	
+		
+	handles = []
 	for m in M:
 		fscores = []
 		for b in bag_sizes:
@@ -68,7 +69,12 @@ def main(aggregate, n_jobs):
 					err_file = os.path.join(err_dir, 'err' + file_str + '.txt')
 					qsub(submit_this_job, job_id, log_file, err_file, n_cores=n_jobs)
 			fscores.append(avg_fscore / participant_count)
-		plt.plot(bag_sizes, fscores)
+		h, = plt.plot(bag_sizes, fscores, label="M=" + str(m))
+		handles.append(h)
+	plt.xlabel("Bag size")
+	plt.ylabel("F1 Score")
+	plt.title("Performance varying bag size and number of single instances")
+	plt.legend(handles = handles)
 	plt.show()
 			
 if __name__ == "__main__":
