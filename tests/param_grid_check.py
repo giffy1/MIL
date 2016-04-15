@@ -53,7 +53,8 @@ for root, dirs, files in os.walk("."):
 				pass
 			
 	
-print best_class_weights
+print(len(best_class_weights))
+print(len(best_class_weights[0]))
 print('\n\n\n')
 print [np.mean(best_class_weights[k], axis=0) for k in range(len(best_class_weights))]
 print [np.std(best_class_weights[k], axis=0) for k in range(len(best_class_weights))]
