@@ -24,7 +24,7 @@ for root, dirs, files in os.walk("."):
 				j=text[i:].index("}")
 				best_params_str = text[i+l:i+j+2] #+2 because of inner {} pair
 				print best_params_str
-				best_params = json.loads(best_params_str)
+				best_params = json.loads(best_params_str.replace('-1:', '"-1":').replace('1:', '"1":').replace("'",'"'))
 				print (best_params.keys())
 				print ("participant %d" %participant)
 			except:
@@ -42,7 +42,7 @@ for root, dirs, files in os.walk("."):
 				j=text[i:].index("}")
 				best_params_str = text[i+l:i+j+2] #+2 because of inner {} pair
 				print best_params_str
-				best_params = json.loads(best_params_str)
+				best_params = json.loads(best_params_str.replace('-1:', '"-1":').replace('1:', '"1":').replace("'",'"'))
 				print (best_params.keys())
 				print ("participant %d" %participant)
 			except:
