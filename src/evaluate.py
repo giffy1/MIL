@@ -40,7 +40,9 @@ def main(aggregate, n_jobs):
 	res_dir = working_dir + '/res'
 	if not os.path.isdir(res_dir):
 		os.mkdir(res_dir, 0755)
-		
+	
+	print aggregate
+	print aggregate==True
 	if aggregate:	
 		handles = []
 		for m in M:
