@@ -6,6 +6,7 @@ Created on Fri Apr 15 10:02:08 2016
 """
 
 import os
+import json
 search = "Best params:"
 l = len(search)
 for root, dirs, files in os.walk("."):
@@ -21,7 +22,9 @@ for root, dirs, files in os.walk("."):
 			try:
 				i=text.index(search)
 				j=text[i:].index("}")
-				print(text[i+l:i+j+1])
+				best_params_str = text[i+l:i+j+2] #+2 because of inner {} pair
+				best_params = json.loads(best_params_str)
+				print (best_params.keys())
 				print ("participant %d" %participant)
 			except:
 				pass
@@ -36,7 +39,9 @@ for root, dirs, files in os.walk("."):
 			try:
 				i=text.index(search)
 				j=text[i:].index("}")
-				print(text[i+l:i+j+1])
+				best_params_str = text[i+l:i+j+2] #+2 because of inner {} pair
+				best_params = json.loads(best_params_str)
+				print (best_params.keys())
 				print ("participant %d" %participant)
 			except:
 				pass
