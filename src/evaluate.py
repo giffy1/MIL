@@ -69,7 +69,7 @@ def main(aggregate, n_jobs):
 					qsub(submit_this_job, job_id, log_file, err_file, n_cores=n_jobs)
 			fscores.append(avg_fscore / participant_count)
 		plt.plot(bag_sizes, fscores)
-		plt.show()
+	plt.show()
 			
 if __name__ == "__main__":
 	parser = ArgumentParser()
