@@ -22,7 +22,7 @@ N = 1000 # N : number of instances per participant put into bags
 M = [0,75, 150, 225, 300] # M : number of single-instance bags per participant
 bag_sizes = [1,5,10,20,40]
 
-working_dir = '.'
+working_dir = 'eval'
 
 def main(aggregate, n_jobs):
 
@@ -60,7 +60,7 @@ def main(aggregate, n_jobs):
 							if not np.isnan(fscore):
 								avg_fscore += fscore
 								participant_count += 1
-						
+					
 				fscores.append(avg_fscore / participant_count)
 			h, = plt.plot(bag_sizes, fscores, label="M=" + str(m))
 			handles.append(h)
