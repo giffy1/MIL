@@ -84,7 +84,7 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 	#test data:
 	X_test = X[active_participant_counter]
 	Y_test = Y[active_participant_counter]
-	X_test, Y_test = shuffle(X_test, Y_test)
+	#X_test, Y_test = shuffle(X_test, Y_test)
 
 ##convert to bags:
 #if clf_name in MIL:
