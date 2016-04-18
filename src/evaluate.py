@@ -46,6 +46,7 @@ def main(aggregate, n_jobs):
 	if aggregate:	
 		handles = []
 		for m in M:
+			x = []
 			fscores = []
 			for b in bag_sizes:
 				avg_fscore = 0
@@ -60,9 +61,10 @@ def main(aggregate, n_jobs):
 							if not np.isnan(fscore):
 								avg_fscore += fscore
 								participant_count += 1
-					
-				fscores.append(avg_fscore / participant_count)
-			h, = plt.plot(bag_sizes, fscores, label="M=" + str(m))
+				if participant_count > 0:
+					fscores.append(avg_fscore / participant_count)
+					x.append(b)
+			h, = plt.plot(x, fscores, label="M=" + str(m))
 			handles.append(h)
 		plt.xlabel("Bag size")
 		plt.ylabel("F1 Score")
