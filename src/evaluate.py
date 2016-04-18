@@ -12,6 +12,7 @@ from argparse import ArgumentParser
 import pickle
 import numpy as np
 from matplotlib import pyplot as plt
+from util import pprint_header
 
 sys.path.insert(0, '../tests')
 from qsub import qsub
@@ -49,6 +50,7 @@ def main(aggregate, n_jobs):
 			x = []
 			fscores = []
 			for b in bag_sizes:
+				pprint_header("Aggregating Results for M = %d, bag size = %d" %(m, b))
 				avg_fscore = 0
 				participant_count = 0
 				for p in participants:
@@ -61,6 +63,7 @@ def main(aggregate, n_jobs):
 							if not np.isnan(fscore):
 								avg_fscore += fscore
 								participant_count += 1
+				print("Results found for %d participants." %participant_count)
 				if participant_count > 0:
 					fscores.append(avg_fscore / participant_count)
 					x.append(b)
