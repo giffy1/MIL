@@ -150,12 +150,8 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 	
 # print number of instances per participant	
 # [len(X_SI[k]) for k in range(len(X_SI))]
-	
-# TODO: If we set M=0, then we can't really do CV, right? One way around this 
-# is to use a positive M but never put them in the training data
 
 if __name__ == "__main__":
-	#main('../data/eating_detection_inertial_ubicomp2015/', 'data_p0.pickle', 10, 0, 25, 100)
 
 	parser = ArgumentParser()
 	
@@ -163,15 +159,15 @@ if __name__ == "__main__":
 			help="Directory where the dataset is stored.")
 	parser.add_argument("-s", "--save", dest="data_file", default='data.pickle', type=str, \
 			help="File where the bagged data will be stored.")
-	parser.add_argument("-p", "--participant", dest="active_participant_counter", default=0, type=int, \
+	parser.add_argument("-p", "--participant", dest="active_participant_counter", default=3, type=int, \
 			help="Participant held out for evaluating the model.")	
-	parser.add_argument("-b", "--bag-size", dest="bag_size", default=10, type=int, \
+	parser.add_argument("-b", "--bag-size", dest="bag_size", default=0, type=int, \
 			help="Bag Size (-1 for sessions)")
-	parser.add_argument("-m", "--M", dest="M", default=25, type=int, \
+	parser.add_argument("-m", "--M", dest="M", default=75, type=int, \
 			help="")
 	parser.add_argument("-n", "--N", dest="N", default=100, type=int, \
 			help="")
-	parser.add_argument("-i", "--seed", dest="seed", default=None, type=int, \
+	parser.add_argument("-i", "--seed", dest="seed", default=0, type=int, \
 			help="")
 	
 	args = parser.parse_args()
