@@ -12,6 +12,8 @@ may include labelled instances or bags from the held-out participant, in order
 to enhance generalizability.
 """
 
+from __future__ import division
+
 import numpy as np
 from sklearn.metrics import confusion_matrix, classification_report
 from time import time
@@ -21,7 +23,7 @@ from sklearn.svm import SVC, LinearSVC
 import misvm
 import pickle
 from argparse import ArgumentParser
-from util import farey, accuracy_precision_recall_fscore, score, mil_train_test_split
+from util import farey, accuracy_precision_recall_fscore, score, mil_train_test_split, pprint_header
 from miforest.miforest import MIForest
 import json
 
@@ -36,9 +38,9 @@ def get_param_grid_by_clf(clf_name, kernel='linear'):
 	
 	#class weights are determined by a Farey sequence to make sure that redundant pairs, 
 	#i.e. (1,1) = (2,2), (2,3) = (4,6), etc. are not included.
-	#class_weights = [{1 : i, -1 : j} for (i,j) in farey(25)[1:]] #ignore first value where i=0
-	class_weights = [{1 : j, -1 : i} for (i,j) in farey(20)[1:]] #swap i and j, ignore first value
-	C_array = np.logspace(-5, 15, 21, base=2).tolist()
+	#class_weights = [{1 : i, -1 : j} for (i,j) in farey(20)[1:]] #ignore first value where i=0
+	#class_weights = [{1 : j, -1 : i} for (i,j) in farey(10)[1:]] #swap i and j, ignore first value
+	C_array = np.logspace(5, 16, 12, base=2).tolist()
 	gamma_array = np.logspace(-15, 3, 19, base=2).tolist()
 	eta_array = np.linspace(0,1,9).tolist()
 	n_estimators_array = [25,50,75,100,125,150]
@@ -47,13 +49,13 @@ def get_param_grid_by_clf(clf_name, kernel='linear'):
 	if clf_name in {'RF', 'MIForest'}:
 		param_grid.update({'n_estimators' : n_estimators_array})
 	
-	if clf_name in {'SIL', 'sMIL', 'sbMIL', 'RF', 'SVM', 'LinearSVC'}:
-		param_grid.update({'class_weight' : class_weights})
+#	if clf_name in {'SIL', 'sMIL', 'sbMIL', 'RF', 'SVM', 'LinearSVC'}:
+#		param_grid.update({'class_weight' : class_weights})
 		
 	if clf_name in {'SIL', 'sMIL', 'sbMIL', 'misvm', 'SVM', 'LinearSIL', 'LinearSVC'}:
 		param_grid.update({'C' : C_array})
 	
-	if clf_name in {'SIL', 'sMIL', 'sbMIL', 'misvm', 'SVM'} and kernel == 'rbf':
+	if clf_name in {'SIL', 'sMIL', 'sbMIL', 'misvm', 'SVM'} and kernel.startswith('rbf'):
 		param_grid.update({'gamma' : gamma_array})
 		
 	if clf_name == 'sbMIL':
@@ -95,15 +97,10 @@ def get_clf_by_name(clf_name, **kwargs):
 def parse_clf(clf_str):
 	start = clf_str.index('(')
 	end = clf_str.index(')')
+	param_str = '{' + clf_str[start+1:end] + '}'
+	params = json.loads(param_str)
 	clf_name = clf_str[:start]
-	param_list_str = clf_str[start+1:end]
-	param_lst = param_list_str.split(',')
-	params = {}
-	for param_str in param_lst:
-		if '=' in param_str:
-			split_index = param_str.index('=')
-			s = param_str[split_index+1:].strip()
-			params[param_str[:split_index].strip()] = json.loads(s)
+
 	return clf_name, params
 
 def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, description):
@@ -128,15 +125,20 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 		Y_val.extend(Y_SI[p])
 		X_train.extend(X_SI[p][:M])
 		Y_train.extend(Y_SI[p][:M])
+	n_single_instances = len(X_train)
 	for p in range(len(X_B)):
 		X_val.extend(X_B[p])
 		Y_val.extend(Y_B[p])
 		X_train.extend(X_B[p])
 		Y_train.extend(Y_B[p])
+	n_bags = len(X_train) - n_single_instances
 	X_test = data['test']['X']
 	Y_test = data['test']['Y']
 	
 	clf_name, clf_params = parse_clf(clf_str)
+	N1 = np.sum(np.greater(Y_train, 0))
+	N0 = np.sum(np.less(Y_train, 0))
+	clf_params['class_weight'] = {1 : N0/(N0 + N1), -1 : N1/(N0 + N1)}
 	clf = get_clf_by_name(clf_name, **clf_params)
 	param_grid = get_param_grid_by_clf(clf_name, clf_params.get("kernel", "linear"))
 
@@ -148,6 +150,8 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 	}
 	
 	cv_iterator = mil_train_test_split(X_SI, X_B, M)
+	
+	pprint_header("Number of bags : %d    Number of single instances: %d" %(n_bags, n_single_instances))
 
 	if cv_method == 'grid':
 		gs = GridSearchCV(clf, param_grid, scoring=score, cv=cv_iterator, verbose=verbose, n_jobs = n_jobs, refit=False)
@@ -224,15 +228,15 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 if __name__ == "__main__":
 	parser = ArgumentParser()
 	
-	parser.add_argument("-d", "--data", dest="data_file", default='data_p0.pickle', type=str, \
+	parser.add_argument("-d", "--data", dest="data_file", default='data.pickle', type=str, \
 			help="Directory where the dataset is stored")
 
-	parser.add_argument("--clf", dest="clf_str", default='sbMIL(verbose=0)', type=str, \
+	parser.add_argument("--clf", dest="clf_str", default='sbMIL("verbose":0)', type=str, \
 			help="Classifier ('RF', 'SVM', 'LinearSVC', 'SIL', 'LinearSIL', 'MIForest', 'sMIL', 'sbMIL', 'misvm')")
 			
 	parser.add_argument("--cv-method", dest="cv_method", default='randomized', type=str, \
 			help="Determines how hyperparameters are learned ('grid' or 'randomized')")
-	parser.add_argument("--n-iter", dest="n_iter", default=10, type=int, \
+	parser.add_argument("--n-iter", dest="n_iter", default=5, type=int, \
 			help="The number of iterations in randomized cross-validation (see RandomizedSearchCV.cv)")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, \
 			help="Number of threads used (default = 1). Use -1 for maximal parallelization")
