@@ -104,7 +104,6 @@ if __name__ == "__main__":
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
 		default='eval2', type=str, help="")
 	parser.add_argument("-a", "--aggregate", dest="aggregate", default=1, type=int, help="")
-	parser.add_argument("-a", dest="aggregate", default=1, type=int, help="")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
 	parser.add_argument("--n-trials", dest="n_trials", default=1, type=int, help="")
 	parser.add_argument("--n-iter", dest="n_iter", default=25, type=int, help="")	
