@@ -88,14 +88,15 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 				if participant_count > 0:
 					fscores.append(total_avg_fscore / participant_count)
 					x.append(b)
-				h, = plt.plot(x, fscores, label="M=" + str(m))
-				handles.append(h)
 		if aggregate:
-			plt.xlabel("Bag size")
-			plt.ylabel("F1 Score")
-			plt.title("Performance varying bag size and number of single instances")
-			plt.legend(handles = handles)
-			plt.show()
+			h, = plt.plot(x, fscores, label="M=" + str(m))
+			handles.append(h)
+	if aggregate:
+		plt.xlabel("Bag size")
+		plt.ylabel("F1 Score")
+		plt.title("Performance varying bag size and number of single instances")
+		plt.legend(handles = handles)
+		plt.show()
 
 if __name__ == "__main__":
 	parser = ArgumentParser()
