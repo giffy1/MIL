@@ -23,6 +23,9 @@ N = 1000 # N : number of instances per participant put into bags
 M = [0, 100, 200, 300, 400, 500] # M : number of single-instance bags per participant
 bag_sizes = [1, 5, 10, 20, 50, 100, 200]
 
+M = [0, 75, 150, 225, 300]
+bag_sizes = [1, 5, 10, 20, 40]
+
 def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 
 	if not os.path.isdir(working_dir):
