@@ -77,8 +77,9 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 						if os.path.isfile(save_path):
 							with open(save_path, 'rb') as f:
 								r = pickle.load(f)
-								conf = r["Results"]["Confusion Matrix"]["Test"]
-								total_conf += conf
+							conf = r["Results"]["Confusion Matrix"]["Test"]
+							total_conf += conf
+			print(total_conf)
 			_, _, fscore = accuracy_precision_recall_fscore(conf)[1][1]
 			fscores.append(fscore)
 		if aggregate:
