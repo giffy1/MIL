@@ -106,7 +106,7 @@ def parse_clf(clf_str):
 			params[param_str[:split_index].strip()] = json.loads(s)
 	return clf_name, params
 
-def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, description): #, M, N):
+def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, description):
 	"""
 	TODO: Doc string
 	"""
