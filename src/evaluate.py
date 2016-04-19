@@ -80,7 +80,7 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 							conf = r["Results"]["Confusion Matrix"]["Test"]
 							total_conf += conf
 			print(total_conf)
-			_, _, fscore = accuracy_precision_recall_fscore(conf)[1][1]
+			_, _, fscore = accuracy_precision_recall_fscore(total_conf)[1][1]
 			fscores.append(fscore)
 		if aggregate:
 			h, = plt.plot(bag_sizes, fscores, label="M=" + str(m))
