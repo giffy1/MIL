@@ -53,7 +53,9 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 				avg_fscore = 0
 				valid_count = 0
 				for i in range(n_trials):
-					file_str = '_p' + str(p) + '_b' + str(b) + '_m' + str(m) + '_i' + str(i)
+					file_str = '_p' + str(p) + '_b' + str(b) + '_m' + str(m) 
+					if n_trials > 1:
+						file_str += '_i' + str(i)
 					save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')
 					
 					if not aggregate:					
