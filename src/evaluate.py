@@ -13,15 +13,15 @@ from argparse import ArgumentParser
 import pickle
 import numpy as np
 from matplotlib import pyplot as plt
-from util import pprint_header
+from util import pprint_header, accuracy_precision_recall_fscore
 
 sys.path.insert(0, '../tests')
 from qsub import qsub
 
 participants = range(20)
-N = 200 # N : number of instances per participant put into bags
-M = [0,75, 150, 225, 300] # M : number of single-instance bags per participant
-bag_sizes = [1,5,10,20,40]
+N = 1000 # N : number of instances per participant put into bags
+M = [0, 100, 200, 300, 400, 500] # M : number of single-instance bags per participant
+bag_sizes = [1, 5, 10, 20, 50, 100, 200]
 
 def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 
@@ -42,16 +42,12 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 	
 	handles = []
 	for m in M:
-		x = []
 		fscores = []
 		for b in bag_sizes:
 			if aggregate:
 				pprint_header("Aggregating Results for M = %d, bag size = %d" %(m, b))
-			total_avg_fscore = 0
-			participant_count = 0
+			total_conf = np.asarray([[0,0],[0,0]])
 			for p in participants:
-				avg_fscore = 0
-				valid_count = 0
 				for i in range(n_trials):
 					file_str = '_p' + str(p) + '_b' + str(b) + '_m' + str(m) 
 					if n_trials > 1:
@@ -78,20 +74,12 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 						if os.path.isfile(save_path):
 							with open(save_path, 'rb') as f:
 								r = pickle.load(f)
-								fscore = r["Results"]["F1 Score"]["Test"]
-								if not np.isnan(fscore):
-									avg_fscore += fscore
-									valid_count += 1
-				if aggregate and valid_count > 0:
-					participant_count += 1
-					total_avg_fscore += avg_fscore / valid_count
-			if aggregate:
-				print("Results found for %d participants." %participant_count)
-				if participant_count > 0:
-					fscores.append(total_avg_fscore / participant_count)
-					x.append(b)
+								conf = r["Results"]["Confusion Matrix"]["Test"]
+								total_conf += conf
+			_, _, fscore = accuracy_precision_recall_fscore(conf)[1][1]
+			fscores.append(fscore)
 		if aggregate:
-			h, = plt.plot(x, fscores, label="M=" + str(m))
+			h, = plt.plot(bag_sizes, fscores, label="M=" + str(m))
 			handles.append(h)
 	if aggregate:
 		plt.xlabel("Bag size")
@@ -109,7 +97,7 @@ if __name__ == "__main__":
 	parser.add_argument("-a", "--aggregate", dest="aggregate", default=1, type=int, help="")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
 	parser.add_argument("--n-trials", dest="n_trials", default=1, type=int, help="")
-	parser.add_argument("--n-iter", dest="n_iter", default=25, type=int, help="")	
+	parser.add_argument("--n-iter", dest="n_iter", default=10, type=int, help="")	
 	
 	args = parser.parse_args()
 	
