@@ -44,6 +44,7 @@ def score(estimator, X, y):
 		Mean F1 score of self.predict(X) wrt. y.
 	"""
 	y_pred = 2*np.greater(estimator.predict(X), 0) - 1 #+/-1
+	print(estimator)
 	print(classification_report(y, y_pred))
 	print(confusion_matrix(y, y_pred))
 	fscore = f1_score(y, y_pred)
