@@ -171,6 +171,8 @@ if __name__ == "__main__":
 			help="")
 	parser.add_argument("-n", "--N", dest="N", default=100, type=int, \
 			help="")
+	parser.add_argument("-i", "--seed", dest="seed", default=None, type=int, \
+			help="")
 	
 	args = parser.parse_args()
 	
