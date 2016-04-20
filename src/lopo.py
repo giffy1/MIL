@@ -126,6 +126,15 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 		X_train.extend(X_SI[p][:M])
 		Y_train.extend(Y_SI[p][:M])
 	n_single_instances = len(X_train)
+	
+	#for class weights:
+#	N1 = np.sum(np.greater(Y_train, 0))
+#	N0 = np.sum(np.less(Y_train, 0))
+#	if N0 + N1 == 0:
+	N1 = np.sum(np.greater(Y_val, 0))
+	N0 = np.sum(np.less(Y_val, 0))
+	
+	
 	for p in range(len(X_B)):
 		X_val.extend(X_B[p])
 		Y_val.extend(Y_B[p])
@@ -136,9 +145,8 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 	Y_test = data['test']['Y']
 	
 	clf_name, clf_params = parse_clf(clf_str)
-	N1 = np.sum(np.greater(Y_train, 0))
-	N0 = np.sum(np.less(Y_train, 0))
 	clf_params['class_weight'] = {1 : N0/(N0 + N1), -1 : N1/(N0 + N1)}
+	print clf_params['class_weight']
 	clf = get_clf_by_name(clf_name, **clf_params)
 	param_grid = get_param_grid_by_clf(clf_name, clf_params.get("kernel", "linear"))
 
@@ -238,7 +246,7 @@ if __name__ == "__main__":
 			help="Determines how hyperparameters are learned ('grid' or 'randomized')")
 	parser.add_argument("--n-iter", dest="n_iter", default=1, type=int, \
 			help="The number of iterations in randomized cross-validation (see RandomizedSearchCV.cv)")
-	parser.add_argument("--n-jobs", dest="n_jobs", default=-1, type=int, \
+	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, \
 			help="Number of threads used (default = 1). Use -1 for maximal parallelization")
 			
 	parser.add_argument("--verbose", dest="verbose", default=0, type=int, \
