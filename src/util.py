@@ -115,6 +115,8 @@ def mil_train_test_split(X_SI, X_B, M):
 	n_single_instance_participants = len(X_SI)
 	n_bag_participants = len(X_B)
 	cv_iterator = []
+	
+	#if M is 0 we can speed it up by doing only one fold:
 	if M == 0:
 		end_of_test_indices = sum([len(X_SI[k]) for k in range(len(X_SI))])
 		end_of_train_indices = end_of_test_indices + sum([len(X_B[k]) for k in range(len(X_B))])
@@ -122,6 +124,7 @@ def mil_train_test_split(X_SI, X_B, M):
 		train_indices = range(end_of_test_indices, end_of_train_indices)
 		cv_iterator.append((train_indices, test_indices))
 		return cv_iterator
+		
 	for k in range(n_single_instance_participants):
 		train_indices = []
 		index = 0
