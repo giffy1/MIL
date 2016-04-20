@@ -245,7 +245,7 @@ if __name__ == "__main__":
 			help="Indicates how much information should be reported (0=None, 1=Some, 2=Quite a bit)")
 	parser.add_argument("--save", dest="save", default='none', type=str, \
 			help="Path of the pickle file containing the data. If none (default), the data will not be pickled")	
-	parser.add_argument("--desc", dest="description", default='MIForest test.', type=str, \
+	parser.add_argument("--desc", dest="description", default='', type=str, \
 			help="Description of the evaluation and parameter selection")
 	
 	args = parser.parse_args()
