@@ -236,9 +236,9 @@ if __name__ == "__main__":
 			
 	parser.add_argument("--cv-method", dest="cv_method", default='randomized', type=str, \
 			help="Determines how hyperparameters are learned ('grid' or 'randomized')")
-	parser.add_argument("--n-iter", dest="n_iter", default=5, type=int, \
+	parser.add_argument("--n-iter", dest="n_iter", default=1, type=int, \
 			help="The number of iterations in randomized cross-validation (see RandomizedSearchCV.cv)")
-	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, \
+	parser.add_argument("--n-jobs", dest="n_jobs", default=-1, type=int, \
 			help="Number of threads used (default = 1). Use -1 for maximal parallelization")
 			
 	parser.add_argument("--verbose", dest="verbose", default=0, type=int, \
