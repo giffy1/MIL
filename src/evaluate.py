@@ -20,8 +20,8 @@ from qsub import qsub
 
 participants = range(20)
 N = 1000 # N : number of instances per participant put into bags
-M = [0, 100, 200, 300, 400, 500] # M : number of single-instance bags per participant
-bag_sizes = [1, 5, 10, 20, 50, 100, 200]
+M = [0, 125, 250, 500] # M : number of single-instance bags per participant
+bag_sizes = [1, 10, 20, 50, 100]
 
 #M = [0, 75, 150, 225, 300]
 #bag_sizes = [1, 5, 10, 20, 40]
@@ -97,9 +97,9 @@ if __name__ == "__main__":
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
 		default='eval2', type=str, help="")
 	parser.add_argument("-a", "--aggregate", dest="aggregate", default=1, type=int, help="")
-	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
-	parser.add_argument("--n-trials", dest="n_trials", default=1, type=int, help="")
-	parser.add_argument("--n-iter", dest="n_iter", default=10, type=int, help="")	
+	parser.add_argument("--n-jobs", dest="n_jobs", default=6, type=int, help="")
+	parser.add_argument("--n-trials", dest="n_trials", default=5, type=int, help="")
+	parser.add_argument("--n-iter", dest="n_iter", default=8, type=int, help="")	
 	
 	args = parser.parse_args()
 	
