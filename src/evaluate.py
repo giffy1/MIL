@@ -59,19 +59,17 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 					
 					if not aggregate:					
 						data_file = os.path.join(res_dir, 'data' + file_str + '.pickle')
+						log_file = os.path.join(log_dir, 'log' + file_str + '.txt')
+						err_file = os.path.join(err_dir, 'err' + file_str + '.txt')
 						
 						submit_this_job = 'python bagging.py -d=%s -s=%s -p=%d -b=%d -m=%d -n=%d -i=%d' %(data_dir, data_file, p, b, m, N, i)
 						print submit_this_job + '\n'
 						bagging_job_id = 'bag' + file_str
-						log_file = os.path.join(log_dir, 'log' + file_str + '.txt')
-						err_file = os.path.join(err_dir, 'err' + file_str + '.txt')
 						qsub(submit_this_job, bagging_job_id, log_file, err_file, n_cores=n_jobs)					
 						
 						submit_this_job = 'python lopo.py -d=%s --n-jobs=%d --save=%s --n-iter=%d' %(data_file, n_jobs, save_path, n_iter)
 						print submit_this_job + '\n'
 						job_id = 'lopo' + file_str
-						log_file = os.path.join(log_dir, 'log' + file_str + '.txt')
-						err_file = os.path.join(err_dir, 'err' + file_str + '.txt')
 						qsub(submit_this_job, job_id, log_file, err_file, n_cores=n_jobs, depend=bagging_job_id)
 					else:
 						if os.path.isfile(save_path):
