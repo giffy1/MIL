@@ -14,17 +14,23 @@ import pickle
 import numpy as np
 from matplotlib import pyplot as plt
 from util import pprint_header, accuracy_precision_recall_fscore
+from bagging import main as bag_data
+from lopo import main as lopo
 
 sys.path.insert(0, '../tests')
 from qsub import qsub
 
 participants = range(20)
-N = 1000 # N : number of instances per participant put into bags
-M = [0, 125, 250, 500] # M : number of single-instance bags per participant
-bag_sizes = [1, 10, 20, 50, 100]
+N = 100 # N : number of instances per participant put into bags
+M = [25, 50] #[0, 12, 25, 50] # M : number of single-instance bags per participant
+bag_sizes = [1, 5, 10, 20]
+
+local= True
 
 #M = [0, 75, 150, 225, 300]
 #bag_sizes = [1, 5, 10, 20, 40]
+
+#for m=12, finish participants 11-19 with bag sizes 10 and 20
 
 def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 
@@ -62,15 +68,19 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 						log_file = os.path.join(log_dir, 'log' + file_str + '.txt')
 						err_file = os.path.join(err_dir, 'err' + file_str + '.txt')
 						
-						submit_this_job = 'python bagging.py -d=%s -s=%s -p=%d -b=%d -m=%d -n=%d -i=%d' %(data_dir, data_file, p, b, m, N, i)
-						print submit_this_job + '\n'
-						bagging_job_id = 'bag' + file_str
-						qsub(submit_this_job, bagging_job_id, log_file, err_file, n_cores=n_jobs)					
-						
-						submit_this_job = 'python lopo.py -d=%s --n-jobs=%d --save=%s --n-iter=%d' %(data_file, n_jobs, save_path, n_iter)
-						print submit_this_job + '\n'
-						job_id = 'lopo' + file_str
-						qsub(submit_this_job, job_id, log_file, err_file, n_cores=n_jobs, depend=bagging_job_id)
+						if local:
+							bag_data(data_dir, data_file, b, p, m, N, i)
+							lopo(data_file, 'sbMIL("verbose":0)', 'randomized', n_iter, n_jobs, 0, save_path, '')
+						else:
+							submit_this_job = 'python bagging.py -d=%s -s=%s -p=%d -b=%d -m=%d -n=%d -i=%d' %(data_dir, data_file, p, b, m, N, i)
+							print submit_this_job + '\n'
+							bagging_job_id = 'bag' + file_str
+							qsub(submit_this_job, bagging_job_id, log_file, err_file, n_cores=n_jobs)					
+							
+							submit_this_job = 'python lopo.py -d=%s --n-jobs=%d --save=%s --n-iter=%d' %(data_file, n_jobs, save_path, n_iter)
+							print submit_this_job + '\n'
+							job_id = 'lopo' + file_str
+							qsub(submit_this_job, job_id, log_file, err_file, n_cores=n_jobs, depend=bagging_job_id)
 					else:
 						if os.path.isfile(save_path):
 							with open(save_path, 'rb') as f:
@@ -95,9 +105,9 @@ if __name__ == "__main__":
 	parser.add_argument("-d", "--data-dir", dest="data_dir", \
 		default='../data/eating_detection_inertial_ubicomp2015/', type=str, help="")
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
-		default='eval2', type=str, help="")
-	parser.add_argument("-a", "--aggregate", dest="aggregate", default=1, type=int, help="")
-	parser.add_argument("--n-jobs", dest="n_jobs", default=6, type=int, help="")
+		default='eval4', type=str, help="")
+	parser.add_argument("-a", "--aggregate", dest="aggregate", default=0, type=int, help="")
+	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
 	parser.add_argument("--n-trials", dest="n_trials", default=5, type=int, help="")
 	parser.add_argument("--n-iter", dest="n_iter", default=8, type=int, help="")	
 	
