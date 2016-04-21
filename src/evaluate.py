@@ -106,7 +106,7 @@ if __name__ == "__main__":
 		default='../data/eating_detection_inertial_ubicomp2015/', type=str, help="")
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
 		default='eval4', type=str, help="")
-	parser.add_argument("-a", "--aggregate", dest="aggregate", default=0, type=int, help="")
+	parser.add_argument("-a", "--aggregate", dest="aggregate", default=1, type=int, help="")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
 	parser.add_argument("--n-trials", dest="n_trials", default=5, type=int, help="")
 	parser.add_argument("--n-iter", dest="n_iter", default=8, type=int, help="")	
