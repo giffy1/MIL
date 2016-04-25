@@ -20,14 +20,12 @@ from lopo import main as lopo
 sys.path.insert(0, '../tests')
 from qsub import qsub
 
-participants = range(11,20)
-N = 100 # N : number of instances per participant put into bags
+participants = range(20)
+N = 1000 # N : number of instances per participant put into bags
 #M = [0, 12, 25, 50] # M : number of single-instance bags per participant
-bag_sizes = [10] #,20] #[1, 5, 10, 20]
+bag_sizes = [1, 5, 10, 20]
 
-M = [12]#,50]
-#M=[0,125,250,500]
-#bag_sizes = [1, 10, 20, 50, 100]
+M=[0,125,250,500]
 
 local= True
 
