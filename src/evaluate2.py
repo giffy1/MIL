@@ -22,7 +22,7 @@ from qsub import qsub
 
 participants = range(20)
 #M = [0, 12, 25, 50] # M : number of single-instance bags per participant
-bag_sizes = [50, 100] #[1, 10, 20, 50, 100]
+bag_sizes = [1, 10, 20, 50, 100]
 
 N = {1 : [5, 10, 15, 20], 10 : [5, 10, 15, 20], 20: [2,4,6,8,10], 50: range(1,5), 100: range(1,5)} # N : number of instances per participant put into bags
 
@@ -33,11 +33,9 @@ local = True
 #M = [0, 75, 150, 225, 300]
 #bag_sizes = [1, 5, 10, 20, 40]
 
-#for m=12, finish participants 11-19 with bag size 10
-#for m=12 finish all participants with bag size 20
-#for m=25, finish participants 15-19 with bag size 5 COMPLETE
-#for m=25, finish all participants with bag sizes 10 and 20 COMPLETE
-#do m=50
+#for b=10, n=20 finish participants 6-19
+#complete all of b=20
+#complete b=50,100 (currently on server)
 
 def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 

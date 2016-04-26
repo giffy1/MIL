@@ -13,7 +13,7 @@ from matplotlib import pyplot as plt
 
 parser = ArgumentParser()
 	
-parser.add_argument("--data-dir", dest="data_dir", default='../data/smoking-data', type=str, \
+parser.add_argument("--data-dir", dest="data_dir", default='../data/eating_detection_inertial_ubicomp2015', type=str, \
 			  help="Directory where the dataset is stored")
 
 args = parser.parse_args()

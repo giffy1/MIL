@@ -30,7 +30,7 @@ def single_instances_to_sessions(X, Y, session_labels, session_start):
 			
 	return bags, labels, single_instance_labels
 	
-def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=None):
+def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=None, shuffle_bags = False):
 
 #data_dir = '../data/eating_detection_inertial_ubicomp2015/'
 #data_dir = '../data/smoking-data/'
@@ -62,8 +62,8 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 		x = X[p]
 		y = Y[p]
 		x,y = shuffle(seed, x, y)
-		X_SI.append(x)
-		Y_SI.append(y)
+		X_SI.append(x[:M])
+		Y_SI.append(y[:M])
 	
 	#bag-level training data:
 	X_B = []
@@ -74,7 +74,8 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 		else:
 			x = [X[p][k:k+bag_size, :] for k in xrange(0, len(X[p]), bag_size)]
 			y = [max(Y[p][k:k+bag_size]) for k in xrange(0, len(Y[p]), bag_size)]
-		x,y = shuffle(seed, x,y)	
+		if shuffle_bags:
+			x,y = shuffle(seed, x,y)	
 		X_B.append(x[:N])
 		Y_B.append(y[:N])
 		
@@ -134,7 +135,7 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 #X_test, Y_test = shuffle(X_test, Y_test)
 
 	data = {}
-	data['training'] = {'instance' : {'X' : X_SI, 'Y' : Y_SI, 'M': M}, 'bag' : {'X' : X_B, 'Y' : Y_B}}
+	data['training'] = {'instance' : {'X' : X_SI, 'Y' : Y_SI}, 'bag' : {'X' : X_B, 'Y' : Y_B}}
 	data['test'] = {'X' : X_test, 'Y' : Y_test}
 	
 	with open(data_file, 'wb') as f:
@@ -163,11 +164,13 @@ if __name__ == "__main__":
 			help="Participant held out for evaluating the model.")	
 	parser.add_argument("-b", "--bag-size", dest="bag_size", default=10, type=int, \
 			help="Bag Size (-1 for sessions)")
-	parser.add_argument("-m", "--M", dest="M", default=250, type=int, \
+	parser.add_argument("-m", "--M", dest="M", default=150, type=int, \
 			help="")
 	parser.add_argument("-n", "--N", dest="N", default=10, type=int, \
 			help="")
 	parser.add_argument("-i", "--seed", dest="seed", default=0, type=int, \
+			help="")
+	parser.add_argument("-sh", "--shuffle", dest="shuffle_bags", default=0, type=int, \
 			help="")
 	
 	args = parser.parse_args()

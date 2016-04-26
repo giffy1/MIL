@@ -113,31 +113,20 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 	
 	X_SI = data['training']['instance']['X']
 	Y_SI = data['training']['instance']['Y']
-	M = data['training']['instance']['M']
 	X_B = data['training']['bag']['X']
 	Y_B = data['training']['bag']['Y']
-	X_val = []
-	Y_val = []
 	X_train = []
 	Y_train = []
 	for p in range(len(X_SI)):
-		X_val.extend(X_SI[p])
-		Y_val.extend(Y_SI[p])
-		X_train.extend(X_SI[p][:M])
-		Y_train.extend(Y_SI[p][:M])
+		X_train.extend(X_SI[p])
+		Y_train.extend(Y_SI[p])
 	n_single_instances = len(X_train)
 	
 	#for class weights:
-#	N1 = np.sum(np.greater(Y_train, 0))
-#	N0 = np.sum(np.less(Y_train, 0))
-#	if N0 + N1 == 0:
-	N1 = np.sum(np.greater(Y_val, 0))
-	N0 = np.sum(np.less(Y_val, 0))
-	
-	
+	N1 = np.sum(np.greater(Y_train, 0))
+	N0 = np.sum(np.less(Y_train, 0))
+		
 	for p in range(len(X_B)):
-		X_val.extend(X_B[p])
-		Y_val.extend(Y_B[p])
 		X_train.extend(X_B[p])
 		Y_train.extend(Y_B[p])
 	n_bags = len(X_train) - n_single_instances
@@ -145,7 +134,10 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 	Y_test = data['test']['Y']
 	
 	clf_name, clf_params = parse_clf(clf_str)
-	clf_params['class_weight'] = {1 : N0/(N0 + N1), -1 : N1/(N0 + N1)}
+	if N0 + N1 == 0:
+		clf_params['class_weight'] = {1 : 0.9, -1 : 0.1}
+	else:
+		clf_params['class_weight'] = {1 : N0/(N0 + N1), -1 : N1/(N0 + N1)}
 	print clf_params['class_weight']
 	clf = get_clf_by_name(clf_name, **clf_params)
 	param_grid = get_param_grid_by_clf(clf_name, clf_params.get("kernel", "linear"))
@@ -157,7 +149,7 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 		"F1 Score": {"Training" : 0.0, "Test" : 0.0, "Validation" : 0.0} \
 	}
 	
-	cv_iterator = mil_train_test_split(X_SI, X_B, M)
+	cv_iterator = mil_train_test_split(X_SI, X_B)
 	
 	pprint_header("Number of bags : %d    Number of single instances: %d" %(n_bags, n_single_instances))
 
@@ -167,7 +159,7 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 		gs = RandomizedSearchCV(clf, param_distributions=param_grid, scoring=score, cv=cv_iterator, n_jobs = n_jobs, n_iter=n_iter, verbose=verbose, refit=False)
 	
 	t0 = time()
-	gs = gs.fit(X_val, Y_val)
+	gs = gs.fit(X_train, Y_train)
 	tf = time()
 	
 	print("Best parameters set found on development set:\n")
@@ -244,7 +236,7 @@ if __name__ == "__main__":
 			
 	parser.add_argument("--cv-method", dest="cv_method", default='randomized', type=str, \
 			help="Determines how hyperparameters are learned ('grid' or 'randomized')")
-	parser.add_argument("--n-iter", dest="n_iter", default=1, type=int, \
+	parser.add_argument("--n-iter", dest="n_iter", default=10, type=int, \
 			help="The number of iterations in randomized cross-validation (see RandomizedSearchCV.cv)")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, \
 			help="Number of threads used (default = 1). Use -1 for maximal parallelization")
