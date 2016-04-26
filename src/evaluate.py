@@ -57,7 +57,8 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 	
 	for p in participants:
 		handles = []
-		plt.figure()
+		if aggregate:
+			plt.figure()
 		for m in M:
 			fscores = []
 			for b in bag_sizes:
