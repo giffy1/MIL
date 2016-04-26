@@ -72,11 +72,11 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 		if bag_size == -1:
 			x, y, _ = single_instances_to_sessions(X[p], Y[p], session_labels[p], session_start[p])
 		else:
-			x = [X[p][k:k+bag_size, :] for k in xrange(0, min(len(X[p]), N), bag_size)]
-			y = [max(Y[p][k:k+bag_size]) for k in xrange(0, min(len(Y[p]), N), bag_size)]
-		#x,y = shuffle(x,y)	
-		X_B.append(x)
-		Y_B.append(y)
+			x = [X[p][k:k+bag_size, :] for k in xrange(0, len(X[p]), bag_size)]
+			y = [max(Y[p][k:k+bag_size]) for k in xrange(0, len(Y[p]), bag_size)]
+		x,y = shuffle(seed, x,y)	
+		X_B.append(x[:N])
+		Y_B.append(y[:N])
 		
 	#training data from the held-out participant:
 	#TODO: ^
@@ -163,9 +163,9 @@ if __name__ == "__main__":
 			help="Participant held out for evaluating the model.")	
 	parser.add_argument("-b", "--bag-size", dest="bag_size", default=10, type=int, \
 			help="Bag Size (-1 for sessions)")
-	parser.add_argument("-m", "--M", dest="M", default=0, type=int, \
+	parser.add_argument("-m", "--M", dest="M", default=250, type=int, \
 			help="")
-	parser.add_argument("-n", "--N", dest="N", default=100, type=int, \
+	parser.add_argument("-n", "--N", dest="N", default=10, type=int, \
 			help="")
 	parser.add_argument("-i", "--seed", dest="seed", default=0, type=int, \
 			help="")
