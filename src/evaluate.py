@@ -107,8 +107,8 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 				if aggregate:
 					print(total_conf)
 					precision, recall, fscore = accuracy_precision_recall_fscore(total_conf)[1][1]
-					print("F1 score: %0.02f" %recall)
-					fscores.append(recall)
+					print("F1 score: %0.02f" %fscore)
+					fscores.append(fscore)
 			if aggregate:
 				h, = plt.plot(bag_sizes, fscores, label="M=" + str(m))
 				handles.append(h)
