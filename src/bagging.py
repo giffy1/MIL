@@ -143,7 +143,7 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 		
 	return data
 
-# print number of bags per participant	
+# print number of bags per participant
 # [len(X_B[k]) for k in range(len(X_B))]
 
 # print size of bags for a particular subject
