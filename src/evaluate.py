@@ -100,10 +100,7 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 							with open(save_path, 'rb') as f:
 								r = pickle.load(f)
 							conf = r["Results"]["Confusion Matrix"]["Test"]
-							_, _, fscore = accuracy_precision_recall_fscore(conf)[1][1]
-							_, _, total_fscore = accuracy_precision_recall_fscore(total_conf)[1][1]
-							if np.isnan(total_fscore) or fscore > total_fscore:						
-								total_conf = conf
+							total_conf += conf
 				if aggregate:
 					print(total_conf)
 					precision, recall, fscore = accuracy_precision_recall_fscore(total_conf)[1][1]
@@ -118,6 +115,7 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 			plt.title("Performance varying bag size and number of single instances")
 			plt.legend(handles = handles)
 			plt.show()
+			plt.save("p%d_b_m.png" %p)
 
 if __name__ == "__main__":
 	parser = ArgumentParser()
