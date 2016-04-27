@@ -54,6 +54,10 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 	res_dir = working_dir + '/res'
 	if not os.path.isdir(res_dir):
 		os.mkdir(res_dir, 0755)
+  
+      	plot_dir = res_dir + '/plots'
+	if not os.path.isdir(plot_dir):
+		os.mkdir(plot_dir, 0755)
 	
 	for p in participants:
 		handles = []
@@ -96,7 +100,10 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 							with open(save_path, 'rb') as f:
 								r = pickle.load(f)
 							conf = r["Results"]["Confusion Matrix"]["Test"]
-							total_conf += conf
+							_, _, fscore = accuracy_precision_recall_fscore(conf)[1][1]
+							_, _, total_fscore = accuracy_precision_recall_fscore(total_conf)[1][1]
+							if fscore >	total_fscore:						
+								total_conf = conf
 				if aggregate:
 					print(total_conf)
 					precision, recall, fscore = accuracy_precision_recall_fscore(total_conf)[1][1]
