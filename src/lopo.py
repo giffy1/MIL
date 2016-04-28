@@ -50,7 +50,7 @@ def get_param_grid_by_clf(clf_name, kernel='linear'):
 	if clf_name in {'RF', 'MIForest'}:
 		param_grid.update({'n_estimators' : n_estimators_array})
 	
-	if clf_name in {'SIL', 'sMIL', 'sbMIL', 'RF', 'SVM', 'LinearSVC'}:
+	if clf_name in {'SVM', 'LinearSVC'}: # {'SIL', 'sMIL', 'sbMIL', 'RF', 'SVM', 'LinearSVC'}:
 		param_grid.update({'class_weight' : class_weights})
 		
 	if clf_name in {'SIL', 'sMIL', 'sbMIL', 'misvm', 'SVM', 'LinearSIL', 'LinearSVC'}:
