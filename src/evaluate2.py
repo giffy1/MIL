@@ -22,7 +22,7 @@ from qsub import qsub
 
 participants = range(20)
 #M = [0, 12, 25, 50] # M : number of single-instance bags per participant
-bag_sizes = [1, 10, 20, 50, 100]
+bag_sizes = [20,50] #[1, 10, 20, 50, 100]
 
 N = {1 : [5, 10, 15, 20], 10 : [5, 10, 15, 20], 20: [2,4,6,8,10], 50: range(1,5), 100: range(1,5)} # N : number of instances per participant put into bags
 
