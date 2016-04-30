@@ -115,7 +115,7 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 			plt.title("Performance varying bag size and number of single instances")
 			plt.legend(handles = handles)
 			plt.show()
-			plt.save(os.path.join(plot_dir, "p%d_b_m.png" %p))
+			plt.savefig(os.path.join(plot_dir, "p%d_b_m.png" %p))
 
 if __name__ == "__main__":
 	parser = ArgumentParser()
