@@ -1,0 +1,604 @@
+
+---------------------------------------------------------
+
+
+
+
+Number of bags : 877    Number of single instances: 625
+
+2016-04-28 13:54:18
+
+
+
+
+---------------------------------------------------------
+
+sbMIL(C=32.0, class_weight=None, eta=1.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.99      0.88      0.93       123
+        1.0       0.06      0.50      0.11         2
+
+avg / total       0.98      0.87      0.92       125
+
+[[108  15]
+ [  1   1]]
+sbMIL(C=8192.0, class_weight=None, eta=1.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.97      0.54      0.70       114
+        1.0       0.15      0.82      0.25        11
+
+avg / total       0.90      0.57      0.66       125
+
+[[62 52]
+ [ 2  9]]
+sbMIL(C=8192.0, class_weight=None, eta=1.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.96      0.75      0.84       113
+        1.0       0.22      0.67      0.33        12
+
+avg / total       0.88      0.74      0.79       125
+
+[[85 28]
+ [ 4  8]]
+sbMIL(C=8192.0, class_weight=None, eta=1.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       1.00      0.85      0.92       123
+        1.0       0.10      1.00      0.18         2
+
+avg / total       0.99      0.86      0.91       125
+
+[[105  18]
+ [  0   2]]
+sbMIL(C=8192.0, class_weight=None, eta=1.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.88      0.59      0.70       111
+        1.0       0.10      0.36      0.15        14
+
+avg / total       0.79      0.56      0.64       125
+
+[[65 46]
+ [ 9  5]]
+sbMIL(C=8192.0, class_weight=None, eta=1.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.95      0.86      0.90       116
+        1.0       0.20      0.44      0.28         9
+
+avg / total       0.90      0.83      0.86       125
+
+[[100  16]
+ [  5   4]]
+sbMIL(C=32.0, class_weight=None, eta=1.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.86      0.60      0.71       111
+        1.0       0.06      0.21      0.10        14
+
+avg / total       0.77      0.56      0.64       125
+
+[[67 44]
+ [11  3]]
+sbMIL(C=32.0, class_weight=None, eta=1.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.95      0.84      0.89       116
+        1.0       0.18      0.44      0.26         9
+
+avg / total       0.90      0.82      0.85       125
+
+[[98 18]
+ [ 5  4]]
+sbMIL(C=32.0, class_weight=None, eta=1.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.93      0.80      0.86       113
+        1.0       0.18      0.42      0.25        12
+
+avg / total       0.86      0.76      0.80       125
+
+[[90 23]
+ [ 7  5]]
+sbMIL(C=32.0, class_weight=None, eta=1.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.96      0.57      0.71       114
+        1.0       0.14      0.73      0.24        11
+
+avg / total       0.88      0.58      0.67       125
+
+[[65 49]
+ [ 3  8]]
+sbMIL(C=32768.0, class_weight=None, eta=0.5, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.98      0.90      0.94       123
+        1.0       0.00      0.00      0.00         2
+
+avg / total       0.97      0.89      0.93       125
+
+[[111  12]
+ [  2   0]]
+sbMIL(C=32768.0, class_weight=None, eta=0.5, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.89      0.91      0.90       111
+        1.0       0.17      0.14      0.15        14
+
+avg / total       0.81      0.82      0.82       125
+
+[[101  10]
+ [ 12   2]]
+sbMIL(C=32768.0, class_weight=None, eta=0.5, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.96      0.80      0.87       116
+        1.0       0.18      0.56      0.27         9
+
+avg / total       0.90      0.78      0.83       125
+
+[[93 23]
+ [ 4  5]]
+sbMIL(C=32768.0, class_weight=None, eta=0.5, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.94      0.78      0.85       113
+        1.0       0.19      0.50      0.28        12
+
+avg / total       0.86      0.75      0.80       125
+
+[[88 25]
+ [ 6  6]]
+sbMIL(C=32768.0, class_weight=None, eta=0.5, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.93      0.70      0.80       114
+        1.0       0.13      0.45      0.20        11
+
+avg / total       0.86      0.68      0.75       125
+
+[[80 34]
+ [ 6  5]]
+sbMIL(C=128.0, class_weight=None, eta=0.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.98      1.00      0.99       123
+        1.0       0.00      0.00      0.00         2
+
+avg / total       0.97      0.98      0.98       125
+
+[[123   0]
+ [  2   0]]
+sbMIL(C=128.0, class_weight=None, eta=0.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.93      1.00      0.96       116
+        1.0       0.00      0.00      0.00         9
+
+avg / total       0.86      0.93      0.89       125
+
+[[116   0]
+ [  9   0]]
+sbMIL(C=128.0, class_weight=None, eta=0.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.89      1.00      0.94       111
+        1.0       0.00      0.00      0.00        14
+
+avg / total       0.79      0.89      0.84       125
+
+[[111   0]
+ [ 14   0]]
+sbMIL(C=16384.0, class_weight=None, eta=0.375, gamma=1.0, kernel='linear',
+   p=3, scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.98      0.92      0.95       123
+        1.0       0.00      0.00      0.00         2
+
+avg / total       0.97      0.90      0.93       125
+
+[[113  10]
+ [  2   0]]
+sbMIL(C=128.0, class_weight=None, eta=0.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.91      1.00      0.95       114
+        1.0       0.00      0.00      0.00        11
+
+avg / total       0.83      0.91      0.87       125
+
+[[114   0]
+ [ 11   0]]
+sbMIL(C=16384.0, class_weight=None, eta=0.375, gamma=1.0, kernel='linear',
+   p=3, scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.89      0.94      0.91       111
+        1.0       0.12      0.07      0.09        14
+
+avg / total       0.80      0.84      0.82       125
+
+[[104   7]
+ [ 13   1]]
+sbMIL(C=128.0, class_weight=None, eta=0.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.90      1.00      0.95       113
+        1.0       0.00      0.00      0.00        12
+
+avg / total       0.82      0.90      0.86       125
+
+[[113   0]
+ [ 12   0]]
+sbMIL(C=16384.0, class_weight=None, eta=0.375, gamma=1.0, kernel='linear',
+   p=3, scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.93      0.93      0.93       116
+        1.0       0.11      0.11      0.11         9
+
+avg / total       0.87      0.87      0.87       125
+
+[[108   8]
+ [  8   1]]
+sbMIL(C=16384.0, class_weight=None, eta=0.375, gamma=1.0, kernel='linear',
+   p=3, scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.93      0.76      0.84       114
+        1.0       0.13      0.36      0.19        11
+
+avg / total       0.86      0.73      0.78       125
+
+[[87 27]
+ [ 7  4]]
+sbMIL(C=16384.0, class_weight=None, eta=0.375, gamma=1.0, kernel='linear',
+   p=3, scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.91      0.98      0.94       113
+        1.0       0.33      0.08      0.13        12
+
+avg / total       0.85      0.90      0.87       125
+
+[[111   2]
+ [ 11   1]]
+sbMIL(C=1024.0, class_weight=None, eta=1.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       1.00      0.85      0.92       123
+        1.0       0.10      1.00      0.17         2
+
+avg / total       0.99      0.85      0.90       125
+
+[[104  19]
+ [  0   2]]
+sbMIL(C=1024.0, class_weight=None, eta=1.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.88      0.58      0.70       111
+        1.0       0.10      0.36      0.15        14
+
+avg / total       0.79      0.55      0.63       125
+
+[[64 47]
+ [ 9  5]]
+sbMIL(C=1024.0, class_weight=None, eta=1.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.95      0.85      0.90       116
+        1.0       0.19      0.44      0.27         9
+
+avg / total       0.90      0.82      0.85       125
+
+[[99 17]
+ [ 5  4]]
+sbMIL(C=1024.0, class_weight=None, eta=1.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.97      0.55      0.70       114
+        1.0       0.15      0.82      0.25        11
+
+avg / total       0.90      0.58      0.66       125
+
+[[63 51]
+ [ 2  9]]
+sbMIL(C=1024.0, class_weight=None, eta=1.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.94      0.73      0.82       113
+        1.0       0.18      0.58      0.28        12
+
+avg / total       0.87      0.71      0.77       125
+
+[[82 31]
+ [ 5  7]]
+sbMIL(C=512.0, class_weight=None, eta=0.875, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       1.00      0.87      0.93       123
+        1.0       0.11      1.00      0.20         2
+
+avg / total       0.99      0.87      0.92       125
+
+[[107  16]
+ [  0   2]]
+sbMIL(C=512.0, class_weight=None, eta=0.875, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.88      0.64      0.74       111
+        1.0       0.09      0.29      0.14        14
+
+avg / total       0.79      0.60      0.67       125
+
+[[71 40]
+ [10  4]]
+sbMIL(C=512.0, class_weight=None, eta=0.875, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.96      0.61      0.74       114
+        1.0       0.15      0.73      0.25        11
+
+avg / total       0.89      0.62      0.70       125
+
+[[69 45]
+ [ 3  8]]
+sbMIL(C=512.0, class_weight=None, eta=0.875, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.95      0.91      0.93       116
+        1.0       0.27      0.44      0.33         9
+
+avg / total       0.91      0.87      0.89       125
+
+[[105  11]
+ [  5   4]]
+sbMIL(C=512.0, class_weight=None, eta=0.875, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.95      0.80      0.87       113
+        1.0       0.23      0.58      0.33        12
+
+avg / total       0.88      0.78      0.81       125
+
+[[90 23]
+ [ 5  7]]
+sbMIL(C=2048.0, class_weight=None, eta=0.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.98      1.00      0.99       123
+        1.0       0.00      0.00      0.00         2
+
+avg / total       0.97      0.98      0.98       125
+
+[[123   0]
+ [  2   0]]
+sbMIL(C=2048.0, class_weight=None, eta=0.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.89      1.00      0.94       111
+        1.0       0.00      0.00      0.00        14
+
+avg / total       0.79      0.89      0.84       125
+
+[[111   0]
+ [ 14   0]]
+sbMIL(C=2048.0, class_weight=None, eta=0.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.90      1.00      0.95       113
+        1.0       0.00      0.00      0.00        12
+
+avg / total       0.82      0.90      0.86       125
+
+[[113   0]
+ [ 12   0]]
+sbMIL(C=2048.0, class_weight=None, eta=0.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.93      1.00      0.96       116
+        1.0       0.00      0.00      0.00         9
+
+avg / total       0.86      0.93      0.89       125
+
+[[116   0]
+ [  9   0]]
+sbMIL(C=2048.0, class_weight=None, eta=0.0, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.91      1.00      0.95       114
+        1.0       0.00      0.00      0.00        11
+
+avg / total       0.83      0.91      0.87       125
+
+[[114   0]
+ [ 11   0]]
+sbMIL(C=256.0, class_weight=None, eta=0.125, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.98      1.00      0.99       123
+        1.0       0.00      0.00      0.00         2
+
+avg / total       0.97      0.98      0.98       125
+
+[[123   0]
+ [  2   0]]
+sbMIL(C=512.0, class_weight=None, eta=0.5, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.98      0.92      0.95       123
+        1.0       0.00      0.00      0.00         2
+
+avg / total       0.97      0.90      0.93       125
+
+[[113  10]
+ [  2   0]]
+sbMIL(C=256.0, class_weight=None, eta=0.125, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.89      1.00      0.94       111
+        1.0       0.00      0.00      0.00        14
+
+avg / total       0.79      0.89      0.84       125
+
+[[111   0]
+ [ 14   0]]
+sbMIL(C=256.0, class_weight=None, eta=0.125, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.93      1.00      0.96       116
+        1.0       0.00      0.00      0.00         9
+
+avg / total       0.86      0.93      0.89       125
+
+[[116   0]
+ [  9   0]]
+sbMIL(C=256.0, class_weight=None, eta=0.125, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.90      1.00      0.95       113
+        1.0       0.00      0.00      0.00        12
+
+avg / total       0.82      0.90      0.86       125
+
+[[113   0]
+ [ 12   0]]
+sbMIL(C=256.0, class_weight=None, eta=0.125, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.91      1.00      0.95       114
+        1.0       0.00      0.00      0.00        11
+
+avg / total       0.83      0.91      0.87       125
+
+[[114   0]
+ [ 11   0]]
+sbMIL(C=512.0, class_weight=None, eta=0.5, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.89      0.91      0.90       111
+        1.0       0.17      0.14      0.15        14
+
+avg / total       0.81      0.82      0.82       125
+
+[[101  10]
+ [ 12   2]]
+sbMIL(C=512.0, class_weight=None, eta=0.5, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.95      0.78      0.86       114
+        1.0       0.19      0.55      0.29        11
+
+avg / total       0.88      0.76      0.81       125
+
+[[89 25]
+ [ 5  6]]
+sbMIL(C=512.0, class_weight=None, eta=0.5, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.96      0.94      0.95       116
+        1.0       0.36      0.44      0.40         9
+
+avg / total       0.91      0.90      0.91       125
+
+[[109   7]
+ [  5   4]]
+sbMIL(C=512.0, class_weight=None, eta=0.5, gamma=1.0, kernel='linear', p=3,
+   scale_C=True, sv_cutoff=1e-07, verbose=0)
+             precision    recall  f1-score   support
+
+       -1.0       0.92      0.96      0.94       113
+        1.0       0.33      0.17      0.22        12
+
+avg / total       0.86      0.89      0.87       125
+
+[[109   4]
+ [ 10   2]]
+Best parameters set found on development set:
+
+{'C': 512.0, 'eta': 0.875}
+
+Grid scores on development set:
+
+0.239 (+/-0.129) for {'C': 8192.0, 'eta': 1.0}
+0.191 (+/-0.141) for {'C': 32.0, 'eta': 1.0}
+0.181 (+/-0.203) for {'C': 32768.0, 'eta': 0.5}
+0.000 (+/-0.000) for {'C': 128.0, 'eta': 0.0}
+0.105 (+/-0.124) for {'C': 16384.0, 'eta': 0.375}
+0.225 (+/-0.104) for {'C': 1024.0, 'eta': 1.0}
+0.251 (+/-0.152) for {'C': 512.0, 'eta': 0.875}
+0.000 (+/-0.000) for {'C': 2048.0, 'eta': 0.0}
+0.000 (+/-0.000) for {'C': 256.0, 'eta': 0.125}
+0.212 (+/-0.267) for {'C': 512.0, 'eta': 0.5}
+
+Detailed classification report:
+
+The model is trained on the full development set.
+The scores are computed on the full evaluation set.
+
+             precision    recall  f1-score   support
+
+       -1.0       0.95      0.55      0.69       676
+        1.0       0.23      0.82      0.36       114
+
+avg / total       0.84      0.59      0.65       790
+
+
+Time elapsed: 8948.48 seconds.
+Confusion matrix on the test data:
+[[371 305]
+ [ 21  93]]
+Precision on the test data: 23.37%
+Recall on the test data: 81.58%
+F1 Score on the test data: 36.33%
+
+Saving results to eval8/res/lopo_p0_m125_b10_i0.pickle ...

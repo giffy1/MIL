@@ -1,0 +1,1 @@
+/home/snoran/.bash_profile: line 22: cd: work/MIL: No such file or directory
