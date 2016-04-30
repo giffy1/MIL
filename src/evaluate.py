@@ -114,7 +114,6 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 			plt.ylabel("F1 Score")
 			plt.title("Performance varying bag size and number of single instances")
 			plt.legend(handles = handles)
-			plt.show()
 			plt.savefig(os.path.join(plot_dir, "p%d_b_m.png" %p))
 
 if __name__ == "__main__":
