@@ -22,7 +22,7 @@ from qsub import qsub
 
 participants = range(20)
 #M = [0, 12, 25, 50] # M : number of single-instance bags per participant
-bag_sizes = [1, 10, 20, 50, 100]
+bag_sizes = [50,100]#[1,10,50,100] #[1, 10, 20, 50, 100]
 
 N = {1 : [5, 10, 15, 20], 10 : [5, 10, 15, 20], 20: [2,4,6,8,10], 50: range(1,5), 100: range(1,5)} # N : number of instances per participant put into bags
 
@@ -107,14 +107,14 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 		plt.title("Performance varying bag size and number of bags")
 		plt.legend(handles = handles)
 		plt.show()
-
+# stopped at lopo_p13_b20_n8_i0.pickle
 if __name__ == "__main__":
 	parser = ArgumentParser()
 	parser.add_argument("-d", "--data-dir", dest="data_dir", \
 		default='../data/eating_detection_inertial_ubicomp2015/', type=str, help="")
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
 		default='eval5', type=str, help="")
-	parser.add_argument("-a", "--aggregate", dest="aggregate", default=1, type=int, help="")
+	parser.add_argument("-a", "--aggregate", dest="aggregate", default=0, type=int, help="")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
 	parser.add_argument("--n-trials", dest="n_trials", default=5, type=int, help="")
 	parser.add_argument("--n-iter", dest="n_iter", default=8, type=int, help="")	
