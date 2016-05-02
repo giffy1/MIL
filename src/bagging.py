@@ -30,7 +30,7 @@ def single_instances_to_sessions(X, Y, session_labels, session_start):
 			
 	return bags, labels, single_instance_labels
 	
-def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=None, shuffle_bags = False):
+def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=None, shuffle_bags = False, shuffle_si = True):
 
 #data_dir = '../data/eating_detection_inertial_ubicomp2015/'
 #data_dir = '../data/smoking-data/'
@@ -61,7 +61,8 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 	for p in si_participant_indices:
 		x = X[p]
 		y = Y[p]
-		x,y = shuffle(seed, x, y)
+		if shuffle_si:
+			x,y = shuffle(seed, x, y)
 		X_SI.append(x[:M])
 		Y_SI.append(y[:M])
 	
