@@ -20,11 +20,11 @@ from lopo import main as lopo
 sys.path.insert(0, '../tests')
 from qsub import qsub
 
-participants = range(20)
+participants = range(1)
 #M = [0, 12, 25, 50] # M : number of single-instance bags per participant
-bag_sizes = [1,10] #,20,50,100] #[1, 10, 20, 50, 100]
+bag_sizes = [1,10,20,50,100] #[1, 10, 20, 50, 100]
 
-N = {1 : [0,25,50,75,100,125,150,175,200], 10 : range(0,61,10), 20: [2,4,6,8,10], 50: range(1,5), 100: range(1,5)} # N : number of instances per participant put into bags
+N = {1 : [0,25,50,75,100,125,150,175,200], 10 : range(0,101,10), 20: [0,51,5], 50: range(0,20,4), 100: range(0,10,2)} # N : number of instances per participant put into bags
 
 M=125
 
@@ -82,7 +82,7 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 #							bagging_job_id = 'bag' + file_str
 #							qsub(submit_this_job, bagging_job_id, log_file, err_file, n_cores=n_jobs)
       
-							bag_data(data_dir, data_file, b, p, M, n, i)
+							bag_data(data_dir, data_file, b, p, M, n, i, shuffle_bags=True)
 							
 							submit_this_job = 'python lopo.py -d=%s --n-jobs=%d --save=%s --n-iter=%d' %(data_file, n_jobs, save_path, n_iter)
 							print submit_this_job + '\n'
@@ -99,20 +99,20 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 			print("F1 score: %0.02f" %fscore)
 			fscores.append(fscore)
 		if aggregate:
-			plt.figure()
-			#h, = plt.plot(N[b], fscores, label="b=" + str(b))
+			#plt.figure()
+			h, = plt.plot(N[b], fscores, label="b=" + str(b))
 			plt.plot(N[b], fscores)
 			plt.title("b=%d" %b)
 			plt.xlabel("Number of Bags")
 			plt.ylabel("F1 Score")
-			plt.show()
-			#handles.append(h)
-#	if aggregate:
-#		plt.xlabel("Number of Bags")
-#		plt.ylabel("F1 Score")
-#		plt.title("Performance varying bag size and number of bags")
-#		plt.legend(handles = handles)
-#		plt.show()
+			#plt.show()
+			handles.append(h)
+	if aggregate:
+		plt.xlabel("Number of Bags")
+		plt.ylabel("F1 Score")
+		plt.title("Performance varying bag size and number of bags")
+		plt.legend(handles = handles)
+		plt.show()
 # stopped at lopo_p13_b20_n8_i0.pickle
 if __name__ == "__main__":
 	parser = ArgumentParser()
