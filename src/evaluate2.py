@@ -56,7 +56,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter):
 	for b in bag_sizes:
 		for n in N[b]:
 			for p in participants:
-				for i in [I[n]]: #range(n_trials):
+				for i in I[n]: #range(n_trials):
 					file_str = '_p' + str(p) + '_b' + str(b) + '_n' + str(n) 
 					if n_trials > 1:
 						file_str += '_i' + str(i)
