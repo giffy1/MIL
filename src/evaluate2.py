@@ -18,12 +18,9 @@ from qsub import qsub
 
 participants = range(1)
 #M = [0, 12, 25, 50] # M : number of single-instance bags per participant
-bag_sizes = [100]# [1,10,20,50,100] #[1, 10, 20, 50, 100]
+bag_sizes = [1,10,20,50,100] #[1, 10, 20, 50, 100]
 
-#N = {1 : [0,25,50,75,100,125,150,175,200], 10 : range(0,101,10), 20: range(0,51,5), 50: range(0,20,4), 100: range(0,10,2)} # N : number of instances per participant put into bags
-
-N = {100 : [6, 8, 10]}
-I = {6 : [3], 8: [2,3,4], 10 : [0,1,2,3,4]}
+N = {1 : [0,25,50,75,100,125,150,175,200], 10 : range(0,101,10), 20: range(0,51,5), 50: range(0,20,4), 100: range(0,10,2)} # N : number of instances per participant put into bags
 
 M=125
 
@@ -56,7 +53,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter):
 	for b in bag_sizes:
 		for n in N[b]:
 			for p in participants:
-				for i in I[n]: #range(n_trials):
+				for i in range(n_trials):
 					file_str = '_p' + str(p) + '_b' + str(b) + '_n' + str(n) 
 					if n_trials > 1:
 						file_str += '_i' + str(i)
