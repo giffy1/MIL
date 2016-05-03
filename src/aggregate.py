@@ -41,8 +41,8 @@ def main(working_dir):
 		_m_index = f.index("_m")
 		_i_index = f.index("_i")
 		#p = int(f[_p_index+2:_b_index])
-		b = int(f[_b_index+2:_m_index])
-		m = int(f[_m_index+2:_i_index])
+		m = int(f[_m_index+2:_b_index])
+		b = int(f[_b_index+2:_i_index])
 		
 		with open(os.path.join(res_dir,f), 'rb') as fd:
 			r = pickle.load(fd)
