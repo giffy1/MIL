@@ -102,7 +102,7 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
 			#plt.figure()
 			h, = plt.plot(N[b], fscores, label="b=" + str(b))
 			plt.plot(N[b], fscores)
-			plt.title("b=%d" %b)
+			#plt.title("b=%d" %b)
 			plt.xlabel("Number of Bags")
 			plt.ylabel("F1 Score")
 			#plt.show()
