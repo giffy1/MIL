@@ -76,7 +76,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter):
 						
 						submit_this_job = 'python lopo.py -d=%s --n-jobs=%d --save=%s --n-iter=%d' %(data_file, n_jobs, save_path, n_iter)
 						print submit_this_job + '\n'
-						job_id = 'lopo' + file_str
+						job_id = 'lopo2' + file_str
 						qsub(submit_this_job, job_id, log_file, err_file, n_cores=n_jobs) #, depend=bagging_job_id)
 
 if __name__ == "__main__":
