@@ -47,4 +47,4 @@ for f in files:
 	
 	print p,b,m
 	
-	os.rename(os.path.join(res_dir,f), os.path.join(res_dir,"lopo_p%d_m%d_b%d.pickle" %(p,m,b)))
+	os.rename(os.path.join(res_dir,f), os.path.join(res_dir,"lopo_p%d_m%d_b%d_i0.pickle" %(p,m,b)))
