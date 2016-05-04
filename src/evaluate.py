@@ -35,7 +35,7 @@ from qsub import qsub
 #for m=25, finish all participants with bag sizes 10 and 20 COMPLETE
 #do m=50
 
-def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, participants, local):
+def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, participants, local):
 
 	if not os.path.isdir(working_dir):
 		os.mkdir(working_dir, 0755)
@@ -95,7 +95,6 @@ if __name__ == "__main__":
 		default='../data/smoking-data/', type=str, help="")
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
 		default='eval11', type=str, help="")
-	parser.add_argument("-a", "--aggregate", dest="aggregate", default=0, type=int, help="")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
 	parser.add_argument("--n-trials", dest="n_trials", default=3, type=int, help="")
 	parser.add_argument("--n-iter", dest="n_iter", default=10, type=int, help="")
@@ -103,7 +102,7 @@ if __name__ == "__main__":
 	parser.add_argument("-M", "--n-single-instances", dest="M", default="[50,100,150]", type=str, help="")
 	parser.add_argument("-N", "--n-bags", dest="N", default=50, type=int, help="")
 	parser.add_argument("-p", "--participants", dest="participants", default="4", type=str, help="")
-	parser.add_argument("-l", "--local", dest="local", default=True, type=bool, help="")
+	parser.add_argument("-l", "--local", dest="local", default=0, type=int, help="")
 	
 	args = parser.parse_args()
 	
