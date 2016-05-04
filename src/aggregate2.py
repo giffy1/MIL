@@ -14,13 +14,12 @@ import numpy as np
 from matplotlib import pyplot as plt
 from util import accuracy_precision_recall_fscore
 
-participants = [3]
+participants = range(20)
 
 def main(working_dir):	
 	res_dir = working_dir + '/res'
 
 	files = [f for f in os.listdir(res_dir) if os.path.isfile(os.path.join(res_dir,f)) and f.startswith("lopo_") and f.endswith(".pickle")]
-	print len(files)
 	confusion_matrix = {}
 	fscores = {}
 	for f in files:
@@ -42,7 +41,6 @@ def main(working_dir):
 		_, _, fscore = accuracy_precision_recall_fscore(conf)[1][1]
 		fscores[k] = fscore
 	keys = np.asarray(sorted(fscores.keys()))
-	print keys.shape
 	B = set(keys[:,0])
 	for b in B:
 		y=zip(*[(k[1],fscores[k]) for k in sorted(fscores.keys()) if k[0]==b])
