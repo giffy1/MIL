@@ -20,7 +20,7 @@ def main(working_dir):
 	res_dir = working_dir + '/res'
 
 	files = [f for f in os.listdir(res_dir) if os.path.isfile(os.path.join(res_dir,f)) and f.startswith("lopo_") and f.endswith(".pickle")]
-	
+	print len(files)
 	confusion_matrix = {}
 	fscores = {}
 	for f in files:
