@@ -14,7 +14,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from util import accuracy_precision_recall_fscore
 
-working_dir = "eval"
+working_dir = "eval2"
 
 if not os.path.isdir(working_dir):
 	os.mkdir(working_dir, 0755)
@@ -39,12 +39,13 @@ for f in files:
 	_p_index = f.index("_p")
 	_b_index = f.index("_b")
 	_m_index = f.index("_m")
+	_i_index = f.index("_i")
 	dot_index = f.index(".")
-	#_i_index = f.index("_i")
-	p = int(f[_p_index+2:_m_index])
-	m = int(f[_m_index+2:_b_index])
-	b = int(f[_b_index+2:dot_index])
+	p = int(f[_p_index+2:_b_index])
+	b = int(f[_b_index+2:_m_index])
+	m = int(f[_m_index+2:_i_index])
+	i = int(f[_i_index+2:dot_index])
 	
-	print p,b,m
+	print p,b,m,i
 	
-	os.rename(os.path.join(res_dir,f), os.path.join(res_dir,"lopo_p%d_m%d_b%d_i0.pickle" %(p,m,b)))
+	os.rename(os.path.join(res_dir,f), os.path.join(res_dir,"lopo_p%d_m%d_b%d_i%d.pickle" %(p,m,b,i)))
