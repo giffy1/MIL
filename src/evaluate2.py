@@ -60,7 +60,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, parti
 		participants = json.loads(participants)
 	
 	for b in bag_sizes:
-		for n in N[b]:
+		for n in N:
 			for p in participants:
 				for i in range(n_trials):
 					file_str = '_p' + str(p) + '_b' + str(b) + '_n' + str(n) 
