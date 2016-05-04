@@ -10,24 +10,21 @@ from __future__ import division
 import os
 import sys
 from argparse import ArgumentParser
-import pickle
-import numpy as np
-from matplotlib import pyplot as plt
-from util import pprint_header, accuracy_precision_recall_fscore
 from bagging import main as bag_data
 from lopo import main as lopo
+import json
 
 sys.path.insert(0, '../tests')
 from qsub import qsub
 
-participants = range(1,2)
-N = 1000 # N : number of instances per participant put into bags
-#M = [0, 12, 25, 50] # M : number of single-instance bags per participant
-bag_sizes = [1, 10, 20, 50, 100, 200]
-
-M=[250,500] #[0,125,250,500]
-
-local = True
+#participants = range(1)
+#N = 1000 # N : number of instances per participant put into bags
+##M = [0, 12, 25, 50] # M : number of single-instance bags per participant
+#bag_sizes = [1, 10, 20, 50, 100, 200]
+#
+#M=[250,500] #[0,125,250,500]
+#
+#local = True
 
 #M = [0, 75, 150, 225, 300]
 #bag_sizes = [1, 5, 10, 20, 40]
@@ -38,7 +35,7 @@ local = True
 #for m=25, finish all participants with bag sizes 10 and 20 COMPLETE
 #do m=50
 
-def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
+def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, participants, local):
 
 	if not os.path.isdir(working_dir):
 		os.mkdir(working_dir, 0755)
@@ -58,63 +55,39 @@ def main(aggregate, working_dir, data_dir, n_jobs, n_trials, n_iter):
       	plot_dir = res_dir + '/plots'
 	if not os.path.isdir(plot_dir):
 		os.mkdir(plot_dir, 0755)
+		
+	M = json.loads(M)
+	bag_sizes = json.loads(bag_sizes)
+	try:
+		participants = range(int(participants))
+	except:
+		participants = json.loads(participants)
 	
 	for p in participants:
-		handles = []
-		if aggregate:
-			plt.figure()
 		for m in M:
-			fscores = []
 			for b in bag_sizes:
-				if aggregate:
-					pprint_header("Aggregating Results for participant %d, M = %d, bag size = %d" %(p, m, b))
-				total_conf = np.asarray([[0,0],[0,0]])
-				
 				for i in range(n_trials):
-					file_str = '_p' + str(p) + '_m' + str(m) + '_b' + str(b) 
-					if n_trials > 1:
-						file_str += '_i' + str(i)
+					file_str = '_p' + str(p) + '_m' + str(m) + '_b' + str(b) + '_i' + str(i)
 					save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')
 					
-					if not aggregate:					
-						data_file = os.path.join(res_dir, 'data' + file_str + '.pickle')
-						log_file = os.path.join(log_dir, 'log' + file_str + '.txt')
-						err_file = os.path.join(err_dir, 'err' + file_str + '.txt')
-						
-						if local:
-							bag_data(data_dir, data_file, b, p, m, N, i)
-							lopo(data_file, 'sbMIL("verbose":0)', 'randomized', n_iter, n_jobs, 0, save_path, '')
-						else:
-#							submit_this_job = 'python bagging.py -d=%s -s=%s -p=%d -b=%d -m=%d -n=%d -i=%d' %(data_dir, data_file, p, b, m, N, i)
-#							print submit_this_job + '\n'
-#							bagging_job_id = 'bag' + file_str
-#							qsub(submit_this_job, bagging_job_id, log_file, err_file, n_cores=n_jobs)	
-							bag_data(data_dir, data_file, b, p, m, N, i)
-							
-							submit_this_job = 'python lopo.py -d=%s --n-jobs=%d --save=%s --n-iter=%d' %(data_file, n_jobs, save_path, n_iter)
-							print submit_this_job + '\n'
-							job_id = 'lopo' + file_str
-							qsub(submit_this_job, job_id, log_file, err_file, n_cores=n_jobs) #, depend=bagging_job_id)
+					data_file = os.path.join(res_dir, 'data' + file_str + '.pickle')
+					log_file = os.path.join(log_dir, 'log' + file_str + '.txt')
+					err_file = os.path.join(err_dir, 'err' + file_str + '.txt')
+					
+					if local:
+						bag_data(data_dir, data_file, b, p, m, N, i)
+						lopo(data_file, 'sbMIL("verbose":0)', 'randomized', n_iter, n_jobs, 0, save_path, '')
 					else:
-						if os.path.isfile(save_path):
-							with open(save_path, 'rb') as f:
-								r = pickle.load(f)
-							conf = r["Results"]["Confusion Matrix"]["Test"]
-							total_conf += conf
-				if aggregate:
-					print(total_conf)
-					precision, recall, fscore = accuracy_precision_recall_fscore(total_conf)[1][1]
-					print("F1 score: %0.02f" %fscore)
-					fscores.append(fscore)
-			if aggregate:
-				h, = plt.plot(bag_sizes, fscores, label="M=" + str(m))
-				handles.append(h)
-		if aggregate:
-			plt.xlabel("Bag size")
-			plt.ylabel("F1 Score")
-			plt.title("Performance varying bag size and number of single instances")
-			plt.legend(handles = handles)
-			plt.savefig(os.path.join(plot_dir, "p%d_b_m.png" %p))
+#						submit_this_job = 'python bagging.py -d=%s -s=%s -p=%d -b=%d -m=%d -n=%d -i=%d' %(data_dir, data_file, p, b, m, N, i)
+#						print submit_this_job + '\n'
+#						bagging_job_id = 'bag' + file_str
+#						qsub(submit_this_job, bagging_job_id, log_file, err_file, n_cores=n_jobs)	
+						bag_data(data_dir, data_file, b, p, m, N, i)
+						
+						submit_this_job = 'python lopo.py -d=%s --n-jobs=%d --save=%s --n-iter=%d' %(data_file, n_jobs, save_path, n_iter)
+						print submit_this_job + '\n'
+						job_id = 'lopo3' + file_str
+						qsub(submit_this_job, job_id, log_file, err_file, n_cores=n_jobs) #, depend=bagging_job_id)
 
 if __name__ == "__main__":
 	parser = ArgumentParser()
@@ -125,7 +98,12 @@ if __name__ == "__main__":
 	parser.add_argument("-a", "--aggregate", dest="aggregate", default=0, type=int, help="")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
 	parser.add_argument("--n-trials", dest="n_trials", default=3, type=int, help="")
-	parser.add_argument("--n-iter", dest="n_iter", default=10, type=int, help="")	
+	parser.add_argument("--n-iter", dest="n_iter", default=10, type=int, help="")
+	parser.add_argument("-B", "--bag-sizes", dest="bag_sizes", default="[1,10,100]", type=str, help="")
+	parser.add_argument("-M", "--n-single-instances", dest="M", default="[50,100,150]", type=str, help="")
+	parser.add_argument("-N", "--n-bags", dest="N", default=50, type=int, help="")
+	parser.add_argument("-p", "--participants", dest="participants", default="4", type=str, help="")
+	parser.add_argument("-l", "--local", dest="local", default=True, type=bool, help="")
 	
 	args = parser.parse_args()
 	
