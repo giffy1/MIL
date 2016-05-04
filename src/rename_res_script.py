@@ -41,7 +41,7 @@ for f in files:
 	_m_index = f.index("_m")
 	dot_index = f.index(".")
 	#_i_index = f.index("_i")
-	p = int(f[_p_index+2:_b_index])
+	p = int(f[_p_index+2:_m_index])
 	m = int(f[_m_index+2:_b_index])
 	b = int(f[_b_index+2:dot_index])
 	
