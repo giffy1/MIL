@@ -5,13 +5,6 @@ Created on Wed May  4 10:21:18 2016
 @author: snoran
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Tue May  3 09:02:56 2016
-
-@author: snoran
-"""
-
 from __future__ import division
 
 import os
