@@ -157,17 +157,17 @@ if __name__ == "__main__":
 
 	parser = ArgumentParser()
 	
-	parser.add_argument("-d", "--data-dir", dest="data_dir", default='../data/smoking-data/', type=str, \
+	parser.add_argument("-d", "--data-dir", dest="data_dir", default='../data/eating_detection_inertial_ubicomp2015/', type=str, \
 			help="Directory where the dataset is stored.")
 	parser.add_argument("-s", "--save", dest="data_file", default='data.pickle', type=str, \
 			help="File where the bagged data will be stored.")
 	parser.add_argument("-p", "--participant", dest="active_participant_counter", default=0, type=int, \
 			help="Participant held out for evaluating the model.")	
-	parser.add_argument("-b", "--bag-size", dest="bag_size", default=1, type=int, \
+	parser.add_argument("-b", "--bag-size", dest="bag_size", default=-1, type=int, \
 			help="Bag Size (-1 for sessions)")
 	parser.add_argument("-m", "--M", dest="M", default=125, type=int, \
 			help="")
-	parser.add_argument("-n", "--N", dest="N", default=100, type=int, \
+	parser.add_argument("-n", "--N", dest="N", default=2, type=int, \
 			help="")
 	parser.add_argument("-i", "--seed", dest="seed", default=0, type=int, \
 			help="")

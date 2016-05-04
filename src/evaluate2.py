@@ -16,15 +16,16 @@ from lopo import main as lopo
 sys.path.insert(0, '../tests')
 from qsub import qsub
 
-participants = range(1)
+participants = range(20)
 #M = [0, 12, 25, 50] # M : number of single-instance bags per participant
-bag_sizes = [1,10,20,50,100] #[1, 10, 20, 50, 100]
+bag_sizes = [-1] #1,10,20,50,100] #[1, 10, 20, 50, 100]
 
-N = {1 : [0,25,50,75,100,125,150,175,200], 10 : range(0,101,10), 20: range(0,51,5), 50: range(0,20,4), 100: range(0,10,2)} # N : number of instances per participant put into bags
+N = {-1 : range(2,10)}
+#N = {1 : [0,25,50,75,100,125,150,175,200], 10 : range(0,101,10), 20: range(0,51,5), 50: range(0,20,4), 100: range(0,10,2)} # N : number of instances per participant put into bags
 
 M=125
 
-local = False
+local = True
 
 #M = [0, 75, 150, 225, 300]
 #bag_sizes = [1, 5, 10, 20, 40]
@@ -84,10 +85,10 @@ if __name__ == "__main__":
 	parser.add_argument("-d", "--data-dir", dest="data_dir", \
 		default='../data/eating_detection_inertial_ubicomp2015/', type=str, help="")
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
-		default='eval5', type=str, help="")
+		default='eval_lab20_nsessions', type=str, help="")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
-	parser.add_argument("--n-trials", dest="n_trials", default=5, type=int, help="")
-	parser.add_argument("--n-iter", dest="n_iter", default=8, type=int, help="")	
+	parser.add_argument("--n-trials", dest="n_trials", default=3, type=int, help="")
+	parser.add_argument("--n-iter", dest="n_iter", default=10, type=int, help="")	
 	
 	args = parser.parse_args()
 	
