@@ -46,3 +46,5 @@ for f in files:
 	m = int(f[_m_index+2:dot_index])
 	
 	print p,b,m
+	
+	os.rename(os.path.join(res_dir,f), os.path.join(res_dir,"lopo_p%d_m%d_b%d.pickle" %(p,m,b)))
