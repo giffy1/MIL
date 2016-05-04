@@ -14,7 +14,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from util import accuracy_precision_recall_fscore
 
-working_dir = "eval2"
+working_dir = "eval3"
 
 if not os.path.isdir(working_dir):
 	os.mkdir(working_dir, 0755)
