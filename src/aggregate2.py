@@ -42,6 +42,7 @@ def main(working_dir):
 		_, _, fscore = accuracy_precision_recall_fscore(conf)[1][1]
 		fscores[k] = fscore
 	keys = np.asarray(sorted(fscores.keys()))
+	print keys.shape
 	B = set(keys[:,0])
 	for b in B:
 		y=zip(*[(k[1],fscores[k]) for k in sorted(fscores.keys()) if k[0]==b])
