@@ -38,9 +38,9 @@ def get_param_grid_by_clf(clf_name, kernel='linear'):
 	
 	#class weights are determined by a Farey sequence to make sure that redundant pairs, 
 	#i.e. (1,1) = (2,2), (2,3) = (4,6), etc. are not included.
-	#class_weights = [{1 : i, -1 : j} for (i,j) in farey(20)[1:]] #ignore first value where i=0
-	#class_weights = [{1 : j, -1 : i} for (i,j) in farey(10)[1:]] #swap i and j, ignore first value
-	class_weights = [{1: 0.8, -1: 0.2}, {1: 0.825, -1: 0.175}, {1: 0.85, -1: 0.15}, {1: 0.875, -1: 0.125}, {1: 0.9, -1: 0.1}, {1: 0.925, -1: 0.075}, {1: 0.95, -1: 0.05}, {1: 0.975, -1: 0.025}, {1: 0.99, -1: 0.01}]
+	class_weights = [{1 : i, -1 : j} for (i,j) in farey(20)[1:]] #ignore first value where i=0
+	class_weights = [{1 : j, -1 : i} for (i,j) in farey(10)[1:]] #swap i and j, ignore first value
+	#class_weights = [{1: 0.8, -1: 0.2}, {1: 0.825, -1: 0.175}, {1: 0.85, -1: 0.15}, {1: 0.875, -1: 0.125}, {1: 0.9, -1: 0.1}, {1: 0.925, -1: 0.075}, {1: 0.95, -1: 0.05}, {1: 0.975, -1: 0.025}, {1: 0.99, -1: 0.01}]
 	C_array = np.logspace(5, 16, 12, base=2).tolist()
 	gamma_array = np.logspace(-15, 3, 19, base=2).tolist()
 	eta_array = np.linspace(0,1,9).tolist()
