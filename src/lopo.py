@@ -150,7 +150,7 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 		"F1 Score": {"Training" : 0.0, "Test" : 0.0, "Validation" : 0.0} \
 	}
 	
-	cv_iterator = mil_train_test_split(X_SI, X_B)
+	cv_iterator = mil_train_test_split(X_SI, X_B, Y_SI, Y_B)
 	
 	pprint_header("Number of bags : %d    Number of single instances: %d" %(n_bags, n_single_instances))
 
