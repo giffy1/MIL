@@ -99,7 +99,7 @@ def pprint_header(header):
 	print "---------------------------------------------------------"
 	print ""
 	
-def mil_train_test_split(X_SI, X_B):
+def mil_train_test_split(X_SI, X_B, Y_SI, Y_B):
 	"""
 	Generates a list of train-test splits for cross-validation, 
 	specifically for MIL techniques. All bag-level data remains in the 
@@ -123,6 +123,8 @@ def mil_train_test_split(X_SI, X_B):
 	for k in range(n_single_instance_participants):
 		train_indices = []
 		index = 0
+		if len(np.unique(Y_SI[k])) == 1:
+			continue
 		
 		#instance-level:
 		for j in range(n_single_instance_participants):
