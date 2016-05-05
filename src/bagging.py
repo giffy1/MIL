@@ -30,7 +30,7 @@ def single_instances_to_sessions(X, Y, session_labels, session_start):
 			
 	return bags, labels, single_instance_labels
 	
-def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=None, shuffle_bags = False, shuffle_si = True):
+def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=None, shuffle_bags = False, shuffle_si = True, K=0, K_max=0, held_out_b=1):
 
 #data_dir = '../data/eating_detection_inertial_ubicomp2015/'
 #data_dir = '../data/smoking-data/'
@@ -65,6 +65,9 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 			x,y = shuffle(seed, x, y)
 		X_SI.append(x[:M])
 		Y_SI.append(y[:M])
+		
+#	X_SI.append(X[active_participant_counter][:K])
+#	Y_SI.append(Y[active_participant_counter][:K])
 	
 	#bag-level training data:
 	X_B = []
@@ -80,12 +83,17 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 		X_B.append(x[:N])
 		Y_B.append(y[:N])
 		
+	x = [X[active_participant_counter][k:k+held_out_b, :] for k in xrange(0, min(K*held_out_b,len(X[active_participant_counter])), held_out_b)]
+	y = [max(Y[active_participant_counter][k:k+held_out_b]) for k in xrange(0, min(K*held_out_b,len(Y[active_participant_counter])), held_out_b)]
+	X_B.append(x)
+	Y_B.append(y)
+		
 	#training data from the held-out participant:
 	#TODO: ^
 	
 	#test data:
-	X_test = X[active_participant_counter]
-	Y_test = Y[active_participant_counter]
+	X_test = X[active_participant_counter][K_max:]
+	Y_test = Y[active_participant_counter][K_max:]
 	#X_test, Y_test = shuffle(X_test, Y_test)
 
 ##convert to bags:
@@ -163,15 +171,21 @@ if __name__ == "__main__":
 			help="File where the bagged data will be stored.")
 	parser.add_argument("-p", "--participant", dest="active_participant_counter", default=0, type=int, \
 			help="Participant held out for evaluating the model.")	
-	parser.add_argument("-b", "--bag-size", dest="bag_size", default=-1, type=int, \
+	parser.add_argument("-b", "--bag-size", dest="bag_size", default=10, type=int, \
 			help="Bag Size (-1 for sessions)")
 	parser.add_argument("-m", "--M", dest="M", default=125, type=int, \
 			help="")
-	parser.add_argument("-n", "--N", dest="N", default=2, type=int, \
+	parser.add_argument("-n", "--N", dest="N", default=20, type=int, \
+			help="")
+	parser.add_argument("-k", "--K", dest="K", default=7, type=int, \
+			help="")
+	parser.add_argument("-km", "--K-max", dest="K_max", default=50, type=int, \
 			help="")
 	parser.add_argument("-i", "--seed", dest="seed", default=0, type=int, \
 			help="")
 	parser.add_argument("-sh", "--shuffle", dest="shuffle_bags", default=0, type=int, \
+			help="")
+	parser.add_argument("-hb", "--held-out-bag-size", dest="held_out_b", default=1, type=int, \
 			help="")
 	
 	args = parser.parse_args()
