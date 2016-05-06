@@ -82,7 +82,7 @@ def load_data(data_dir = './'):
 					Y_i = np.hstack((Y_i, y))
 					
 			first_iteration = 0
-			
+		
 		X.append(X_i)
 		Y.append(Y_i)
 		session_start.append(session_start_i)
