@@ -20,7 +20,7 @@ from qsub import qsub
 def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_size, M, N, participants, local):
 	
 	held_out_bag_sizes = [1,5,10,50,100]
-	K = {1 : range(0,20,201), 5 : range(0,41,4), 10 : range(0,21,2), 20: range(0,11), 50:range(5), 100: range(3)}
+	K = {1 : range(0,101,20), 5 : range(0,41,4), 10 : range(0,21,2), 20: range(0,11,2), 50:range(5), 100:range(3)}
 
 	if not os.path.isdir(working_dir):
 		os.mkdir(working_dir, 0755)
@@ -42,9 +42,9 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_size, M, N, partic
 	except:
 		participants = json.loads(participants)
 	
-	for h in held_out_bag_sizes:
-		for k in K[h]:
-			for p in participants:
+	for p in participants:
+		for h in held_out_bag_sizes:
+			for k in K[h]:
 				for i in range(n_trials):
 					file_str = '_p' + str(p) + '_h' + str(h) + '_k' + str(k) + '_i' + str(i)
 					save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')
@@ -54,7 +54,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_size, M, N, partic
 					err_file = os.path.join(err_dir, 'err' + file_str + '.txt')
 					
 					if local:
-						bag_data(data_dir, data_file, bag_size, p, M, N, i, shuffle_bags=True, shuffle_si=True, K=k, K_max = 200, held_out_b=h)
+						bag_data(data_dir, data_file, bag_size, p, M, N, i, shuffle_bags=True, shuffle_si=True, K=k, K_max = 100, held_out_b=h)
 						lopo(data_file, 'sbMIL("verbose":0)', 'randomized', n_iter, n_jobs, 0, save_path, '')
 					else:
 #						#don't submit jobs for bagging, the overhead is too large:
@@ -63,7 +63,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_size, M, N, partic
 #						bagging_job_id = 'bag' + file_str
 #						qsub(submit_this_job, bagging_job_id, log_file, err_file, n_cores=n_jobs)
       
-						bag_data(data_dir, data_file, bag_size, p, M, N, i, shuffle_bags=True, shuffle_si=True, K=k, K_max = 200, held_out_b=h)
+						bag_data(data_dir, data_file, bag_size, p, M, N, i, shuffle_bags=True, shuffle_si=True, K=k, K_max = 100, held_out_b=h)
 						
 						submit_this_job = 'python lopo.py -d=%s --n-jobs=%d --save=%s --n-iter=%d' %(data_file, n_jobs, save_path, n_iter)
 						print submit_this_job + '\n'
@@ -73,16 +73,16 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_size, M, N, partic
 if __name__ == "__main__":
 	parser = ArgumentParser()
 	parser.add_argument("-d", "--data-dir", dest="data_dir", \
-		default='../data/eating_detection_inertial_ubicomp2015/', type=str, help="")
+		default='../data/smoking-data/', type=str, help="")
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
 		default='eval_risq_nbags_heldout', type=str, help="")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
-	parser.add_argument("--n-trials", dest="n_trials", default=5, type=int, help="")
-	parser.add_argument("--n-iter", dest="n_iter", default=20, type=int, help="")	
+	parser.add_argument("--n-trials", dest="n_trials", default=3, type=int, help="")
+	parser.add_argument("--n-iter", dest="n_iter", default=10, type=int, help="")	
 	parser.add_argument("-b", "--bag-size", dest="bag_size", default=10, type=int, help="")
-	parser.add_argument("-m", "--n-single-instances", dest="M", default=125, type=int, help="")
-	parser.add_argument("-n", "--n-bags", dest="N", default=25, type=int, help="")
-	parser.add_argument("-p", "--participants", dest="participants", default="20", type=str, help="")
+	parser.add_argument("-m", "--n-single-instances", dest="M", default=100, type=int, help="")
+	parser.add_argument("-n", "--n-bags", dest="N", default=20, type=int, help="")
+	parser.add_argument("-p", "--participants", dest="participants", default="[3]", type=str, help="")
 	parser.add_argument("-l", "--local", dest="local", default=1, type=int, help="")
 	
 	args = parser.parse_args()
