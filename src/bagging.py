@@ -165,11 +165,11 @@ if __name__ == "__main__":
 
 	parser = ArgumentParser()
 	
-	parser.add_argument("-d", "--data-dir", dest="data_dir", default='../data/eating_detection_inertial_ubicomp2015/', type=str, \
+	parser.add_argument("-d", "--data-dir", dest="data_dir", default='../data/smoking-data/', type=str, \
 			help="Directory where the dataset is stored.")
 	parser.add_argument("-s", "--save", dest="data_file", default='data.pickle', type=str, \
 			help="File where the bagged data will be stored.")
-	parser.add_argument("-p", "--participant", dest="active_participant_counter", default=0, type=int, \
+	parser.add_argument("-p", "--participant", dest="active_participant_counter", default=3, type=int, \
 			help="Participant held out for evaluating the model.")	
 	parser.add_argument("-b", "--bag-size", dest="bag_size", default=10, type=int, \
 			help="Bag Size (-1 for sessions)")
@@ -177,9 +177,9 @@ if __name__ == "__main__":
 			help="")
 	parser.add_argument("-n", "--N", dest="N", default=20, type=int, \
 			help="")
-	parser.add_argument("-k", "--K", dest="K", default=7, type=int, \
+	parser.add_argument("-k", "--K", dest="K", default=0, type=int, \
 			help="")
-	parser.add_argument("-km", "--K-max", dest="K_max", default=50, type=int, \
+	parser.add_argument("-km", "--K-max", dest="K_max", default=0, type=int, \
 			help="")
 	parser.add_argument("-i", "--seed", dest="seed", default=0, type=int, \
 			help="")
