@@ -75,13 +75,13 @@ if __name__ == "__main__":
 		default='../data/smoking-data/', type=str, help="")
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
 		default='eval_risq_nsessions', type=str, help="")
-	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
-	parser.add_argument("--n-trials", dest="n_trials", default=3, type=int, help="")
-	parser.add_argument("--n-iter", dest="n_iter", default=10, type=int, help="")	
+	parser.add_argument("--n-jobs", dest="n_jobs", default=6, type=int, help="")
+	parser.add_argument("--n-trials", dest="n_trials", default=5, type=int, help="")
+	parser.add_argument("--n-iter", dest="n_iter", default=20, type=int, help="")	
 	parser.add_argument("-B", "--bag-sizes", dest="bag_sizes", default="[-1]", type=str, help="")
 	parser.add_argument("-M", "--n-single-instances", dest="M", default=125, type=int, help="")
-	parser.add_argument("-N", "--n-bags", dest="N", default="[5,6,7,8]", type=str, help="")
-	parser.add_argument("-p", "--participants", dest="participants", default="[2,3,4,5,6,7,8,9,10]", type=str, help="")
+	parser.add_argument("-N", "--n-bags", dest="N", default="[0,1,2,3,4]", type=str, help="")
+	parser.add_argument("-p", "--participants", dest="participants", default="[3]", type=str, help="")
 	parser.add_argument("-l", "--local", dest="local", default=1, type=int, help="")
 	
 	args = parser.parse_args()
