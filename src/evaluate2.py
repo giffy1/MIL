@@ -53,8 +53,11 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, parti
 					err_file = os.path.join(err_dir, 'err' + file_str + '.txt')
 					
 					if local:
-						bag_data(data_dir, data_file, b, p, M, n, i, shuffle_bags=True)
-						lopo(data_file, 'sbMIL("verbose":0)', 'randomized', n_iter, n_jobs, 0, save_path, '')
+						data=bag_data(data_dir, data_file, b, p, M, n, i, shuffle_bags=True)
+						print len(data['test']['Y'])
+						print set(data['test']['Y'])
+						print data['test']['Y']
+						#lopo(data_file, 'sbMIL("verbose":0)', 'randomized', n_iter, n_jobs, 0, save_path, '')
 					else:
 						#don't submit jobs for bagging, the overhead is too large:
 #						submit_this_job = 'python bagging.py -d=%s -s=%s -p=%d -b=%d -m=%d -n=%d -i=%d' %(data_dir, data_file, p, b, M, n, i)
