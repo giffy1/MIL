@@ -69,20 +69,23 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, parti
 						job_id = 'lopo2' + file_str
 						qsub(submit_this_job, job_id, log_file, err_file, n_cores=n_jobs) #, depend=bagging_job_id)
 
+# finish p=0, b=50, n=10, trials 2,3,4
+# then finish p=0, b=50, n=15, all trials
+
 if __name__ == "__main__":
 	parser = ArgumentParser()
 	parser.add_argument("-d", "--data-dir", dest="data_dir", \
-		default='../data/smoking-data/', type=str, help="")
+		default='../data/eating_detection_inertial_ubicomp2015/', type=str, help="")
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
-		default='eval_risq_nsessions', type=str, help="")
-	parser.add_argument("--n-jobs", dest="n_jobs", default=6, type=int, help="")
+		default='eval_lab20_nsessions', type=str, help="")
+	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
 	parser.add_argument("--n-trials", dest="n_trials", default=5, type=int, help="")
 	parser.add_argument("--n-iter", dest="n_iter", default=20, type=int, help="")	
-	parser.add_argument("-B", "--bag-sizes", dest="bag_sizes", default="[-1]", type=str, help="")
+	parser.add_argument("-B", "--bag-sizes", dest="bag_sizes", default="[50]", type=str, help="")
 	parser.add_argument("-M", "--n-single-instances", dest="M", default=125, type=int, help="")
-	parser.add_argument("-N", "--n-bags", dest="N", default="[0,1,2,3,4]", type=str, help="")
-	parser.add_argument("-p", "--participants", dest="participants", default="[4]", type=str, help="")
-	parser.add_argument("-l", "--local", dest="local", default=1, type=int, help="")
+	parser.add_argument("-N", "--n-bags", dest="N", default="[15]", type=str, help="")
+	parser.add_argument("-p", "--participants", dest="participants", default="20", type=str, help="")
+	parser.add_argument("-l", "--local", dest="local", default=0, type=int, help="")
 	
 	args = parser.parse_args()
 	

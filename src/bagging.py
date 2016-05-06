@@ -82,12 +82,13 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 			x,y = shuffle(seed, x,y)	
 		X_B.append(x[:N])
 		Y_B.append(y[:N])
-		
-	x = [X[active_participant_counter][k:k+held_out_b, :] for k in xrange(0, min(K*held_out_b,len(X[active_participant_counter])), held_out_b)]
-	y = [max(Y[active_participant_counter][k:k+held_out_b]) for k in xrange(0, min(K*held_out_b,len(Y[active_participant_counter])), held_out_b)]
-	X_B.append(x)
-	Y_B.append(y)
-		
+	
+	if K > 0:
+		x = [X[active_participant_counter][k:k+held_out_b, :] for k in xrange(0, min(K*held_out_b,len(X[active_participant_counter])), held_out_b)]
+		y = [max(Y[active_participant_counter][k:k+held_out_b]) for k in xrange(0, min(K*held_out_b,len(Y[active_participant_counter])), held_out_b)]
+		X_B.append(x)
+		Y_B.append(y)
+			
 	#training data from the held-out participant:
 	#TODO: ^
 	
