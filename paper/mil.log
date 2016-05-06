@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  1 APR 2016 22:47
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  5 MAY 2016 11:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1218,42 +1218,32 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 329.
  (./mil.aux)
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 329.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 329.
-
-
-Package rerunfilecheck Warning: File `mil.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `mil.out':
-(rerunfilecheck)             Before: D86683B9A125BB500B7BCA4FEE0A74A8;757
-(rerunfilecheck)             After:  C653ACDDD87F905C7C86A2AB509E3BB0;751.
+Package rerunfilecheck Info: File `mil.out' has not changed.
+(rerunfilecheck)             Checksum: C653ACDDD87F905C7C86A2AB509E3BB0;751.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 329.
  ) 
 Here is how much of TeX's memory you used:
- 19207 strings out of 493315
- 335126 string characters out of 6137904
- 434354 words of memory out of 5000000
+ 19206 strings out of 493315
+ 335107 string characters out of 6137904
+ 434352 words of memory out of 5000000
  22019 multiletter control sequences out of 15000+600000
  83661 words of font info for 227 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  63i,10n,96p,1182b,512s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{subsubsection.31} has been referenced but does no
-t exist, replaced by a fixed one
-
-{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
-live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texli
-ve/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
-e/2013/texmf-dist/fonts/type1/public/txfonts/t1xbtt.pfb></usr/local/texlive/201
-3/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb></usr/local/texlive/2013/texm
-f-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2013/texmf-dist/
-fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1
-/urw/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times
-/utmr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.p
-fb>
-Output written on mil.pdf (5 pages, 352206 bytes).
+{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/tex
+live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
+ive/2013/texmf-dist/fonts/type1/public/txfonts/t1xbtt.pfb></usr/local/texlive/2
+013/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb></usr/local/texlive/2013/te
+xmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2013/texmf-dis
+t/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2013/texmf-dist/fonts/typ
+e1/urw/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/tim
+es/utmr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a
+.pfb>
+Output written on mil.pdf (5 pages, 352175 bytes).
 PDF statistics:
- 220 PDF objects out of 1000 (max. 8388607)
- 184 compressed objects within 2 object streams
- 58 named destinations out of 1000 (max. 500000)
+ 219 PDF objects out of 1000 (max. 8388607)
+ 183 compressed objects within 2 object streams
+ 57 named destinations out of 1000 (max. 500000)
  28842 words of extra memory for PDF output out of 29859 (max. 10000000)
 
