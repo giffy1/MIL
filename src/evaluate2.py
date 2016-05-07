@@ -44,7 +44,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, parti
 	for b in bag_sizes:
 		for n in N:
 			for p in participants:
-				for i in range(n_trials):
+				for i in range(2,n_trials):
 					file_str = '_p' + str(p) + '_b' + str(b) + '_n' + str(n) + '_i' + str(i)
 					save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')
 					
@@ -70,22 +70,22 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, parti
 						qsub(submit_this_job, job_id, log_file, err_file, n_cores=n_jobs) #, depend=bagging_job_id)
 
 # finish p=0, b=50, n=10, trials 2,3,4
-# then finish p=0, b=50, n=15, all trials
+# then finish p=0, b=50, n=15, all trials (being done on server now)
 
 if __name__ == "__main__":
 	parser = ArgumentParser()
 	parser.add_argument("-d", "--data-dir", dest="data_dir", \
-		default='../data/eating_detection_inertial_ubicomp2015/', type=str, help="")
+		default='../data/smoking-data/', type=str, help="")
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
-		default='eval_lab20_nsessions', type=str, help="")
-	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
+		default='eval_risq_nbags2', type=str, help="")
+	parser.add_argument("--n-jobs", dest="n_jobs", default=6, type=int, help="")
 	parser.add_argument("--n-trials", dest="n_trials", default=5, type=int, help="")
 	parser.add_argument("--n-iter", dest="n_iter", default=20, type=int, help="")	
-	parser.add_argument("-B", "--bag-sizes", dest="bag_sizes", default="[50]", type=str, help="")
+	parser.add_argument("-B", "--bag-sizes", dest="bag_sizes", default="[5,10,20]", type=str, help="")
 	parser.add_argument("-M", "--n-single-instances", dest="M", default=125, type=int, help="")
-	parser.add_argument("-N", "--n-bags", dest="N", default="[15]", type=str, help="")
-	parser.add_argument("-p", "--participants", dest="participants", default="20", type=str, help="")
-	parser.add_argument("-l", "--local", dest="local", default=0, type=int, help="")
+	parser.add_argument("-N", "--n-bags", dest="N", default="[0,10,20,30,40,50]", type=str, help="")
+	parser.add_argument("-p", "--participants", dest="participants", default="[3]", type=str, help="")
+	parser.add_argument("-l", "--local", dest="local", default=1, type=int, help="")
 	
 	args = parser.parse_args()
 	
