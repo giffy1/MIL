@@ -84,7 +84,7 @@ if __name__ == "__main__":
 	parser.add_argument("-B", "--bag-sizes", dest="bag_sizes", default="[5,10,20]", type=str, help="")
 	parser.add_argument("-M", "--n-single-instances", dest="M", default=125, type=int, help="")
 	parser.add_argument("-N", "--n-bags", dest="N", default="[0,10,20,30,40,50]", type=str, help="")
-	parser.add_argument("-p", "--participants", dest="participants", default="[3]", type=str, help="")
+	parser.add_argument("-p", "--participants", dest="participants", default="[4]", type=str, help="")
 	parser.add_argument("-l", "--local", dest="local", default=1, type=int, help="")
 	
 	args = parser.parse_args()
