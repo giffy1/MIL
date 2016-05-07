@@ -62,7 +62,7 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 		x = X[p]
 		y = Y[p]
 		if shuffle_si:
-			x,y = shuffle(seed, x, y)
+			x, y = shuffle(seed, x, y)
 		X_SI.append(x[:M])
 		Y_SI.append(y[:M])
 		
@@ -79,22 +79,32 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 			x = [X[p][k:k+bag_size, :] for k in xrange(0, len(X[p]), bag_size)]
 			y = [max(Y[p][k:k+bag_size]) for k in xrange(0, len(Y[p]), bag_size)]
 		if shuffle_bags:
-			x,y = shuffle(seed, x,y)	
+			x, y = shuffle(seed, x,y)	
 		X_B.append(x[:N])
 		Y_B.append(y[:N])
 	
 	if K > 0:
-		x = [X[active_participant_counter][k:k+held_out_b, :] for k in xrange(0, min(K*held_out_b,len(X[active_participant_counter])), held_out_b)]
-		y = [max(Y[active_participant_counter][k:k+held_out_b]) for k in xrange(0, min(K*held_out_b,len(Y[active_participant_counter])), held_out_b)]
-		X_B.append(x)
-		Y_B.append(y)
-			
-	#training data from the held-out participant:
-	#TODO: ^
-	
-	#test data:
-	X_test = X[active_participant_counter][K_max:]
-	Y_test = Y[active_participant_counter][K_max:]
+		if held_out_b == -1:
+			x, y, si_labels = single_instances_to_sessions(X[active_participant_counter], Y[active_participant_counter], session_labels[active_participant_counter], session_start[active_participant_counter])
+		else:
+			x = [X[active_participant_counter][k:k+held_out_b, :] for k in xrange(0, min(K*held_out_b,len(X[active_participant_counter])), held_out_b)]
+			#y = [max(Y[active_participant_counter][k:k+held_out_b]) for k in xrange(0, min(K*held_out_b,len(Y[active_participant_counter])), held_out_b)]
+			si_labels = [Y[active_participant_counter][k:k+held_out_b] for k in xrange(0, min(K*held_out_b,len(Y[active_participant_counter])), held_out_b)]
+			y = [max(y_i) for y_i in si_labels]
+		if shuffle_bags:
+			x, y, si_labels = shuffle(seed, x, y, si_labels)	
+		X_B.append(x[:K])
+		Y_B.append(y[:K])
+		X_test = []
+		Y_test = []
+		for k in range(K_max / held_out_b, len(x)):
+			X_test.extend([X[k][j] for j in range(X[k].shape[0])])
+			Y_test.extend([si_labels[k][j] for j in range(si_labels[k].shape[0])])
+		
+	else:
+		#test data:
+		X_test = X[active_participant_counter]
+		Y_test = Y[active_participant_counter]
 	#X_test, Y_test = shuffle(X_test, Y_test)
 
 ##convert to bags:
@@ -166,7 +176,7 @@ if __name__ == "__main__":
 
 	parser = ArgumentParser()
 	
-	parser.add_argument("-d", "--data-dir", dest="data_dir", default='../data/smoking-data/', type=str, \
+	parser.add_argument("-d", "--data-dir", dest="data_dir", default='../data/eating_detection_inertial_ubicomp2015/', type=str, \
 			help="Directory where the dataset is stored.")
 	parser.add_argument("-s", "--save", dest="data_file", default='data.pickle', type=str, \
 			help="File where the bagged data will be stored.")
@@ -180,13 +190,13 @@ if __name__ == "__main__":
 			help="")
 	parser.add_argument("-k", "--K", dest="K", default=0, type=int, \
 			help="")
-	parser.add_argument("-km", "--K-max", dest="K_max", default=0, type=int, \
+	parser.add_argument("-km", "--K-max", dest="K_max", default=100, type=int, \
 			help="")
 	parser.add_argument("-i", "--seed", dest="seed", default=0, type=int, \
 			help="")
 	parser.add_argument("-sh", "--shuffle", dest="shuffle_bags", default=0, type=int, \
 			help="")
-	parser.add_argument("-hb", "--held-out-bag-size", dest="held_out_b", default=1, type=int, \
+	parser.add_argument("-hb", "--held-out-bag-size", dest="held_out_b", default=-1, type=int, \
 			help="")
 	
 	args = parser.parse_args()
