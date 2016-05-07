@@ -19,8 +19,8 @@ from qsub import qsub
 
 def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_size, M, N, participants, local):
 	
-	held_out_bag_sizes = [1,5,10,50,100]
-	K = {1 : range(0,101,20), 5 : range(0,41,4), 10 : range(0,21,2), 20: range(0,11,2), 50:range(5), 100:range(3)}
+	held_out_bag_sizes = [-1] #[-1,1,5,10,50,100]
+	K = {-1 : range(0,10)} #, 1 : range(0,101,20), 5 : range(0,41,4), 10 : range(0,21,2), 20: range(0,11,2), 50:range(5), 100:range(3)}
 
 	if not os.path.isdir(working_dir):
 		os.mkdir(working_dir, 0755)
@@ -73,16 +73,16 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_size, M, N, partic
 if __name__ == "__main__":
 	parser = ArgumentParser()
 	parser.add_argument("-d", "--data-dir", dest="data_dir", \
-		default='../data/smoking-data/', type=str, help="")
+		default='../data/eating_detection_inertial_ubicomp2015/', type=str, help="")
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
-		default='eval_risq_nbags_heldout', type=str, help="")
+		default='eval_lab20_nsessions2', type=str, help="")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
-	parser.add_argument("--n-trials", dest="n_trials", default=3, type=int, help="")
-	parser.add_argument("--n-iter", dest="n_iter", default=10, type=int, help="")	
+	parser.add_argument("--n-trials", dest="n_trials", default=5, type=int, help="")
+	parser.add_argument("--n-iter", dest="n_iter", default=20, type=int, help="")	
 	parser.add_argument("-b", "--bag-size", dest="bag_size", default=10, type=int, help="")
 	parser.add_argument("-m", "--n-single-instances", dest="M", default=100, type=int, help="")
-	parser.add_argument("-n", "--n-bags", dest="N", default=20, type=int, help="")
-	parser.add_argument("-p", "--participants", dest="participants", default="[3]", type=str, help="")
+	parser.add_argument("-n", "--n-bags", dest="N", default=10, type=int, help="")
+	parser.add_argument("-p", "--participants", dest="participants", default="[0]", type=str, help="")
 	parser.add_argument("-l", "--local", dest="local", default=1, type=int, help="")
 	
 	args = parser.parse_args()
