@@ -58,7 +58,7 @@ def main(working_dir):
 	
 if __name__ == "__main__":
 	parser = ArgumentParser()
-	parser.add_argument("-w", "--cwd", dest="working_dir", default='eval_risq_nbags_heldout', type=str, help="")
+	parser.add_argument("-w", "--cwd", dest="working_dir", default='eval_lab20_nbags_heldout', type=str, help="")
 	
 	args = parser.parse_args()
 	
