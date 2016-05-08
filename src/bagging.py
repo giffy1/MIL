@@ -192,21 +192,25 @@ if __name__ == "__main__":
 			help="Directory where the dataset is stored.")
 	parser.add_argument("-s", "--save", dest="data_file", default='data.pickle', type=str, \
 			help="File where the bagged data will be stored.")
-	parser.add_argument("-p", "--participant", dest="active_participant_counter", default=3, type=int, \
+	parser.add_argument("-p", "--participant", dest="active_participant_counter", default=0, type=int, \
 			help="Participant held out for evaluating the model.")	
-	parser.add_argument("-b", "--bag-size", dest="bag_size", default=10, type=int, \
+	parser.add_argument("-b", "--bag-size", dest="bag_size", default=100, type=int, \
 			help="Bag Size (-1 for sessions)")
-	parser.add_argument("-m", "--M", dest="M", default=125, type=int, \
+	parser.add_argument("-m", "--M", dest="M", default=250, type=int, \
 			help="")
-	parser.add_argument("-n", "--N", dest="N", default=20, type=int, \
+	parser.add_argument("-n", "--N", dest="N", default=5, type=int, \
 			help="")
-	parser.add_argument("-k", "--K", dest="K", default=0, type=int, \
+	parser.add_argument("-k", "--K", dest="K", default=2, type=int, \
 			help="")
-	parser.add_argument("-km", "--K-max", dest="K_max", default=100, type=int, \
+	parser.add_argument("-km", "--K-max", dest="K_max", default=200, type=int, \
 			help="")
 	parser.add_argument("-i", "--seed", dest="seed", default=0, type=int, \
 			help="")
 	parser.add_argument("-sh", "--shuffle", dest="shuffle_bags", default=0, type=int, \
+			help="")
+	parser.add_argument("-shh", "--shuffle_h", dest="shuffle_heldout", default=0, type=int, \
+			help="")
+	parser.add_argument("-shs", "--shuffle_si", dest="shuffle_si", default=0, type=int, \
 			help="")
 	parser.add_argument("-hb", "--held-out-bag-size", dest="held_out_b", default=-1, type=int, \
 			help="")
