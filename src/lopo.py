@@ -152,7 +152,7 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 	
 	cv_iterator = mil_train_test_split(X_SI, X_B, Y_SI, Y_B)
 	
-	pprint_header("Number of bags : %d    Number of single instances: %d" %(n_bags, n_single_instances))
+	pprint_header("Number of bags : %d    Number of single instances: %d       Number of test instances: %d" %(n_bags, n_single_instances, len(Y_test)))
 
 	if cv_method == 'grid':
 		gs = GridSearchCV(clf, param_grid, scoring=score, cv=cv_iterator, verbose=verbose, n_jobs = n_jobs, refit=False)
