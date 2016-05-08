@@ -52,7 +52,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_size, M, N, partic
 	for p in participants:
 		for h in held_out_bag_sizes:
 			for k in K[h]:
-				for i in range(3,3+n_trials):
+				for i in range(6,6+n_trials):
 					file_str = '_p' + str(p) + '_h' + str(h) + '_k' + str(k) + '_i' + str(i)
 					save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')
 					
