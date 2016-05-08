@@ -70,7 +70,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_size, M, N, partic
 #						bagging_job_id = 'bag' + file_str
 #						qsub(submit_this_job, bagging_job_id, log_file, err_file, n_cores=n_jobs)
       
-						bag_data(data_dir, data_file, bag_size, p, M, N, i, shuffle_bags=True, shuffle_si=True, K=k, K_max = 100, held_out_b=h)
+						bag_data(data_dir, data_file, bag_size, p, M, N, i, shuffle_bags=False, shuffle_si=False, K=k, K_max = K_max, held_out_b=h, shuffle_heldout=True)
 						
 						submit_this_job = 'python lopo.py -d=%s --n-jobs=%d --save=%s --n-iter=%d' %(data_file, n_jobs, save_path, n_iter)
 						print submit_this_job + '\n'
