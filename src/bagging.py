@@ -94,6 +94,7 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 			y = [max(y_i) for y_i in si_labels]
 		if shuffle_heldout:
 			x, y, si_labels = shuffle(seed, x, y, si_labels)	
+		print("len(x): %d" %len(x))
 		X_B.append(x[:K])
 		Y_B.append(y[:K])
 		X_test = []
@@ -101,7 +102,7 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 		if held_out_b == -1:
 			starts = np.cumsum([len(x[l]) for l in range(len(x))])
 			K_start = np.argmax(starts >= K_max)
-			print(starts[K_start])
+			print("start[K_start]: %d" %starts[K_start])
 		else:
 			K_start = int(np.ceil(K_max / held_out_b))
 			
