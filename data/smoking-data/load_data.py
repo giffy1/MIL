@@ -37,7 +37,7 @@ def load_data(data_dir = './'):
 	session_start = []
 	session_labels = []
 	
-	for folder in os.listdir(data_dir):
+	for folder in sorted(os.listdir(data_dir)):
 		try:
 			int(folder)
 		except:
@@ -85,7 +85,7 @@ def load_data(data_dir = './'):
 		
 		X.append(X_i)
 		Y.append(Y_i)
-		print len(Y_i)
+
 		session_start.append(session_start_i)
 		session_labels.append(session_labels_i)
 	
