@@ -85,6 +85,7 @@ def load_data(data_dir = './'):
 		
 		X.append(X_i)
 		Y.append(Y_i)
+		print len(Y_i)
 		session_start.append(session_start_i)
 		session_labels.append(session_labels_i)
 	
