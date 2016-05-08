@@ -100,7 +100,7 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 		Y_test = []
 		if held_out_b == -1:
 			starts = np.cumsum([len(x[l]) for l in range(len(x))])
-			K_start = np.argmax(starts >= K_max)-1
+			K_start = np.argmax(starts >= K_max)
 			print(starts[K_start])
 		else:
 			K_start = int(np.ceil(K_max / held_out_b))
@@ -109,10 +109,9 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 			X_test.extend([x[k][j] for j in range(x[k].shape[0])])
 			Y_test.extend([si_labels[k][j] for j in range(si_labels[k].shape[0])])
 			
-		if held_out_b==-1 and K_max > starts[K_start]:
-			X_test = X_test[K_max - starts[K_start]:]
-			Y_test = Y_test[K_max - starts[K_start]:]
-		
+		if held_out_b==-1 and K_max > starts[K_start-1]:
+			X_test = X_test[K_max - starts[K_start-1]:]
+			Y_test = Y_test[K_max - starts[K_start-1]:]
 	else:
 		#test data:
 		X_test = X[active_participant_counter]
