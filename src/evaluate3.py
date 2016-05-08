@@ -84,13 +84,13 @@ if __name__ == "__main__":
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
 		default='eval_risq_nsessions_heldout1', type=str, help="")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
-	parser.add_argument("--n-trials", dest="n_trials", default=1, type=int, help="")
-	parser.add_argument("--n-iter", dest="n_iter", default=1, type=int, help="")	
+	parser.add_argument("--n-trials", dest="n_trials", default=3, type=int, help="")
+	parser.add_argument("--n-iter", dest="n_iter", default=5, type=int, help="")	
 	parser.add_argument("-b", "--bag-size", dest="bag_size", default=10, type=int, help="")
 	parser.add_argument("-m", "--n-single-instances", dest="M", default=125, type=int, help="")
 	parser.add_argument("-n", "--n-bags", dest="N", default=10, type=int, help="")
 	parser.add_argument("-p", "--participants", dest="participants", default="[3]", type=str, help="")
-	parser.add_argument("-l", "--local", dest="local", default=1, type=int, help="")
+	parser.add_argument("-l", "--local", dest="local", default=0, type=int, help="")
 	
 	args = parser.parse_args()
 	
