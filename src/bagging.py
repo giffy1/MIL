@@ -9,6 +9,7 @@ from util import shuffle
 import sys
 import pickle
 from argparse import ArgumentParser
+import numpy as np
 
 MIL = {'SIL', 'sMIL', 'sbMIL', 'misvm', 'MIForest'}
 
@@ -83,13 +84,13 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 		X_B.append(x[:N])
 		Y_B.append(y[:N])
 	
-	if K > 0:
+	if K_max > 0:
 		if held_out_b == -1:
 			x, y, si_labels = single_instances_to_sessions(X[active_participant_counter], Y[active_participant_counter], session_labels[active_participant_counter], session_start[active_participant_counter])
 		else:
-			x = [X[active_participant_counter][k:k+held_out_b, :] for k in xrange(0, min(K*held_out_b,len(X[active_participant_counter])), held_out_b)]
+			x = [X[active_participant_counter][k:k+held_out_b, :] for k in xrange(0, len(X[active_participant_counter]), held_out_b)]
 			#y = [max(Y[active_participant_counter][k:k+held_out_b]) for k in xrange(0, min(K*held_out_b,len(Y[active_participant_counter])), held_out_b)]
-			si_labels = [Y[active_participant_counter][k:k+held_out_b] for k in xrange(0, min(K*held_out_b,len(Y[active_participant_counter])), held_out_b)]
+			si_labels = [Y[active_participant_counter][k:k+held_out_b] for k in xrange(0, len(Y[active_participant_counter]), held_out_b)]
 			y = [max(y_i) for y_i in si_labels]
 		if shuffle_heldout:
 			x, y, si_labels = shuffle(seed, x, y, si_labels)	
@@ -97,9 +98,20 @@ def main(data_dir, data_file, bag_size, active_participant_counter, M, N, seed=N
 		Y_B.append(y[:K])
 		X_test = []
 		Y_test = []
-		for k in range(K_max / held_out_b, len(x)):
-			X_test.extend([X[k][j] for j in range(X[k].shape[0])])
+		if held_out_b == -1:
+			starts = np.cumsum([len(x[l]) for l in range(len(x))])
+			K_start = np.argmax(starts >= K_max)-1
+			print(starts[K_start])
+		else:
+			K_start = int(np.ceil(K_max / held_out_b))
+			
+		for k in range(K_start, len(x)):
+			X_test.extend([x[k][j] for j in range(x[k].shape[0])])
 			Y_test.extend([si_labels[k][j] for j in range(si_labels[k].shape[0])])
+			
+		if held_out_b==-1 and K_max > starts[K_start]:
+			X_test = X_test[K_max - starts[K_start]:]
+			Y_test = Y_test[K_max - starts[K_start]:]
 		
 	else:
 		#test data:
