@@ -59,9 +59,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_size, M, N, partic
 					data_file = os.path.join(res_dir, 'data' + file_str + '.pickle')
 					log_file = os.path.join(log_dir, 'log' + file_str + '.txt')
 					err_file = os.path.join(err_dir, 'err' + file_str + '.txt')
-					
-					print p
-					
+										
 					if local:
 						bag_data(data_dir, data_file, bag_size, p, M, N, i, shuffle_bags=False, shuffle_si=False, K=k, K_max = K_max, held_out_b=h, shuffle_heldout=True)
 						lopo(data_file, 'sbMIL("verbose":0)', 'randomized', n_iter, n_jobs, 0, save_path, '')
