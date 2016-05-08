@@ -48,7 +48,7 @@ def main(working_dir):
 	H = set(keys[:,0])
 	for h in H:
 		y=zip(*[(k[1],fscores[k]) for k in sorted(fscores.keys()) if k[0]==h])
-		plt.plot(y[0], y[1], label="bag size " + str(h))
+		plt.plot(y[0], y[1], label="bag size " + str(h) if h>0 else "sessions")
 	
 	plt.xlabel("Number of bags")
 	plt.ylabel("F1 Score")
