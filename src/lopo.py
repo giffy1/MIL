@@ -26,6 +26,7 @@ from argparse import ArgumentParser
 from util import farey, accuracy_precision_recall_fscore, score, mil_train_test_split, pprint_header
 from miforest.miforest import MIForest
 import json
+from util import shuffle
 
 MIL = {'SIL', 'sMIL', 'sbMIL', 'misvm', 'MIForest'}
 
@@ -118,9 +119,23 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 	Y_B = data['training']['bag']['Y']
 	X_train = []
 	Y_train = []
+	X_val = []
+	Y_val = []
+	X_SI_val = []
+	Y_SI_val = []
+	X_B_val = []
+	Y_B_val = []
 	for p in range(len(X_SI)):
 		X_train.extend(X_SI[p])
 		Y_train.extend(Y_SI[p])
+		
+		l = int(np.ceil(0.5*len(X_SI[p])))
+		x,y = shuffle(0, X_SI[p], Y_SI[p])
+		X_val.extend(x[:l])
+		Y_val.extend(y[:l])
+		
+		X_SI_val.append(x[:l])
+		Y_SI_val.append(y[:l])
 	n_single_instances = len(X_train)
 	
 	#for class weights:
@@ -130,6 +145,15 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 	for p in range(len(X_B)):
 		X_train.extend(X_B[p])
 		Y_train.extend(Y_B[p])
+		
+		l = int(np.ceil(0.05*len(X_B[p])))
+		x,y = shuffle(0, X_B[p], Y_B[p])
+		X_val.extend(x[:l])
+		Y_val.extend(y[:l])
+
+		X_B_val.append(x[:l])
+		Y_B_val.append(y[:l])
+		
 	n_bags = len(X_train) - n_single_instances
 	X_test = data['test']['X']
 	Y_test = data['test']['Y']
@@ -150,7 +174,7 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 		"F1 Score": {"Training" : 0.0, "Test" : 0.0, "Validation" : 0.0} \
 	}
 	
-	cv_iterator = mil_train_test_split(X_SI, X_B, Y_SI, Y_B)
+	cv_iterator = mil_train_test_split(X_SI_val, X_B_val, Y_SI_val, Y_B_val)
 	
 	pprint_header("Number of bags : %d    Number of single instances: %d       Number of test instances: %d" %(n_bags, n_single_instances, len(Y_test)))
 
@@ -160,7 +184,7 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 		gs = RandomizedSearchCV(clf, param_distributions=param_grid, scoring=score, cv=cv_iterator, n_jobs = n_jobs, n_iter=n_iter, verbose=verbose, refit=False)
 	
 	t0 = time()
-	gs = gs.fit(X_train, Y_train)
+	gs = gs.fit(X_val, Y_val)
 	tf = time()
 	
 	print("Best parameters set found on development set:\n")

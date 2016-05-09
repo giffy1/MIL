@@ -194,11 +194,11 @@ if __name__ == "__main__":
 			help="File where the bagged data will be stored.")
 	parser.add_argument("-p", "--participant", dest="active_participant_counter", default=0, type=int, \
 			help="Participant held out for evaluating the model.")	
-	parser.add_argument("-b", "--bag-size", dest="bag_size", default=100, type=int, \
+	parser.add_argument("-b", "--bag-size", dest="bag_size", default=10, type=int, \
 			help="Bag Size (-1 for sessions)")
 	parser.add_argument("-m", "--M", dest="M", default=250, type=int, \
 			help="")
-	parser.add_argument("-n", "--N", dest="N", default=5, type=int, \
+	parser.add_argument("-n", "--N", dest="N", default=50, type=int, \
 			help="")
 	parser.add_argument("-k", "--K", dest="K", default=2, type=int, \
 			help="")
