@@ -25,7 +25,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_size, M, N, partic
 #	held_out_bag_sizes = [5,10,50,100]
 #	K = {1 : range(0,201,20), 5 : range(0,41,4), 10 : range(0,21,2), 20: range(0,11,2), 50:range(5), 100:range(3)}
 
-	held_out_bag_sizes = [20] #[-1,1,5,10,50,100]
+	held_out_bag_sizes = [-1,1,5,10,20,50,100]
 	K = {-1 : range(5), 1 : range(0,201,40), 5 : range(0,41,8), 10 : range(0,21,4), 20: range(0,11,2), 50:range(5), 100:range(3)}
 	K_max = 200
 
@@ -52,7 +52,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_size, M, N, partic
 	for p in participants:
 		for h in held_out_bag_sizes:
 			for k in K[h]:
-				for i in range(n_trials):
+				for i in range(18,25):
 					file_str = '_p' + str(p) + '_h' + str(h) + '_k' + str(k) + '_i' + str(i)
 					save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')
 					
@@ -74,7 +74,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_size, M, N, partic
 						
 						submit_this_job = 'python lopo.py -d=%s --n-jobs=%d --save=%s --n-iter=%d' %(data_file, n_jobs, save_path, n_iter)
 						print submit_this_job + '\n'
-						job_id = 'lopo3' + file_str
+						job_id = 'lopo5' + file_str
 						qsub(submit_this_job, job_id, log_file, err_file, n_cores=n_jobs) #, depend=bagging_job_id)
 
 if __name__ == "__main__":
