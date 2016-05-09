@@ -129,7 +129,7 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 		X_train.extend(X_SI[p])
 		Y_train.extend(Y_SI[p])
 		
-		l = int(np.ceil(0.5*len(X_SI[p])))
+		l = min(100,int(np.ceil(0.5*len(X_SI[p]))))
 		x,y = shuffle(0, X_SI[p], Y_SI[p])
 		X_val.extend(x[:l])
 		Y_val.extend(y[:l])
