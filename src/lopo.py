@@ -129,13 +129,13 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 		X_train.extend(X_SI[p])
 		Y_train.extend(Y_SI[p])
 		
-		l = min(100,int(np.ceil(0.5*len(X_SI[p]))))
+		#l = min(100,int(np.ceil(0.5*len(X_SI[p]))))
 		x,y = shuffle(0, X_SI[p], Y_SI[p])
-		X_val.extend(x[:l])
-		Y_val.extend(y[:l])
+		X_val.extend(x)
+		Y_val.extend(y)
 		
-		X_SI_val.append(x[:l])
-		Y_SI_val.append(y[:l])
+		X_SI_val.append(x)
+		Y_SI_val.append(y)
 	n_single_instances = len(X_train)
 	
 	#for class weights:
@@ -146,7 +146,7 @@ def main(data_file, clf_str, cv_method, n_iter, n_jobs, verbose, save, descripti
 		X_train.extend(X_B[p])
 		Y_train.extend(Y_B[p])
 		
-		l = int(np.ceil(0.05*len(X_B[p])))
+		l = int(np.ceil(0.25*len(X_B[p])))
 		x,y = shuffle(0, X_B[p], Y_B[p])
 		X_val.extend(x[:l])
 		Y_val.extend(y[:l])
