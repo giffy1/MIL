@@ -52,7 +52,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_size, M, N, partic
 	for p in participants:
 		for h in held_out_bag_sizes:
 			for k in K[h]:
-				for i in range(6,6+n_trials):
+				for i in range(9,9+n_trials):
 					file_str = '_p' + str(p) + '_h' + str(h) + '_k' + str(k) + '_i' + str(i)
 					save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')
 					
@@ -84,7 +84,7 @@ if __name__ == "__main__":
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
 		default='eval_lab20_nsessions_heldout1', type=str, help="")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
-	parser.add_argument("--n-trials", dest="n_trials", default=3, type=int, help="")
+	parser.add_argument("--n-trials", dest="n_trials", default=9, type=int, help="")
 	parser.add_argument("--n-iter", dest="n_iter", default=20, type=int, help="")	
 	parser.add_argument("-b", "--bag-size", dest="bag_size", default=10, type=int, help="")
 	parser.add_argument("-m", "--n-single-instances", dest="M", default=125, type=int, help="")

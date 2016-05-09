@@ -22,6 +22,7 @@ def main(working_dir):
 	files = [f for f in os.listdir(res_dir) if os.path.isfile(os.path.join(res_dir,f)) and f.startswith("lopo_") and f.endswith(".pickle")]
 	confusion_matrix = {}
 	fscores = {}
+	stds = {}
 	for f in files:
 		_p_index = f.index("_p")
 		_h_index = f.index("_h")
@@ -40,7 +41,14 @@ def main(working_dir):
 			conf = r["Results"]["Confusion Matrix"]["Test"]
 			total_conf = confusion_matrix.get((h,k), np.asarray([[0,0],[0,0]]))
 			confusion_matrix[(h,k)] = total_conf + conf
+			_, _, fscore = accuracy_precision_recall_fscore(conf)[1][1]
+			if np.isnan(fscore):
+				fscore = 0.0
+			all_fscores = fscores.get((h,k), [])
+			all_fscores.append(fscore)
+			fscores[(h,k)]=all_fscores
 	for k,conf in confusion_matrix.iteritems():
+		stds[k] = np.std(fscores[k])
 		_, _, fscore = accuracy_precision_recall_fscore(conf)[1][1]
 		fscores[k] = fscore
 		print k, fscore
