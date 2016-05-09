@@ -25,7 +25,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_size, M, N, partic
 #	held_out_bag_sizes = [5,10,50,100]
 #	K = {1 : range(0,201,20), 5 : range(0,41,4), 10 : range(0,21,2), 20: range(0,11,2), 50:range(5), 100:range(3)}
 
-	held_out_bag_sizes = [-1,1,5,10,50,100]
+	held_out_bag_sizes = [20] #[-1,1,5,10,50,100]
 	K = {-1 : range(5), 1 : range(0,201,40), 5 : range(0,41,8), 10 : range(0,21,4), 20: range(0,11,2), 50:range(5), 100:range(3)}
 	K_max = 200
 
