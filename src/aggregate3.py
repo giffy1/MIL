@@ -51,7 +51,7 @@ def main(working_dir):
 		stds[k] = np.std(fscores[k])
 		_, _, fscore = accuracy_precision_recall_fscore(conf)[1][1]
 		if k[1]==0:
-			fscores[k] = 0.498 #baseline achieved when k=0
+			fscores[k] = 0.307 #0.499 #0.201 #baseline achieved when k=0
 		else:
 			fscores[k] = fscore
 		print k, fscore
