@@ -46,14 +46,14 @@ def main(working_dir):
 				fscore = 0.0
 			all_fscores = fscores.get((h,k), [])
 			all_fscores.append(fscore)
-			if k==0:
-				fscores[(h,k)]=.201 #baseline for k=0
-			else:
-				fscores[(h,k)]=all_fscores
+			fscores[(h,k)]=all_fscores
 	for k,conf in confusion_matrix.iteritems():
 		stds[k] = np.std(fscores[k])
 		_, _, fscore = accuracy_precision_recall_fscore(conf)[1][1]
-		fscores[k] = fscore
+		if k[1]==0:
+			fscores[k] = 0.201 #baseline achieved when k=0
+		else:
+			fscores[k] = fscore
 		print k, fscore
 	keys = np.asarray(sorted(fscores.keys()))
 	H = set(keys[:,0])
