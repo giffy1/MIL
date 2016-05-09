@@ -60,7 +60,7 @@ def main(working_dir):
 	
 	plt.xlabel("Bag Size")
 	plt.ylabel("F1 Score")
-	plt.title("Performance varying bag size and bag size")
+	plt.title("Performance varying number of single instances and bag size")
 	plt.legend(loc=4)
 	plt.show()
 	
