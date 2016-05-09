@@ -52,8 +52,10 @@ def main(working_dir):
 	for k,conf in confusion_matrix.iteritems():
 		_, _, fscore = accuracy_precision_recall_fscore(conf)[1][1]
 		fscores[k] = fscore
+		print k, fscore
 	keys = np.asarray(sorted(fscores.keys()))
 	M = set(keys[:,0])
+	print M
 	for m in M:
 		y=zip(*[(k[1],fscores[k]) for k in sorted(fscores.keys()) if k[0]==m])
 		plt.plot(y[0], y[1], label="M=" + str(m))
