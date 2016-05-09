@@ -49,7 +49,7 @@ def main(working_dir):
 	
 	plt.xlabel("Number of sessions")
 	plt.ylabel("F1 Score")
-	plt.title("Performance varying bag size and number of sessions")
+	plt.title("Performance varying number of sessions")
 	#plt.legend(loc=4)
 	plt.show()
 	
