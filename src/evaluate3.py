@@ -80,7 +80,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_size, M, N, partic
 if __name__ == "__main__":
 	parser = ArgumentParser()
 	parser.add_argument("-d", "--data-dir", dest="data_dir", \
-		default='../data/smoking-data/', type=str, help="")
+		default='../data/eating_detection_inertial_ubicomp2015/', type=str, help="")
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
 		default='eval_lab20_nsessions_heldout1', type=str, help="")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
