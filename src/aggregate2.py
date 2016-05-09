@@ -42,15 +42,14 @@ def main(working_dir):
 		fscores[k] = fscore
 	keys = np.asarray(sorted(fscores.keys()))
 	B = set(keys[:,0])
-	B = [-1]
 	for b in B:
 		y=zip(*[(k[1],fscores[k]) for k in sorted(fscores.keys()) if k[0]==b])
 		plt.plot(y[0], y[1], label="bag size " + str(b) if b>0 else "sessions")
 	
-	plt.xlabel("Number of sessions")
+	plt.xlabel("Number of bags")
 	plt.ylabel("F1 Score")
-	plt.title("Performance varying number of sessions")
-	#plt.legend(loc=4)
+	plt.title("Performance varying bag size and number of bags")
+	plt.legend(loc=4)
 	plt.show()
 	
 if __name__ == "__main__":
