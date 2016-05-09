@@ -40,10 +40,7 @@ def main(working_dir):
 	for k,conf in confusion_matrix.iteritems():
 		_, _, fscore = accuracy_precision_recall_fscore(conf)[1][1]
 		print k, fscore
-		if k[1]==0:
-			fscores[k] = .6403
-		else:
-			fscores[k] = fscore
+		fscores[k] = fscore #0.6403
 	keys = np.asarray(sorted(fscores.keys()))
 	B = set(keys[:,0])
 	for b in B:
