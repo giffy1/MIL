@@ -45,8 +45,9 @@ def main(working_dir):
 	B = set(keys[:,0])
 	for b in B:
 		y=zip(*[(k[1],fscores[k]) for k in sorted(fscores.keys()) if k[0]==b])
-		plt.bar(y[0], y[1], label="bag size " + str(b) if b>0 else "sessions", align="center")
-		plt.xticks(y[0], [str(yk) for yk in y[0]])
+		plt.plot(y[0], y[1], label="bag size " + str(b) if b>0 else "sessions")
+#		plt.bar(y[0], y[1], label="bag size " + str(b) if b>0 else "sessions", align="center")
+#		plt.xticks(y[0], [str(yk) for yk in y[0]])
 	
 	plt.xlabel("Number of bags")
 	plt.ylabel("F1 Score")
