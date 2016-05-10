@@ -41,10 +41,13 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, parti
 	except:
 		participants = json.loads(participants)
 	
+	bag_sizes = [1,5,10,20,50,100,200]
+	N = {1: range(0,101,10), 5: range(0,101,10), 10: range(0,51,5), 20: range(0,31,3), 50: range(11), 100: range(6), 200: range(3)}
+	
 	for b in bag_sizes:
-		for n in N:
+		for n in N[b]:
 			for p in participants:
-				for i in range(2,n_trials):
+				for i in range(n_trials):
 					file_str = '_p' + str(p) + '_b' + str(b) + '_n' + str(n) + '_i' + str(i)
 					save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')
 					
@@ -53,7 +56,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, parti
 					err_file = os.path.join(err_dir, 'err' + file_str + '.txt')
 					
 					if local:
-						bag_data(data_dir, data_file, b, p, M, n, i, shuffle_bags=True)
+						bag_data(data_dir, data_file, b, p, M, n, i, shuffle_bags=True, shuffle_si=False)
 						lopo(data_file, 'sbMIL("verbose":0)', 'randomized', n_iter, n_jobs, 0, save_path, '')
 					else:
 						#don't submit jobs for bagging, the overhead is too large:
@@ -62,7 +65,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, parti
 #						bagging_job_id = 'bag' + file_str
 #						qsub(submit_this_job, bagging_job_id, log_file, err_file, n_cores=n_jobs)
       
-						bag_data(data_dir, data_file, b, p, M, n, i, shuffle_bags=True)
+						bag_data(data_dir, data_file, b, p, M, n, i, shuffle_bags=True, shuffle_si=False)
 						
 						submit_this_job = 'python lopo.py -d=%s --n-jobs=%d --save=%s --n-iter=%d' %(data_file, n_jobs, save_path, n_iter)
 						print submit_this_job + '\n'
@@ -75,17 +78,17 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, parti
 if __name__ == "__main__":
 	parser = ArgumentParser()
 	parser.add_argument("-d", "--data-dir", dest="data_dir", \
-		default='../data/smoking-data/', type=str, help="")
+		default='../data/eating_detection_inertial_ubicomp2015/', type=str, help="")
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
-		default='eval_risq_nbags2', type=str, help="")
+		default='eval_lab20_nbags_m125', type=str, help="")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=6, type=int, help="")
 	parser.add_argument("--n-trials", dest="n_trials", default=5, type=int, help="")
 	parser.add_argument("--n-iter", dest="n_iter", default=20, type=int, help="")	
-	parser.add_argument("-B", "--bag-sizes", dest="bag_sizes", default="[5,10,20]", type=str, help="")
+	parser.add_argument("-B", "--bag-sizes", dest="bag_sizes", default="[-1,1,5,10,20,50,100,200]", type=str, help="")
 	parser.add_argument("-M", "--n-single-instances", dest="M", default=125, type=int, help="")
 	parser.add_argument("-N", "--n-bags", dest="N", default="[0,10,20,30,40,50]", type=str, help="")
-	parser.add_argument("-p", "--participants", dest="participants", default="[4]", type=str, help="")
-	parser.add_argument("-l", "--local", dest="local", default=1, type=int, help="")
+	parser.add_argument("-p", "--participants", dest="participants", default="[0]", type=str, help="")
+	parser.add_argument("-l", "--local", dest="local", default=0, type=int, help="")
 	
 	args = parser.parse_args()
 	

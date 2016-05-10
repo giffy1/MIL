@@ -188,7 +188,7 @@ if __name__ == "__main__":
 
 	parser = ArgumentParser()
 	
-	parser.add_argument("-d", "--data-dir", dest="data_dir", default='../data/eating_detection_inertial_ubicomp2015/', type=str, \
+	parser.add_argument("-d", "--data-dir", dest="data_dir", default='../data/smoking-data/', type=str, \
 			help="Directory where the dataset is stored.")
 	parser.add_argument("-s", "--save", dest="data_file", default='data.pickle', type=str, \
 			help="File where the bagged data will be stored.")
