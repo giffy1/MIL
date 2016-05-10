@@ -47,7 +47,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, parti
 	for b in bag_sizes:
 		for n in N[b]:
 			for p in participants:
-				for i in range(n_trials):
+				for i in range(5,5+n_trials):
 					file_str = '_p' + str(p) + '_b' + str(b) + '_n' + str(n) + '_i' + str(i)
 					save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')
 					
@@ -69,7 +69,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, parti
 						
 						submit_this_job = 'python lopo.py -d=%s --n-jobs=%d --save=%s --n-iter=%d' %(data_file, n_jobs, save_path, n_iter)
 						print submit_this_job + '\n'
-						job_id = 'lopo4' + file_str
+						job_id = 'lopo2' + file_str
 						qsub(submit_this_job, job_id, log_file, err_file, n_cores=n_jobs) #, depend=bagging_job_id)
 
 # finish p=0, b=50, n=10, trials 2,3,4
@@ -78,16 +78,16 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, parti
 if __name__ == "__main__":
 	parser = ArgumentParser()
 	parser.add_argument("-d", "--data-dir", dest="data_dir", \
-		default='../data/smoking-data/', type=str, help="")
+		default='../data/eating_detection_inertial_ubicomp2015/', type=str, help="")
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
-		default='eval_risq_nbags_m125', type=str, help="")
+		default='eval_lab20_nbags_m125', type=str, help="")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=6, type=int, help="")
 	parser.add_argument("--n-trials", dest="n_trials", default=5, type=int, help="")
 	parser.add_argument("--n-iter", dest="n_iter", default=20, type=int, help="")	
 	parser.add_argument("-B", "--bag-sizes", dest="bag_sizes", default="[-1,1,5,10,20,50,100,200]", type=str, help="")
 	parser.add_argument("-M", "--n-single-instances", dest="M", default=125, type=int, help="")
 	parser.add_argument("-N", "--n-bags", dest="N", default="[0,10,20,30,40,50]", type=str, help="")
-	parser.add_argument("-p", "--participants", dest="participants", default="[3]", type=str, help="")
+	parser.add_argument("-p", "--participants", dest="participants", default="[0]", type=str, help="")
 	parser.add_argument("-l", "--local", dest="local", default=0, type=int, help="")
 	
 	args = parser.parse_args()
