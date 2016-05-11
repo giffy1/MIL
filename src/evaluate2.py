@@ -47,7 +47,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, parti
 	for b in bag_sizes:
 		for n in N[b]:
 			for p in participants:
-				for i in range(25,25+n_trials):
+				for i in range(n_trials):
 					file_str = '_p' + str(p) + '_b' + str(b) + '_n' + str(n) + '_i' + str(i)
 					save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')
 					
@@ -69,7 +69,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, parti
 						
 						submit_this_job = 'python lopo.py -d=%s --n-jobs=%d --save=%s --n-iter=%d' %(data_file, n_jobs, save_path, n_iter)
 						print submit_this_job + '\n'
-						job_id = 'lopo3' + file_str
+						job_id = 'lopo' + file_str
 						qsub(submit_this_job, job_id, log_file, err_file, n_cores=n_jobs) #, depend=bagging_job_id)
 
 # finish p=0, b=50, n=10, trials 2,3,4
