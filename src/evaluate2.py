@@ -42,7 +42,7 @@ def main(working_dir, data_dir, n_jobs, trials, n_iter, bag_sizes, M, N, partici
 		participants = json.loads(participants)
 		
 	try:
-		trials = range(int(participants))
+		trials = range(int(trials))
 	except:
 		trials = range(json.loads(trials)[0],json.loads(trials)[1])
 	
@@ -87,7 +87,7 @@ if __name__ == "__main__":
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
 		default='lopo_lab20_nbags_m125', type=str, help="")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
-	parser.add_argument("--n-trials", dest="trials", default=[5,20], type=int, help="")
+	parser.add_argument("--n-trials", dest="trials", default="[5,20]", type=int, help="")
 	parser.add_argument("--n-iter", dest="n_iter", default=25, type=int, help="")	
 	parser.add_argument("-B", "--bag-sizes", dest="bag_sizes", default="[-1,1,5,10,20,50,100,200]", type=str, help="")
 	parser.add_argument("-M", "--n-single-instances", dest="M", default=125, type=int, help="")
