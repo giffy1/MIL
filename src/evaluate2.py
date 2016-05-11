@@ -17,7 +17,7 @@ import json
 sys.path.insert(0, '../tests')
 from qsub import qsub
 
-def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, participants, local):
+def main(working_dir, data_dir, n_jobs, trials, n_iter, bag_sizes, M, N, participants, local):
 
 	if not os.path.isdir(working_dir):
 		os.mkdir(working_dir, 0755)
@@ -40,6 +40,11 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, parti
 		participants = range(int(participants))
 	except:
 		participants = json.loads(participants)
+		
+	try:
+		trials = range(int(participants))
+	except:
+		trials = range(json.loads(trials)[0],json.loads(trials)[1])
 	
 	bag_sizes = [1]#,5,10,20,50,100,200]
 	N = {1: range(0,101,10), 5: range(0,101,10), 10: range(0,51,5), 20: range(0,31,3), 50: range(11), 100: range(6), 200: range(3)}
@@ -48,14 +53,9 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, parti
 		for n in N[b]:
 			for p in participants:
 				i=0
-				for _ in range(n_trials):
+				for i in trials:
 					file_str = '_p' + str(p) + '_b' + str(b) + '_n' + str(n) + '_i' + str(i)
-					save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')
-					while os.path.isfile(save_path):
-						i+=1
-						file_str = '_p' + str(p) + '_b' + str(b) + '_n' + str(n) + '_i' + str(i)
-						save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')
-					
+					save_path = os.path.join(res_dir, 'lopo' + file_str + '.pickle')					
 					data_file = os.path.join(res_dir, 'data' + file_str + '.pickle')
 					log_file = os.path.join(log_dir, 'log' + file_str + '.txt')
 					err_file = os.path.join(err_dir, 'err' + file_str + '.txt')
@@ -87,7 +87,7 @@ if __name__ == "__main__":
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
 		default='lopo_lab20_nbags_m125', type=str, help="")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
-	parser.add_argument("--n-trials", dest="n_trials", default=5, type=int, help="")
+	parser.add_argument("--n-trials", dest="n_trials", default=[5,20], type=int, help="")
 	parser.add_argument("--n-iter", dest="n_iter", default=25, type=int, help="")	
 	parser.add_argument("-B", "--bag-sizes", dest="bag_sizes", default="[-1,1,5,10,20,50,100,200]", type=str, help="")
 	parser.add_argument("-M", "--n-single-instances", dest="M", default=125, type=int, help="")
