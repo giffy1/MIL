@@ -87,7 +87,7 @@ if __name__ == "__main__":
 	parser.add_argument("-w", "--cwd", dest="working_dir", \
 		default='lopo_lab20_nbags_m125', type=str, help="")
 	parser.add_argument("--n-jobs", dest="n_jobs", default=1, type=int, help="")
-	parser.add_argument("--n-trials", dest="trials", default="[5,20]", type=str, help="")
+	parser.add_argument("--n-trials", dest="trials", default="[20,30]", type=str, help="")
 	parser.add_argument("--n-iter", dest="n_iter", default=25, type=int, help="")	
 	parser.add_argument("-B", "--bag-sizes", dest="bag_sizes", default="[-1,1,5,10,20,50,100,200]", type=str, help="")
 	parser.add_argument("-M", "--n-single-instances", dest="M", default=125, type=int, help="")
