@@ -41,7 +41,7 @@ def main(working_dir, data_dir, n_jobs, n_trials, n_iter, bag_sizes, M, N, parti
 	except:
 		participants = json.loads(participants)
 	
-	bag_sizes = [1,5,10,20,50,100,200]
+	bag_sizes = [1]#,5,10,20,50,100,200]
 	N = {1: range(0,101,10), 5: range(0,101,10), 10: range(0,51,5), 20: range(0,31,3), 50: range(11), 100: range(6), 200: range(3)}
 	
 	for b in bag_sizes:
